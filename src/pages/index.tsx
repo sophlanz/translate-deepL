@@ -1,14 +1,13 @@
 import Head from 'next/head'
-import * as deepl from 'deepl-node'
 import React, {useState} from 'react'
+import axios from 'axios'
 
 export default function Home() {
   const authKey:string = process.env.DEEPL_AUTH_KEY as string;
-  const authKey_playht:string = process.env.PLAYHT_AUTH_KEY as string;
-  const userid_playht:string = process.env.PLAYHT_USER_ID as string; 
   const [toTranslate, setToTranslate] = useState<string>('');
   const [translation, setTranslation]= useState<string>('');
   const[audio,setAudio] = useState<string>('')
+  const[transcriptionId,setTranscriptionId] = useState<string>('');
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     //get toTranslate and pass it through api
@@ -26,60 +25,25 @@ export default function Home() {
       setToTranslate(event.target.value)
   }
   async function handleVoice() {
-    
-   /*    const url = "https://play.ht/api/v1/convert"
-      const payload = {
-        "voice": "en-US-MichelleNeural",
-        "content": translation,
-         "title": "Testing public api convertion"
-      }
-      const headers = {
-        'Authorization': authKey_playht,
-        'X-User-ID': userid_playht,
-        'Content-Type': 'application/json'
-      }
-      const response = await (await fetch(url,{
-        'method':"POST",
-        'headers':headers,
-        'body':JSON.stringify(payload)
-      }))
-      setAudio(response.url)
-      console.log(response)
-      console.log(response) */
-      return new Promise(async (resolve, reject) => {
-        try {
-          const response = await (await fetch('https://play.ht/api/v1/convert', {
-            method: 'POST',
-            headers: {
-              'Authorization': authKey,
-              'X-User-ID': userid_playht,
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-              "voice": "en-US-MichelleNeural",
-              "content": toTranslate,
-              "title": "Testing Italian api convertion"
-            })
-          })).json();
-          console.log(response)
-          const mp3Url = `
-          https://media.play.ht/full_${response.transcriptionId}.mp3`;
-          console.log(mp3Url);
-          while(true) {
-            console.log(`trying again...`);
-            if((await fetch(mp3Url)).status === 200) {
-             let snd = new Audio(mp3Url);
-              snd.play();
-              snd.onended = resolve;
-              break;
-            }
-          }
-        } catch (err) {
-          reject(err);
-        }
-      });
-    
-        }
+        axios.get(`http://127.0.0.1:5000/audio/${toTranslate}`)
+        .then((response)=> {
+          //get data from response, parse JSON into an object
+                let transcriptionData = JSON.parse(response.data);
+                //get id of transcription audio
+                let transcriptionId = transcriptionData.transcriptionId
+                setTranscriptionId(transcriptionId)
+                console.log(transcriptionId)
+              }).then(()=> {
+                //get audio from api, pass transcripID as a param
+                axios.get(`http://127.0.0.1:5000/getAudio/${transcriptionId}`)
+                .then((response)=> {
+                      console.log(response)
+                })
+              })
+              .catch((error)=> {
+                console.log(error.message)
+              }); 
+        };
  
  
   return (
