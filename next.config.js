@@ -1,7 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   env: {
-    REACT_APP_AUTH_KEY:'1c374654-4c5e-e24f-4901-ecaed0a3a479:fx'
+    DEEPL_AUTH_KEY:'372beb10-6611-0dcd-4fa7-a9afa2dce80e:fx',
+    PLAYHT_AUTH_KEY:'5092961abe7940cbb053be3554f5210e',
+    PLAYHT_USER_ID:'CDwIWESGJbhDXmUqO17BnhiJdiE2'
   },
   future: {
     webpack5: true, // by default, if you customize webpack config, they switch back to version 4. 
