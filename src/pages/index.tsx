@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import React, {useState} from 'react'
 import axios from 'axios'
+const { RAE } = require('rae-api');
 
 export default function Home() {
   const authKey:string = process.env.DEEPL_AUTH_KEY as string;
@@ -8,6 +9,9 @@ export default function Home() {
   const [translation, setTranslation]= useState<string>('');
   const[audioUrl,setAudioUrl] = useState<string>('')
   const[transcriptionId,setTranscriptionId] = useState<string>('');
+  const [targetLanguage,setTargetLanguage] = useState<string>('')
+  const rae = new RAE();
+  //translate data
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     //get toTranslate and pass it through api
