@@ -6,7 +6,7 @@ export default function Home() {
   const authKey:string = process.env.DEEPL_AUTH_KEY as string;
   const [toTranslate, setToTranslate] = useState<string>('');
   const [translation, setTranslation]= useState<string>('');
-  const[audio,setAudio] = useState<string>('')
+  const[audioUrl,setAudioUrl] = useState<string>('')
   const[transcriptionId,setTranscriptionId] = useState<string>('');
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -25,19 +25,20 @@ export default function Home() {
       setToTranslate(event.target.value)
   }
   async function handleVoice() {
-        axios.get(`http://127.0.0.1:5000/audio/${toTranslate}`)
+        axios.get(`http://127.0.0.1:5000/audio/${translation}`)
         .then((response)=> {
           //get data from response, parse JSON into an object
-                let transcriptionData = JSON.parse(response.data);
+                const transcriptionData = JSON.parse(response.data);
                 //get id of transcription audio
-                let transcriptionId = transcriptionData.transcriptionId
+                const transcriptionId = transcriptionData.transcriptionId
                 setTranscriptionId(transcriptionId)
-                console.log(transcriptionId)
               }).then(()=> {
                 //get audio from api, pass transcripID as a param
                 axios.get(`http://127.0.0.1:5000/getAudio/${transcriptionId}`)
                 .then((response)=> {
-                      console.log(response)
+                      const audioData = JSON.parse(response.data)
+                      const audioUrl = audioData.audioUrl
+                      setAudioUrl(audioUrl);
                 })
               })
               .catch((error)=> {
@@ -60,7 +61,7 @@ export default function Home() {
       </form>
       <p>{translation}</p>
       <button onClick={handleVoice}>Read Translation</button> 
-      <audio controls src={audio}> Your browser does not support the
+      <audio controls src={audioUrl}> Your browser does not support the
       <code>audio</code> element.
       </audio>
     </>

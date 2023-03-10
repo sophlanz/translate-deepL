@@ -17,10 +17,10 @@ API_ID = os.getenv('PLAYHT_USER_ID')
 def generateAudio(toTranslate):
  
   payload = json.dumps({
-  "voice": "en-US-AriaNeural",
+  "voice": "es-US-PalomaNeural",
   "content":[toTranslate],
    "title": "Testing public api convertion",
-     "narrationStyle":"angry"
+     
 })
 
   url = "https://play.ht/api/v1/convert"
