@@ -33,8 +33,7 @@ def generateAudio(toTranslate):
   response = requests.request("POST", url, headers=headers, data=payload)
   return jsonify(response.text)
 
-if __name__ == '__main__':
-    app.run()
+
 
 #endpoint for retrieving audio
 @app.route('/getAudio/<transcriptionId>', methods = ['GET'])
@@ -49,3 +48,7 @@ def getAudio(transcriptionId):
     response = requests.request("GET",url, headers=headers)
     print(response.text)
     return jsonify(response.text)
+
+#run app
+if __name__ == '__main__':
+    app.run()
