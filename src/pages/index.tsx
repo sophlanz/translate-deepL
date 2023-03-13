@@ -13,7 +13,8 @@ export default function Home() {
   const [textToCorrect,setTextToCorrect] = useState<string>('');
   const [grammarCorrection,setGrammarCorrection] = useState<any>();
   const [grammarLang,setGrammarLang] = useState<string>('');
-  const [voice,setVoice]=useState<string>('');
+  const [voice,setVoice]=useState<string>('en-US-SaraNeural');
+ 
   //openAI
   const configuration = new Configuration({
     apiKey: process.env.OPENAI_API_KEY,
@@ -58,12 +59,14 @@ export default function Home() {
 
   //generate and retreive audio of translation being read
   async function handleVoice() {
-  //time out for waiting for audio generation 
-  const timeout = (ms:number) => {
+   //time out for waiting for audio generation 
+   const timeout = (ms:number) => {
     return new Promise (resolve => setTimeout(resolve,ms))
   }
     console.log(voice)
-        axios.get(`http://127.0.0.1:5000/audio/${translation}/${voice}`)
+      //remove all of the "?" or the url will be invalid
+        const urlTranslation = translation.replace(/[?]/g, "")
+        axios.get(`http://127.0.0.1:5000/audio/${urlTranslation}/${voice}`)
         .then((response)=> {
           //get data from response, parse JSON into an object
                 const transcriptionData = JSON.parse(response.data);
@@ -74,13 +77,12 @@ export default function Home() {
                 console.log(transcriptionId)
               }).then(()=> {
                 //get audio from api, pass transcripID as a param
-                console.log(transcriptionId)
                 axios.get(`http://127.0.0.1:5000/getAudio/${transcriptionId}`)
                 .then(async (response)=> {
 
                       const audioData = await Promise.all([
                          JSON.parse(response.data),
-                         timeout(5000)
+                         timeout(5500)
                       ]) 
                       console.log(audioData)
                       const audioUrl = audioData[0].audioUrl
