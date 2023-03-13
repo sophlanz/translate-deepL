@@ -9,10 +9,9 @@ export default function Home() {
   const [translation, setTranslation]= useState<string>('');
   const[targetLanguage,setTargetLanguage] = useState<string>('EN-US');
   const[audioUrl,setAudioUrl] = useState<string>('english')
-  const[transcriptionId,setTranscriptionId] = useState<string>('');
   const [textToCorrect,setTextToCorrect] = useState<string>('');
   const [grammarCorrection,setGrammarCorrection] = useState<any>();
-  const [grammarLang,setGrammarLang] = useState<string>('');
+  const [grammarLang,setGrammarLang] = useState<string>('English-US');
   const [voice,setVoice]=useState<string>('en-US-SaraNeural');
  const[writingPrompt,setWritingPrompt] = useState<any>()
  const [wordOfDay, setWordOfDay] = useState<any>();
@@ -149,7 +148,7 @@ export default function Home() {
  const getWordOfDay = async () => {
   const response = await openai.createCompletion({
     model: "text-davinci-003",
-    prompt: `Give me a random word in ${grammarLang}:\n`,
+    prompt: `Give me a random advanced word in ${grammarLang} :\n`,
     temperature: 0,
     max_tokens: 60,
     top_p: 1,
@@ -161,7 +160,7 @@ export default function Home() {
  const getWordDefinition = async () => {
   const response = await openai.createCompletion({
     model: "text-davinci-003",
-    prompt: `What does ${wordOfDay} mean in the ${grammarLang} language:\n`,
+    prompt: `Tell me in  ${grammarLang} the definition of $ ${wordOfDay} , and use it in a sentence:\n`,
     temperature: 0,
     max_tokens: 60,
     top_p: 1,
