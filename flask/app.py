@@ -12,16 +12,17 @@ SECRET_KEY = os.getenv('PLAYHT_AUTH_KEY')
 API_ID = os.getenv('PLAYHT_USER_ID')
 
 #create endpoint for generating audio
-@app.route('/audio/<toTranslate>', methods = ['GET'])
+@app.route('/audio/<toTranslate>/<voice>', methods = ['GET'])
 @cross_origin()
-def generateAudio(toTranslate):
- 
+def generateAudio(toTranslate,voice):
+  print(voice,toTranslate)
   payload = json.dumps({
-  "voice": "es-US-PalomaNeural",
+  "voice": voice,
   "content":[toTranslate],
    "title": "Testing public api convertion",
      
 })
+  print(voice)
 
   url = "https://play.ht/api/v1/convert"
 
@@ -30,7 +31,9 @@ def generateAudio(toTranslate):
         'X-User-ID': API_ID,
         "Content-Type":"application/json"
     }
+ 
   response = requests.request("POST", url, headers=headers, data=payload)
+  print(response.text)
   return jsonify(response.text)
 
 
@@ -45,8 +48,8 @@ def getAudio(transcriptionId):
             "Content-Type":"application/json"
         }
     url = f'https://play.ht/api/v1/articleStatus?transcriptionId={transcriptionId}'
+    print(url);
     response = requests.request("GET",url, headers=headers)
-    print(response.text)
     return jsonify(response.text)
 
 #run app
