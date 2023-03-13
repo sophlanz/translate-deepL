@@ -8,13 +8,15 @@ export default function Home() {
   const [toTranslate, setToTranslate] = useState<string>('');
   const [translation, setTranslation]= useState<string>('');
   const[targetLanguage,setTargetLanguage] = useState<string>('EN-US');
-  const[audioUrl,setAudioUrl] = useState<string>('')
+  const[audioUrl,setAudioUrl] = useState<string>('english')
   const[transcriptionId,setTranscriptionId] = useState<string>('');
   const [textToCorrect,setTextToCorrect] = useState<string>('');
   const [grammarCorrection,setGrammarCorrection] = useState<any>();
   const [grammarLang,setGrammarLang] = useState<string>('');
   const [voice,setVoice]=useState<string>('en-US-SaraNeural');
  const[writingPrompt,setWritingPrompt] = useState<any>()
+ const [wordOfDay, setWordOfDay] = useState<any>();
+ const [wordOfDayDefinition,setWordOfDayDefinition] = useState<any>();
   //openAI
   const configuration = new Configuration({
     apiKey: process.env.OPENAI_API_KEY,
@@ -141,15 +143,44 @@ export default function Home() {
     frequency_penalty: 0,
     presence_penalty: 0,
   });
-  console.log(response.data.choices[0].text);
-
   setWritingPrompt(response.data.choices[0].text);
  }
+ //get random word in target laguage
+ const getWordOfDay = async () => {
+  const response = await openai.createCompletion({
+    model: "text-davinci-003",
+    prompt: `Give me a random word in ${grammarLang}:\n`,
+    temperature: 0,
+    max_tokens: 60,
+    top_p: 1,
+    frequency_penalty: 0,
+    presence_penalty: 0,
+  });
+  setWordOfDay(response.data.choices[0].text);
+ }
+ const getWordDefinition = async () => {
+  const response = await openai.createCompletion({
+    model: "text-davinci-003",
+    prompt: `What does ${wordOfDay} mean in the ${grammarLang} language:\n`,
+    temperature: 0,
+    max_tokens: 60,
+    top_p: 1,
+    frequency_penalty: 0,
+    presence_penalty: 0,
+  });
+  setWordOfDayDefinition(response.data.choices[0].text);
+ }
+ useEffect(()=> {
+  getWordOfDay()
+ },[targetLanguage])
    return (
     <>
       <Head>
           <h1>Translate</h1>
       </Head>
+      <h2>{wordOfDay}</h2>
+      <button onClick={getWordDefinition}></button>
+      <p>{wordOfDayDefinition}</p>
      <select className="targetLang" value={targetLanguage} onChange={handleSelectLang} >
         <option value="EN-US">English-US</option>
         <option value="EN-GB">English-GB</option>
