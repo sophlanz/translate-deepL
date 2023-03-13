@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import React, { useState} from 'react'
+import React, { useState,useEffect} from 'react'
 import axios from 'axios'
 import { Configuration, OpenAIApi } from 'openai'
 
@@ -9,7 +9,7 @@ export default function Home() {
   const [translation, setTranslation]= useState<string>('');
   const[targetLanguage,setTargetLanguage] = useState<string>('EN-US');
   const[audioUrl,setAudioUrl] = useState<string>('')
-  const[transcriptionId,setTranscriptionId] = useState<string>();
+  const[transcriptionId,setTranscriptionId] = useState<string>('');
   const [textToCorrect,setTextToCorrect] = useState<string>('');
   const [grammarCorrection,setGrammarCorrection] = useState<any>();
   const [grammarLang,setGrammarLang] = useState<string>('');
@@ -60,39 +60,31 @@ export default function Home() {
   //generate and retreive audio of translation being read
   async function handleVoice() {
    //time out for waiting for audio generation 
-   const timeout = (ms:number) => {
+   const delay = (ms:number) => {
     return new Promise (resolve => setTimeout(resolve,ms))
-  }
+  };
     console.log(voice)
+    console.log(translation)
       //remove all of the "?" or the url will be invalid
         const urlTranslation = translation.replace(/[?]/g, "")
-        axios.get(`http://127.0.0.1:5000/audio/${urlTranslation}/${voice}`)
-        .then((response)=> {
+       await axios.get(`http://127.0.0.1:5000/audio/${urlTranslation}/${voice}`)
+        .then(async(response)=> {
           //get data from response, parse JSON into an object
-                const transcriptionData = JSON.parse(response.data);
-                console.log(transcriptionData)
-                //get id of transcription audio
-                const transcriptionId = transcriptionData.transcriptionId
-                setTranscriptionId(transcriptionId)
-                console.log(transcriptionId)
-              }).then(()=> {
-                //get audio from api, pass transcripID as a param
-                axios.get(`http://127.0.0.1:5000/getAudio/${transcriptionId}`)
+                const transcriptionData = await JSON.parse(response.data);
+                //delay to wait for the audio to be generated
+                await delay(11000);
+                 // pass transcripID as a param
+                await axios.get(`http://127.0.0.1:5000/getAudio/${transcriptionData.transcriptionId}`)
                 .then(async (response)=> {
-
-                      const audioData = await Promise.all([
-                         JSON.parse(response.data),
-                         timeout(5500)
-                      ]) 
+                      const audioData = JSON.parse(response.data);
                       console.log(audioData)
-                      const audioUrl = audioData[0].audioUrl
-                      setAudioUrl(audioUrl);
-                })
+                      setAudioUrl(audioData.audioUrl);
               })
               .catch((error)=> {
                 console.log(error.message)
               }); 
-        };
+        })
+      };
   //set text for grammar to be checked
   const handleChangeText = (event:React.ChangeEvent<HTMLTextAreaElement>) => {
     setTextToCorrect(event.target.value)
@@ -140,6 +132,9 @@ export default function Home() {
     }
     console.log(voice);
   }
+  useEffect(() => {
+    console.log(transcriptionId);
+ }, [transcriptionId]);
    return (
     <>
       <Head>
