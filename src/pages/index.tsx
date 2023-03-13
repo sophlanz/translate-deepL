@@ -135,7 +135,8 @@ export default function Home() {
  const handleGetPrompt = async () => {
   const response = await openai.createCompletion({
     model: "text-davinci-003",
-    prompt: `Give me a diary prompt in ${grammarLang}:\n`,
+    prompt: `Give me a creative prompt in ${grammarLang} to help me think about nature, people, culture and 
+    society, the future, or life reflections :\n`,
     temperature: 0,
     max_tokens: 60,
     top_p: 1,
