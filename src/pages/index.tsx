@@ -14,7 +14,7 @@ export default function Home() {
   const [grammarCorrection,setGrammarCorrection] = useState<any>();
   const [grammarLang,setGrammarLang] = useState<string>('');
   const [voice,setVoice]=useState<string>('en-US-SaraNeural');
- 
+ const[writingPrompt,setWritingPrompt] = useState<any>()
   //openAI
   const configuration = new Configuration({
     apiKey: process.env.OPENAI_API_KEY,
@@ -63,8 +63,6 @@ export default function Home() {
    const delay = (ms:number) => {
     return new Promise (resolve => setTimeout(resolve,ms))
   };
-    console.log(voice)
-    console.log(translation)
       //remove all of the "?" or the url will be invalid
         const urlTranslation = translation.replace(/[?]/g, "")
        await axios.get(`http://127.0.0.1:5000/audio/${urlTranslation}/${voice}`)
@@ -132,9 +130,21 @@ export default function Home() {
     }
     console.log(voice);
   }
-  useEffect(() => {
-    console.log(transcriptionId);
- }, [transcriptionId]);
+  //openAI get writing prompt
+ const handleGetPrompt = async () => {
+  const response = await openai.createCompletion({
+    model: "text-davinci-003",
+    prompt: `Give me a diary prompt in ${grammarLang}:\n`,
+    temperature: 0,
+    max_tokens: 60,
+    top_p: 1,
+    frequency_penalty: 0,
+    presence_penalty: 0,
+  });
+  console.log(response.data.choices[0].text);
+
+  setWritingPrompt(response.data.choices[0].text);
+ }
    return (
     <>
       <Head>
@@ -162,6 +172,8 @@ export default function Home() {
       <audio controls src={audioUrl}> Your browser does not support the
       <code>audio</code> element.
       </audio>
+      <h2 onClick={handleGetPrompt}>Generate Prompt</h2>
+      <p>{writingPrompt}</p>
       <textarea rows={20} cols={50} onChange = {handleChangeText}/>
       <p>{grammarCorrection}</p>
       <button onClick={handleCheckGrammar}/>
