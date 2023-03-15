@@ -2,6 +2,7 @@ import Head from 'next/head'
 import React, { useState,useEffect} from 'react'
 import axios from 'axios'
 import { Configuration, OpenAIApi } from 'openai'
+import prisma from '../../prisma/lib/prisma';
 
 export default function Home() {
   const authKey:string = process.env.DEEPL_AUTH_KEY as string;
