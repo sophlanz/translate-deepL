@@ -3,7 +3,7 @@ import React, { useState,useEffect} from 'react'
 import axios from 'axios'
 import { Configuration, OpenAIApi } from 'openai'
 import prisma from '../../prisma/lib/prisma';
-
+import Header from '../pages/components/Header'
 export default function Home() {
   const authKey:string = process.env.DEEPL_AUTH_KEY as string;
   const [toTranslate, setToTranslate] = useState<string>('');
@@ -176,6 +176,7 @@ export default function Home() {
  },[targetLanguage])
    return (
     <>
+      <Header/>
       <Head>
           <h1>Translate</h1>
       </Head>

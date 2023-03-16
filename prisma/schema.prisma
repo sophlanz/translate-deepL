@@ -1,14 +1,15 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
-generator client {
-  provider = "prisma-client-js"
-}
-
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+generator client {
+  provider = "prisma-client-js"
+}
+
 
 model journalEntry {
   id        String     @default(cuid()) @id
@@ -33,19 +34,6 @@ model Deck {
   cards     Card[]
   user      User?       @relation(fields: [userId], references: [id])
   userId    String?
-}
-
-model User {
-  id                 String       @default(cuid()) @id
-  name               String?
-  email              String?      @unique
-  decks              Deck[]
-  journalEntires    journalEntry[]
-  createdAt         DateTime  @default(now()) @map(name: "created_at")
-  updatedAt         DateTime  @updatedAt @map(name: "updated_at")
-  accounts          Account[]
-  sessions          Session[]
-  @@map(name: "users")
 }
 model Account {
   id                 String  @id @default(cuid())
@@ -75,6 +63,22 @@ model Session {
   expires      DateTime
   user         User     @relation(fields:[userId], references:[id], onDelete: Cascade)
   }
+
+model User {
+  id                 String       @default(cuid()) @id
+  name               String?
+  email              String?      @unique
+  emailVerified      DateTime?
+  image              String?
+  decks              Deck[]
+  journalEntires    journalEntry[]
+  createdAt         DateTime  @default(now()) @map(name: "created_at")
+  updatedAt         DateTime  @updatedAt @map(name: "updated_at")
+  accounts          Account[]
+  sessions          Session[]
+  @@map(name: "users")
+}
+
 
 model VerificationToken {
   id         Int      @id @default(autoincrement())
