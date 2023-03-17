@@ -150,7 +150,7 @@ export default function Home() {
  const getWordOfDay = async () => {
   const response = await openai.createCompletion({
     model: "text-davinci-003",
-    prompt: `Give me a random advanced word in ${grammarLang} :\n`,
+    prompt: `Give me a unique random advanced word in ${grammarLang} :\n`,
     temperature: 0,
     max_tokens: 60,
     top_p: 1,
@@ -196,7 +196,7 @@ export default function Home() {
       <form onSubmit={handleSubmit}>
         <label>
           Translate:
-          <textarea rows={20} cols={50} onChange ={handleChange}   />
+          <textarea rows={20} cols={50} onChange ={(e)=> setToTranslate(e.target.value)}   />
         </label>
         <input type="submit" value="Submit" />
       </form>
@@ -207,7 +207,7 @@ export default function Home() {
       </audio>
       <h2 onClick={handleGetPrompt}>Generate Prompt</h2>
       <p>{writingPrompt}</p>
-      <textarea rows={20} cols={50} onChange = {handleChangeText}/>
+      <textarea rows={20} cols={50} onChange = {(e)=> setTextToCorrect(e.target.value)}/>
       <p>{grammarCorrection}</p>
       <button onClick={handleCheckGrammar}/>
     </>
