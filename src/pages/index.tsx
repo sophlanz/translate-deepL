@@ -53,11 +53,7 @@ export default function Home() {
       setTranslation(text)
   })()
   }
-  //save  text to be transalted to state
-  const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    event.preventDefault();
-      setToTranslate(event.target.value)
-  };
+
 
   //generate and retreive audio of translation being read
   async function handleVoice() {
@@ -85,10 +81,7 @@ export default function Home() {
               }); 
         })
       };
-  //set text for grammar to be checked
-  const handleChangeText = (event:React.ChangeEvent<HTMLTextAreaElement>) => {
-    setTextToCorrect(event.target.value)
-  }
+
   //set target lang
   const handleSelectLang = (event:React.ChangeEvent<HTMLSelectElement>) => {
     setTargetLanguage(event.target.value);
