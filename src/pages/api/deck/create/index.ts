@@ -1,5 +1,5 @@
 import { getSession } from 'next-auth/react';
-import prisma from '../../../../prisma/lib/prisma';
+import prisma from '../../../../../prisma/lib/prisma';
 
 
 // POST /api/post

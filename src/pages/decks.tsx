@@ -20,7 +20,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
         user: { email: session?.user?.email },
       },
       //only return the name
-      select: { name: true },
+      select: { name: true, id:true},
       
     });
     return {
@@ -39,7 +39,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
             try{
                 //send data to /api/create-deck api route
                 let body={title};
-                await fetch('/api/create-deck', {
+                await fetch('/api/deck/create', {
                     method:"POST",
                     headers:{'Content-Type': 'application/json'},
                     body:JSON.stringify(body)
@@ -51,29 +51,47 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
                 console.log(error)
             }
     };
+    const [loading, setLoading] = useState(false);
+    const handleDelete = async (e:React.SyntheticEvent,postId:string) => {
+        e.preventDefault();
+      try {
+        setLoading(true);
+        await fetch('/api/deck/delete?id=' + postId, {
+          method: "DELETE",
+          headers: {"Content-Type": "application/json"}
+        }).then(()=> {
+            //refresh to get server side props
+            router.replace(router.asPath);
+            setLoading(false);
+        })
+      } catch (error) {
+        console.log("error", error);
+        setLoading(false);
+      }
+  
+    }
     const getCards = () => {
 
     }
     useEffect(()=> {
        
-    },[decks])
+    },[decks]) 
     console.log(decks);
     return(
         <>
-           
            <form onSubmit={handleCreateDeck}>
             <label htmlFor='newDeckTitle'> Deck Name
             <input type="text" name="newDeckTitle" onChange={(e)=>setTitle(e.target.value) }></input>
             </label>
             <button type="submit">New Deck</button>
             </form>
-           
-            
             <div className="decks">
                 {decks.map((deck:any)=> {
                     return(
                         <div className="deck">
                             <p onClick={getCards}>{deck.name}</p>
+                            <button onClick={(e)=>handleDelete(e,deck.id)}>delete</button>
+
                         </div>
                     )
                        
