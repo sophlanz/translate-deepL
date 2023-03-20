@@ -1,4 +1,4 @@
-import React, { useState }from 'react';
+import React, { useState,useEffect }from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { signOut, useSession, getSession } from 'next-auth/react';
@@ -15,9 +15,11 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
     }
   
     const decks = await prisma.deck.findMany({
+        //matching email
       where: {
         user: { email: session?.user?.email },
       },
+      //only return the name
       select: { name: true },
       
     });
@@ -26,10 +28,12 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
     };
   };
   
+
  
  const Decks: React.FC  = ({ decks }: InferGetServerSidePropsType <typeof getServerSideProps>) => {
-    const [newDeck,setNewDeck] = useState<boolean>(false)
+
     const [title,setTitle] = useState<string>('')
+     const router = useRouter();
     const handleCreateDeck = async (e: React.SyntheticEvent) => {
             e.preventDefault();
             try{
@@ -39,27 +43,35 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
                     method:"POST",
                     headers:{'Content-Type': 'application/json'},
                     body:JSON.stringify(body)
-                });
+                }).then(()=> {
+                    //refresh to get server side props
+                    router.replace(router.asPath);
+                })
             } catch(error) {
                 console.log(error)
             }
     };
+    const getCards = () => {
+
+    }
+    useEffect(()=> {
+       
+    },[decks])
     console.log(decks);
     return(
         <>
-            <h3 onClick={()=> setNewDeck(!newDeck)} >New Deck</h3>
-            {newDeck ? 
-            null:
-            <label htmlFor='newDeckTitle'> Title
+           
+           
+            <label htmlFor='newDeckTitle'> Deck Name
             <input type="text" name="newDeckTitle" onChange={(e)=>setTitle(e.target.value) }></input>
             </label>
-            }
+           
             <button onClick={handleCreateDeck}>New Deck</button>
             <div className="decks">
                 {decks.map((deck:any)=> {
                     return(
                         <div className="deck">
-                            <p>{deck.name}</p>
+                            <p onClick={getCards}>{deck.name}</p>
                         </div>
                     )
                        
