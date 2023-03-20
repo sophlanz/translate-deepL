@@ -23,6 +23,7 @@ const Cards: React.FC  = ({ cards, deckId}: InferGetServerSidePropsType <typeof 
     const [loading,setLoading] = useState<boolean>(false)
     const [front,setFront] = useState<string>('');
     const [back,setBack] = useState<string>('');
+    const [edit,setEdit] = useState<boolean>(false);
     const handleDelete = async(e:React.SyntheticEvent, cardId:string) => {
         e.preventDefault();
         try {
@@ -62,6 +63,27 @@ const Cards: React.FC  = ({ cards, deckId}: InferGetServerSidePropsType <typeof 
             console.log(error)
         }
     }
+    const handleUpdateCard = async (e:React.SyntheticEvent,cardId:string)=>{
+        e.preventDefault();
+        try{
+            //send data to /api/card/update api route
+            let body={
+                front:front,
+                back:back,
+                cardId:cardId
+            };
+            await fetch('/api/card/update', {
+                method:"PUT",
+                headers:{'Content-Type': 'application/json'},
+                body:JSON.stringify(body)
+            }).then(()=> {
+                //refresh to get server side props
+                router.replace(router.asPath);
+            })
+        } catch(error) {
+            console.log(error)
+        }
+    }
     useEffect(()=> {
 
     },[cards])
@@ -77,6 +99,7 @@ const Cards: React.FC  = ({ cards, deckId}: InferGetServerSidePropsType <typeof 
         </label>
         <button type="submit">New Card</button>
         </form>
+        
         {
               cards.map((card:any)=> {
                 return(
@@ -84,10 +107,26 @@ const Cards: React.FC  = ({ cards, deckId}: InferGetServerSidePropsType <typeof 
                     <p>{card.front}</p>
                     <p>{card.back}</p>
                     <button onClick={(e)=> handleDelete(e,card.id)}>{loading ? "loading" : 'delete'}</button>
+                    <button onClick={()=> setEdit(!edit)}>edit</button>
+                    {
+                        edit ?
+                        <form onSubmit ={(e)=> handleUpdateCard(e, card.id)}>
+                        <label htmlFor='front'>Front
+                            <input name='front'type="text" onChange={(e)=> setFront(e.target.value)}/>
+                        </label>
+                        <label htmlFor='back'>Back
+                            <input name='back'type="text" onChange={(e)=> setBack(e.target.value)}/>
+                        </label>
+                        <button type="submit">Submit</button>
+                        </form>
+                        :
+                        null
+                    }
                 </div>
                 )
             })
         }
+        
       
         </>
     )
