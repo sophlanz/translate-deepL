@@ -6,7 +6,10 @@
     - Generates word of Day and definition in any 1 of 8 languages.
     - GPT-3 API to generate writing prompt.
     - GPT-3 API to check for grammar mistakes.
-# Future Features
     - Create decks with vocab/grammar cards for studying
+    - User authentication next-auth and google OAuth
+    - PostgreSQL database 
+    - Prisma ORM
+# Future Features
     - Check pronunciation with an AI
     
