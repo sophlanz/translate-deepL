@@ -1,8 +1,7 @@
 import React, { useState,useEffect }from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import {  useSession, getSession } from 'next-auth/react';
-import Router from 'next/router';
+import { getSession } from 'next-auth/react';
 import { GetServerSideProps } from 'next';
 import { InferGetServerSidePropsType } from 'next'
 import prisma from '../../prisma/lib/prisma'
@@ -33,11 +32,8 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
 
  
  const Decks: React.FC  = ({ decks }: InferGetServerSidePropsType <typeof getServerSideProps>) => {
-   
     const isActive: (pathname: string) => boolean = (pathname) =>
         router.pathname === pathname
-
-  
     const [title,setTitle] = useState<string>('')
      const router = useRouter();
     const handleCreateDeck = async (e: React.SyntheticEvent) => {
@@ -58,11 +54,11 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
             }
     };
     const [loading, setLoading] = useState(false);
-    const handleDelete = async (e:React.SyntheticEvent,postId:string) => {
+    const handleDelete = async (e:React.SyntheticEvent,deckId:string) => {
         e.preventDefault();
       try {
         setLoading(true);
-        await fetch('/api/deck/delete?id=' + postId, {
+        await fetch('/api/deck/delete?id=' + deckId, {
           method: "DELETE",
           headers: {"Content-Type": "application/json"}
         }).then(()=> {

@@ -30,7 +30,7 @@ model Card {
 
 model Deck {
   id        String     @default(cuid()) @id
-  name      String
+  name      String     @unique
   cards     Card[]
   user      User?       @relation(fields: [userId], references: [id])
   userId    String?
