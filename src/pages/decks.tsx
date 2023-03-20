@@ -61,12 +61,14 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
     return(
         <>
            
-           
+           <form onSubmit={handleCreateDeck}>
             <label htmlFor='newDeckTitle'> Deck Name
             <input type="text" name="newDeckTitle" onChange={(e)=>setTitle(e.target.value) }></input>
             </label>
+            <button type="submit">New Deck</button>
+            </form>
            
-            <button onClick={handleCreateDeck}>New Deck</button>
+            
             <div className="decks">
                 {decks.map((deck:any)=> {
                     return(
