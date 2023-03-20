@@ -35,6 +35,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
     const isActive: (pathname: string) => boolean = (pathname) =>
         router.pathname === pathname
     const [title,setTitle] = useState<string>('')
+    const [edit,setEdit] = useState<boolean>(false);
      const router = useRouter();
     const handleCreateDeck = async (e: React.SyntheticEvent) => {
             e.preventDefault();
@@ -72,6 +73,26 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
       }
   
     }
+    const handleUpdateDeck = async (e:React.SyntheticEvent,deckId:string)=>{
+      e.preventDefault();
+      try{
+          //send data to /api/card/update api route
+          let body={
+              title:title,
+              deckId:deckId
+          };
+          await fetch('/api/deck/update', {
+              method:"PUT",
+              headers:{'Content-Type': 'application/json'},
+              body:JSON.stringify(body)
+          }).then(()=> {
+              //refresh to get server side props
+              router.replace(router.asPath);
+          })
+      } catch(error) {
+          console.log(error)
+      }
+    }
     useEffect(()=> {
        
     },[decks]) 
@@ -90,7 +111,18 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
                         <div className="deck">
                             <Link href={`/deck/${deck.id}`} data-active={isActive('/')}> {deck.name} </Link>
                             <button onClick={(e)=>handleDelete(e,deck.id)}>{loading ? "Loading": "Delete"}</button>
-
+                            <button onClick={()=> setEdit(!edit)}>edit</button>
+                            {
+                              edit ?
+                              <form onSubmit={(e)=>handleUpdateDeck(e,deck.id)}>
+                                <label htmlFor="newDeckName">Name
+                                  <input onChange={(e)=>setTitle(e.target.value)} name="newDeckName"/>
+                                </label>
+                                <button type="submit">submit</button>
+                              </form>
+                              :
+                              null
+                            }
                         </div>
                     )
                        

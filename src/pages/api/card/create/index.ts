@@ -1,4 +1,3 @@
-import { getSession } from 'next-auth/react';
 import prisma from '../../../../../prisma/lib/prisma';
 
 export default async function handle(req:any, res:any) {
@@ -13,6 +12,4 @@ export default async function handle(req:any, res:any) {
       })
     res.json(result);
     console.log(result)
-     
-
 }
