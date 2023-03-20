@@ -22,6 +22,7 @@ export default function Home() {
     apiKey: process.env.OPENAI_API_KEY,
   });
   const openai = new OpenAIApi(configuration);
+  
   //call api with text to be translated;
   const handleCheckGrammar = async () =>{
     const response = await openai.createCompletion({

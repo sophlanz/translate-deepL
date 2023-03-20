@@ -1,13 +1,15 @@
 import React, { useState,useEffect }from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { signOut, useSession, getSession } from 'next-auth/react';
+import {  useSession, getSession } from 'next-auth/react';
 import Router from 'next/router';
 import { GetServerSideProps } from 'next';
 import { InferGetServerSidePropsType } from 'next'
 import prisma from '../../prisma/lib/prisma'
 
+
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+
     const session = await getSession({ req });
     if (!session) {
       res.statusCode = 403;
@@ -31,7 +33,11 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
 
  
  const Decks: React.FC  = ({ decks }: InferGetServerSidePropsType <typeof getServerSideProps>) => {
+   
+    const isActive: (pathname: string) => boolean = (pathname) =>
+        router.pathname === pathname
 
+  
     const [title,setTitle] = useState<string>('')
      const router = useRouter();
     const handleCreateDeck = async (e: React.SyntheticEvent) => {
@@ -70,9 +76,6 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
       }
   
     }
-    const getCards = () => {
-
-    }
     useEffect(()=> {
        
     },[decks]) 
@@ -89,8 +92,8 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
                 {decks.map((deck:any)=> {
                     return(
                         <div className="deck">
-                            <p onClick={getCards}>{deck.name}</p>
-                            <button onClick={(e)=>handleDelete(e,deck.id)}>delete</button>
+                            <Link href={`/deck/${deck.id}`} data-active={isActive('/')}> {deck.name} </Link>
+                            <button onClick={(e)=>handleDelete(e,deck.id)}>{loading ? "Loading": "Delete"}</button>
 
                         </div>
                     )
