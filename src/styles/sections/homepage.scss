@@ -43,3 +43,50 @@
     border-radius:2rem;
     margin-top:20px;
 }
+//translate container
+.translate{
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    width:auto;
+    max-width:600px;
+}
+//where the translation appears
+.translate p{
+    height:220px;
+    width:400px;
+    background-color:white;
+    border-radius:2rem;
+}
+//wrapper holding the text to be translated and the translation
+.translateWrapper{
+    display:flex;
+    align-items:center;
+    padding-top:20px;
+}
+//Translation
+.translate h2 {
+    color: white;
+    font-size: 1.4rem;
+    font-family: "Vegawanty";
+    margin-right: 20px;
+    font-weight: 600;
+    /* margin-bottom: 10px; */
+}
+.translationAudio {
+    display:flex;
+}
+//submit button translation
+.translate button {
+    margin-top:20px;
+    color:white;
+    background:none;
+    border:2px solid black;
+    border-radius:2rem;
+    font-size:1rem;
+    font-family:'Times New Roman', Times, serif
+}
+/* h2.translation{
+    margin-bottom:15px;
+} */

@@ -42,7 +42,7 @@ export default function Home() {
 
   }
   //translate data
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: React.SyntheticEvent) => {
     event.preventDefault();
     //get toTranslate and pass it through api
     (async () => {
@@ -54,6 +54,7 @@ export default function Home() {
       const dataDeepL = await responseDeepL.json();
       const text = dataDeepL.translations[0].text
       setTranslation(text)
+      handleVoice();
   })()
   }
 
@@ -66,6 +67,7 @@ export default function Home() {
   };
       //remove all of the "?" or the url will be invalid
         const urlTranslation = translation.replace(/[?]/g, "")
+      console.log(urlTranslation)
        await axios.get(`http://127.0.0.1:5000/audio/${urlTranslation}/${voice}`)
         .then(async(response)=> {
           //get data from response, parse JSON into an object
@@ -182,29 +184,37 @@ export default function Home() {
           null
           }
       </div>
-     
-     <select className="targetLang" value={targetLanguage} onChange={handleSelectLang} >
-        <option value="EN-US">English-US</option>
-        <option value="EN-GB">English-GB</option>
-        <option value="ES">Spanish</option>
-        <option value="FR">French</option>
-        <option value="DE">German</option>
-        <option value="ZH">Chinese</option>
-        <option value="JA">Japanese</option>
-        <option value="KO">Korean</option>
-     </select>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Translate:
-          <textarea rows={20} cols={50} onChange ={(e)=> setToTranslate(e.target.value)}   />
-        </label>
-        <input type="submit" value="Submit" />
-      </form>
-      <p>{translation}</p>
-      <button onClick={handleVoice}>Read Translation</button> 
-      <audio controls src={audioUrl}> Your browser does not support the
-      <code>audio</code> element.
-      </audio>
+      <div className="translateWrapper">
+          <div className="translate">
+             <div className="selectWrapper">
+                  <h2>TRANSLATE TO : </h2> 
+                  <select className="targetLang" value={targetLanguage} onChange={handleSelectLang} >
+                     <option value="EN-US">English-US</option>
+                     <option value="EN-GB">English-GB</option>
+                     <option value="ES">Spanish</option>
+                     <option value="FR">French</option>
+                     <option value="DE">German</option>
+                     <option value="ZH">Chinese</option>
+                     <option value="JA">Japanese</option>
+                     <option value="KO">Korean</option>
+                  </select>
+              </div>
+                   <label htmlFor='textToTranslate'>
+                     <textarea placeholder='The language will be detected, please start typing.' onChange ={(e)=> setToTranslate(e.target.value)}   />
+                   </label>
+                   <button onClick={(e)=>handleSubmit(e)}>Submit</button>
+          </div>
+          <div className="translate">
+                  <h2 className="translation">TRANSLATION </h2>
+                 <p>{translation}</p>
+                 <div className="translationAudio">
+                    <audio controls src={audioUrl}> Your browser does not support the
+                    <code>audio</code> element.
+                    </audio>
+                 </div>
+                
+          </div>
+      </div>
       <h2 onClick={handleGetPrompt}>Generate Prompt</h2>
       <p>{writingPrompt}</p>
       <textarea rows={20} cols={50} onChange = {(e)=> setTextToCorrect(e.target.value)}/>
