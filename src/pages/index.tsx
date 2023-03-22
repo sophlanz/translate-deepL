@@ -19,6 +19,8 @@ export default function Home() {
  const [wordOfDay, setWordOfDay] = useState<any>();
  const [wordOfDayDefinition,setWordOfDayDefinition] = useState<any>();
  const [showDefinition, setShowDefinition] = useState<boolean>(false);
+ const [grammarCheck, setGrammarCheck] = useState<boolean>(false);
+ const [prompt, setPrompt] = useState<boolean>(false);
   //openAI
   const configuration = new Configuration({
     apiKey: process.env.OPENAI_API_KEY,
@@ -39,6 +41,7 @@ export default function Home() {
     console.log(response.data.choices[0].text);
 
     setGrammarCorrection(response.data.choices[0].text);
+    setGrammarCheck(true)
 
   }
   //translate data
@@ -130,12 +133,13 @@ export default function Home() {
     }
     console.log(voice);
   }
+  const topics = ['the enviorment', 'people', 'life', 'society', 'daily life', 'life reflections', 'friend reflections',
+                'gratefulness', 'love', 'friendship', 'resilience', 'confidence', 'aspirations', 'dreams', 'goals']
   //openAI get writing prompt
  const handleGetPrompt = async () => {
   const response = await openai.createCompletion({
     model: "text-davinci-003",
-    prompt: `Give me a creative prompt in ${grammarLang} to help me think about nature, people, culture and 
-    society, the future, or life reflections :\n`,
+    prompt: `Give me a unique prompt about ${topics[Math.floor(Math.random()*topics.length)]}  in ${grammarLang} to help spark writing ideas :\n`,
     temperature: 0,
     max_tokens: 60,
     top_p: 1,
@@ -143,12 +147,14 @@ export default function Home() {
     presence_penalty: 0,
   });
   setWritingPrompt(response.data.choices[0].text);
+  setPrompt(true);
  }
+ const wordTopics = [ 'literary', 'coloquial', 'formal', 'informal', 'fun', 'intense', 'light']
  //get random word in target laguage
  const getWordOfDay = async () => {
   const response = await openai.createCompletion({
     model: "text-davinci-003",
-    prompt: `Give me a unique random advanced word in ${grammarLang} :\n`,
+    prompt: `Give me a unique random advanced ${wordTopics[Math.floor(Math.random()*wordTopics.length)]} word in ${grammarLang} :\n`,
     temperature: 0,
     max_tokens: 60,
     top_p: 1,
@@ -215,11 +221,28 @@ export default function Home() {
                 
           </div>
       </div>
-      <h2 onClick={handleGetPrompt}>Generate Prompt</h2>
-      <p>{writingPrompt}</p>
-      <textarea rows={20} cols={50} onChange = {(e)=> setTextToCorrect(e.target.value)}/>
-      <p>{grammarCorrection}</p>
-      <button onClick={handleCheckGrammar}/>
+      <div className="writingWrapper">
+          <div className="prompt">
+              <button onClick={handleGetPrompt}>Generate Prompt</button>
+              {prompt ?
+              <p>{writingPrompt}</p> :
+              null
+              }
+          </div>
+          <div className="textWrapper">
+            <textarea placeholder="Generate a prompt, write some text, and check your grammar! " onChange = {(e)=> setTextToCorrect(e.target.value)}/>
+          </div>
+          <div className="grammarCheck">
+             <button onClick={handleCheckGrammar}>Check Grammar</button>
+             { grammarCheck ? 
+              <p>{grammarCorrection}</p>
+              :
+              null
+             }
+            
+          </div>
+          
+      </div>
     </div>
   )
 }
