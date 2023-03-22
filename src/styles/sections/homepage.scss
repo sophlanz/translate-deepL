@@ -1,0 +1,45 @@
+.homepage {
+    background-image:url('../../../public/images/background.jpg');
+    background-position:cover;
+    background-position:right;
+    height:100vh;
+}
+//container
+.wordOfDay{
+    margin-top:-90px;
+    padding-left:40px;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+}
+//"word of the day"
+.wordOfDay h1{
+    font-size:3rem;
+    color:white;
+    font-family:"Vegawanty";
+    font-weight:bolder;
+   
+}
+//display of word
+.wordOfDay h2 {
+    font-size:2rem;
+    color:white;
+    font-family:"Vegawanty";
+    border-bottom:2px solid black;
+}
+//word of day and search png
+.wordOfDay div {
+    display:flex;
+    align-items: center;
+    gap:15px;
+    cursor:pointer;
+}
+//definition that appears on search
+.wordOfDay p{
+    width:300px;
+    font-size:1rem;
+    background-color:white;
+    padding:20px;
+    border-radius:2rem;
+    margin-top:20px;
+}

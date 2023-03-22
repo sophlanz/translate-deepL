@@ -4,6 +4,7 @@ import axios from 'axios'
 import { Configuration, OpenAIApi } from 'openai'
 import prisma from '../../prisma/lib/prisma';
 import Header from '../pages/components/Header'
+import Image from 'next/image';
 export default function Home() {
   const authKey:string = process.env.DEEPL_AUTH_KEY as string;
   const [toTranslate, setToTranslate] = useState<string>('');
@@ -17,6 +18,7 @@ export default function Home() {
  const[writingPrompt,setWritingPrompt] = useState<any>()
  const [wordOfDay, setWordOfDay] = useState<any>();
  const [wordOfDayDefinition,setWordOfDayDefinition] = useState<any>();
+ const [showDefinition, setShowDefinition] = useState<boolean>(false);
   //openAI
   const configuration = new Configuration({
     apiKey: process.env.OPENAI_API_KEY,
@@ -164,19 +166,23 @@ export default function Home() {
     presence_penalty: 0,
   });
   setWordOfDayDefinition(response.data.choices[0].text);
+  setShowDefinition(!showDefinition)
  }
  useEffect(()=> {
   getWordOfDay()
  },[targetLanguage])
    return (
-    <>
+    <div className="homepage">
       <Header/>
-      <Head>
-          <h1>Translate</h1>
-      </Head>
-      <h2>{wordOfDay}</h2>
-      <button onClick={getWordDefinition}></button>
-      <p>{wordOfDayDefinition}</p>
+      <div className='wordOfDay'>
+          <h1>Word Of The Day</h1>
+          <div><h2>{wordOfDay}</h2><Image  onClick={getWordDefinition} alt="search" src='/images/search.png' height="20" width="20"></Image></div>
+          {showDefinition?
+          <p>{wordOfDayDefinition}</p> :
+          null
+          }
+      </div>
+     
      <select className="targetLang" value={targetLanguage} onChange={handleSelectLang} >
         <option value="EN-US">English-US</option>
         <option value="EN-GB">English-GB</option>
@@ -204,6 +210,6 @@ export default function Home() {
       <textarea rows={20} cols={50} onChange = {(e)=> setTextToCorrect(e.target.value)}/>
       <p>{grammarCorrection}</p>
       <button onClick={handleCheckGrammar}/>
-    </>
+    </div>
   )
 }

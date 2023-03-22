@@ -18,6 +18,7 @@ import { signOut, useSession } from 'next-auth/react';
     if(!session) {
         navBar = (
             <nav>
+                <h1><span>AI</span> Lengua </h1>
                 <Link href='/api/auth/signin' 
                 data-active={isActive('/signup')}>
                     Login
@@ -32,7 +33,7 @@ import { signOut, useSession } from 'next-auth/react';
                     Decks
                 </Link>
                 {session.user ?
-                <p>{session.user.name}</p>
+                <h1>{session.user.name}</h1>
                 : null
                 }
                 <button onClick={()=> signOut()}>Log Out</button>
