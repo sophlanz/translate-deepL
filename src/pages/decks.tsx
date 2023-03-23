@@ -102,17 +102,17 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
         <>
           <Header  sendToParent={setLoggedIn} />
           <div className="quote">
-             <p>"If you talk to a man in a language he understands, that goes to his head. 
-                 If you talk to him in his own language, that goes to his heart."</p>
-            <p> - Nelson Mandela</p>
+             <p>"If you talk to a man in a language he understands, that goes to his <span style={{fontWeight:"bolder"}}>head</span>.
+                 If you talk to him in his own language, that goes to his <span style={{fontWeight:"bolder"}}>heart</span>."</p>
+            <p style={{fontStyle:"italic"}}> - Nelson Mandela</p>
           </div>
-           <form onSubmit={handleCreateDeck}>
-            <label htmlFor='newDeckTitle'> Deck Name
-            <input type="text" name="newDeckTitle" onChange={(e)=>setTitle(e.target.value) }></input>
-            </label>
-            <button type="submit">New Deck</button>
-            </form>
             <div className="decks">
+               <form onSubmit={handleCreateDeck}>
+                  <label htmlFor='newDeckTitle'> Deck Name
+                  <input type="text" name="newDeckTitle" onChange={(e)=>setTitle(e.target.value) }></input>
+                  </label>
+                  <button type="submit">New Deck</button>
+               </form>
                 {decks.map((deck:any)=> {
                     return(
                         <div className="deck">

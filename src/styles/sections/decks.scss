@@ -9,8 +9,9 @@
     margin-right: auto;
     width: 60%;
     border-radius:1rem;
-    max-height:75vh;
-    overflow-y:scroll
+    overflow-y:scroll;
+    max-height: 70vh;
+    margin-top: 30px;
 }
 .deck {
     display:flex;
@@ -19,7 +20,7 @@
     font-family:"Vegawanty";
     font-size:2rem;
     font-weight:bolder;
-    height:100px;
+    min-height:100px;
     align-items: center;
 }
 //give specific size to titles
@@ -34,5 +35,55 @@
     gap:10px;
 }
 .deckControls img {
+    cursor:pointer;
+}
+.quote{
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    color:white;
+}
+.quote  {
+    :nth-child(1) {
+        font-size:2rem;
+        width:50%;
+    }
+    :nth-child(2) {
+        font-size:2rem;
+        width:50%;
+    }
+}
+.decks form {
+    color:white;
+    font-weight:bolder;
+    font-size:1.8rem;
+    font-family:"Georgia";
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:20px;
+    padding-top:20px;
+}
+.decks form label input {
+    margin-left:10px;
+    border-radius:1rem;
+    border:none;
+    height:30px;
+    width:150px;
+}
+.decks form button {
+    background: none;
+    width: 170px;
+    height:50px;
+    color: white;
+    border: 2px solid #0122f7;
+    border-radius: 2rem;
+    font-size: 1.2rem;
+    font-family: "Vegawanty";
+    text-align: center;
+}
+.decks form button:hover {
+    background-color:rgba(0,0,0,0.6);
     cursor:pointer;
 }
