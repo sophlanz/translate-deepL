@@ -32,5 +32,5 @@ Translate from any language into a variety of languages using an AI API, and lis
 ![Captura de Pantalla 2023-03-23 a la(s) 1 28 17 p m](https://user-images.githubusercontent.com/75180391/227316239-c1de2971-dd16-4b05-bb0f-8fc8f583b87e.jpg)
 ![Captura de Pantalla 2023-03-23 a la(s) 1 28 07 p m](https://user-images.githubusercontent.com/75180391/227316332-caee91eb-0022-4d84-a60d-0ec06dd3dbe7.jpg)
 ![Captura de Pantalla 2023-03-23 a la(s) 3 59 11 p m](https://user-images.githubusercontent.com/75180391/227337547-42ed7d19-ab54-4777-acf4-983f96774400.jpg)
- ![Captura de Pantalla 2023-03-23 a la(s) 4 14 12 p m](https://user-images.githubusercontent.com/75180391/227341998-8e109b5e-3adc-4673-b3cd-7edc83ee4f87.jpg)
+![Captura de Pantalla 2023-03-23 a la(s) 4 17 54 p m](https://user-images.githubusercontent.com/75180391/227342866-af93960b-ed45-43aa-8c09-8a02e4bfeb2a.jpg)
 
