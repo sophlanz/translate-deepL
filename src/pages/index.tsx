@@ -21,6 +21,7 @@ export default function Home() {
  const [showDefinition, setShowDefinition] = useState<boolean>(false);
  const [grammarCheck, setGrammarCheck] = useState<boolean>(false);
  const [prompt, setPrompt] = useState<boolean>(false);
+ const[loggedIn, setLoggedIn] = useState<boolean>(false);
   //openAI
   const configuration = new Configuration({
     apiKey: process.env.OPENAI_API_KEY,
@@ -181,7 +182,8 @@ export default function Home() {
  },[targetLanguage])
    return (
     <div className="homepage">
-      <Header/>
+    
+      <Header  sendToParent={setLoggedIn} />
       <div className='wordOfDay'>
           <h1>Word Of The Day</h1>
           <div><h2>{wordOfDay}</h2><Image  onClick={getWordDefinition} alt="search" src='/images/search.png' height="20" width="20"></Image></div>
@@ -190,7 +192,7 @@ export default function Home() {
           null
           }
       </div>
-      <div className="translateWrapper">
+      <div className="translateWrapper" style={{marginTop:loggedIn ? "-200px" : "75px"}}>
           <div className="translate">
              <div className="selectWrapper">
                   <h2>TRANSLATE TO : </h2> 

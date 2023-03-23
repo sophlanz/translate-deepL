@@ -1,0 +1,38 @@
+.decks {
+    flex-direction: column;
+    display: flex;
+    background-color: rgba(0,0,0,0.3);
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    width: 60%;
+    border-radius:1rem;
+    max-height:75vh;
+    overflow-y:scroll
+}
+.deck {
+    display:flex;
+    justify-content: space-evenly;
+    color:white;
+    font-family:"Vegawanty";
+    font-size:2rem;
+    font-weight:bolder;
+    height:100px;
+    align-items: center;
+}
+//give specific size to titles
+.deck a {
+    width:500px;
+}
+.deck:hover {
+    background-color:rgb(1, 34, 247,0.7)
+}
+.deckControls{
+    display:flex;
+    gap:10px;
+}
+.deckControls img {
+    cursor:pointer;
+}

@@ -5,8 +5,8 @@ import { getSession } from 'next-auth/react';
 import { GetServerSideProps } from 'next';
 import { InferGetServerSidePropsType } from 'next'
 import prisma from '../../prisma/lib/prisma'
-
-
+import Header from './components/Header';
+import Image from 'next/image';
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
 
     const session = await getSession({ req });
@@ -36,6 +36,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
         router.pathname === pathname
     const [title,setTitle] = useState<string>('')
     const [edit,setEdit] = useState<boolean>(false);
+    const [loggedIn, setLoggedIn] = useState<boolean>(false)
      const router = useRouter();
     const handleCreateDeck = async (e: React.SyntheticEvent) => {
             e.preventDefault();
@@ -99,6 +100,12 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
     console.log(decks);
     return(
         <>
+          <Header  sendToParent={setLoggedIn} />
+          <div className="quote">
+             <p>"If you talk to a man in a language he understands, that goes to his head. 
+                 If you talk to him in his own language, that goes to his heart."</p>
+            <p> - Nelson Mandela</p>
+          </div>
            <form onSubmit={handleCreateDeck}>
             <label htmlFor='newDeckTitle'> Deck Name
             <input type="text" name="newDeckTitle" onChange={(e)=>setTitle(e.target.value) }></input>
@@ -110,8 +117,15 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
                     return(
                         <div className="deck">
                             <Link href={`/deck/${deck.id}`} data-active={isActive('/')}> {deck.name} </Link>
-                            <button onClick={(e)=>handleDelete(e,deck.id)}>{loading ? "Loading": "Delete"}</button>
-                            <button onClick={()=> setEdit(!edit)}>edit</button>
+                            <div className="deckControls">
+                            <div onClick={(e)=>handleDelete(e,deck.id)}>
+                                <Image src='/images/trash.png' alt="delete" height={20} width={20} />
+                            </div>
+                            
+                            <div onClick={()=> setEdit(!edit)}>
+                                <Image src='/images/edit.png' alt="edit" height={20} width={20}/>
+                            </div>
+                            </div>
                             {
                               edit ?
                               <form onSubmit={(e)=>handleUpdateDeck(e,deck.id)}>

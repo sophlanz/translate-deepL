@@ -1,16 +1,17 @@
 nav button {
+    background: none;
+    width:190px;
     color: white;
-    border: 2px solid black;
+    border: 2px solid #0122f7;
     border-radius: 2rem;
     padding: 20px 40px;
     font-size: 2rem;
-    background: none;
     font-family: "Vegawanty";
-    width:200px;
+    text-align: center;
 }
 nav button:hover {
     background-color: rgba(0,0,0,0.3);
 }
 nav a{
-    width:70px;
+    width:105px;
 }

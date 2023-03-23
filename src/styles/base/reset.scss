@@ -32,7 +32,8 @@ body {
 	line-height: 1;
 	height:100vw;
 	width:100vw;
-
+	background-image:url('../../../public/images/background.jpg');
+    background-position:cover;
 }
 ol, ul {
 	list-style: none;

@@ -3,7 +3,10 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { signOut, useSession } from 'next-auth/react';
 
- const Header: React.FC = () => {
+interface Props {
+    sendToParent: React.Dispatch<React.SetStateAction<boolean>>
+}
+ const Header: React.FC<Props> = (props:Props) => {
     const router = useRouter();
     const isActive: (pathname: string) => boolean = (pathname) =>
         router.pathname === pathname
@@ -17,6 +20,7 @@ import { signOut, useSession } from 'next-auth/react';
         )
     };
     if(!session) {
+        props.sendToParent(false)
         navBar = (
             <nav>
                 <h1><span>AI</span> Lengua </h1>
@@ -27,7 +31,20 @@ import { signOut, useSession } from 'next-auth/react';
             </nav>
         )
     }
-    if(session) {
+   else if(session && window.location.pathname==="/decks") {
+        
+        props.sendToParent(true)
+        navBar=(
+            <nav style={{flexDirection:'row'}}>
+                <h1><span>AI</span> Lengua </h1>
+                <button onClick={()=> signOut()}>Log Out</button>
+            </nav>
+            
+        )
+    }
+    else {
+        console.log(window.location.pathname)
+        props.sendToParent(true)
         navBar=(
             <nav style={{flexDirection:'column'}}>
                 <h1><span>AI</span> Lengua </h1>
