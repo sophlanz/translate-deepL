@@ -6,11 +6,17 @@
 }
 //container
 .wordOfDay{
-    margin-top:-90px;
     padding-left:40px;
     display:flex;
     flex-direction: column;
     align-items: center;
+    top: 100px;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    position:absolute;
+    max-width:350px;
 }
 //"word of the day"
 .wordOfDay h1{
@@ -25,7 +31,7 @@
     font-size:2rem;
     color:white;
     font-family:"Vegawanty";
-    border-bottom:2px solid black;
+    border-bottom:2px solid $blue;
 }
 //word of day and search png
 .wordOfDay div {
@@ -69,7 +75,6 @@
     align-items:center;
     padding-top:20px;
     margin-top:75px;
-    gap:75px;
 }
 //Translation
 .translate h2 {
@@ -85,7 +90,7 @@
 }
 //submit button translation
 .translate button {
-    color:black;
+    color:white;
     background:none;
     border:2px solid white;
     border-radius:2rem;
@@ -96,8 +101,8 @@
     margin-top:10px;
 }
 .translate button:hover {
-    color:white;
-    background-color:black;
+    color:black;
+    background-color:white;
     cursor:pointer;
 }
 audio{
@@ -106,7 +111,7 @@ audio{
 .writingWrapper {
     display:flex;
     background-color:rgba(0,0,0,0.3);
-    width:1000px;
+    width:900px;
     position:absolute;
     left:0;
     right:0;
@@ -115,7 +120,6 @@ audio{
     padding:20px;
     border-radius:2rem;
     gap:20px;
-    margin-top:75px;
 }
 .writingWrapper button{
     width: 150px;
@@ -129,8 +133,7 @@ audio{
     margin-bottom:20px;
 }
 .writingWrapper button:hover{
-    color:black;
-    background-color:white;
+    background-color:rgba(0,0,0,0.3);
 }
 .writingWrapper p {
     color: black;

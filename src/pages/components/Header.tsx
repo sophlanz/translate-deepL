@@ -8,6 +8,7 @@ import { signOut, useSession } from 'next-auth/react';
     const isActive: (pathname: string) => boolean = (pathname) =>
         router.pathname === pathname
     const { data: session, status} = useSession();
+   
     let message;
     let navBar;
     if(status === 'loading'){
@@ -28,17 +29,18 @@ import { signOut, useSession } from 'next-auth/react';
     }
     if(session) {
         navBar=(
-            <nav>
-                <Link href='/decks' data-active={isActive('/')}>
-                    Decks
-                </Link>
+            <nav style={{flexDirection:'column'}}>
+                <h1><span>AI</span> Lengua </h1>
                 {session.user ?
-                <h1>{session.user.name}</h1>
+                <h2>Hi, {session.user.name}. Welcome Back!</h2>
                 : null
                 }
                 <button onClick={()=> signOut()}>Log Out</button>
-                
+                <Link href='/decks' data-active={isActive('/')}>
+                    Decks
+                </Link>
             </nav>
+            
         )
     }
     return(
