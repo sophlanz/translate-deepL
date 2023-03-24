@@ -7,6 +7,7 @@ import { InferGetServerSidePropsType } from 'next'
 import prisma from '../../prisma/lib/prisma'
 import Header from './components/Header';
 import Image from 'next/image';
+import {  useSession } from 'next-auth/react';
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
 
     const session = await getSession({ req });
@@ -34,6 +35,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
  const Decks: React.FC  = ({ decks }: InferGetServerSidePropsType <typeof getServerSideProps>) => {
     const isActive: (pathname: string) => boolean = (pathname) =>
         router.pathname === pathname
+    const { data: session, status} = useSession();
     const [title,setTitle] = useState<string>('')
     const [edit,setEdit] = useState<boolean>(false);
     const [loggedIn, setLoggedIn] = useState<boolean>(false)
@@ -95,11 +97,13 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
       }
     }
     useEffect(()=> {
-       
-    },[decks]) 
+      if(!session) {
+        router.push('/')
+      }
+    },[decks, session]) 
     console.log(decks);
     return(
-        <>
+        <div>
           <Header  sendToParent={setLoggedIn} />
           <div className="quote">
              <p>"If you talk to a man in a language he understands, that goes to his <span style={{fontWeight:"bolder"}}>head</span>.
@@ -142,7 +146,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
                        
                 })}
             </div>
-        </>
+        </div>
     )
  }
  export default Decks;

@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 import handle from '../api/deck/create';
 import Header from '../components/Header';
 import Image from 'next/image'
+import {  useSession } from 'next-auth/react';
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
     const deckId = String(params?.id)
     const cards = await prisma.card.findMany({
@@ -27,6 +28,7 @@ const Cards: React.FC  = ({ cards, deckId}: InferGetServerSidePropsType <typeof 
     const [back,setBack] = useState<string>('');
     const [edit,setEdit] = useState<any>();
     const [loggedIn, setLoggedIn] = useState<boolean>(false);
+    const { data: session, status} = useSession();
     const handleDelete = async(e:React.SyntheticEvent, cardId:string) => {
         e.preventDefault();
         try {
@@ -90,8 +92,10 @@ const Cards: React.FC  = ({ cards, deckId}: InferGetServerSidePropsType <typeof 
         setEdit(edit.cardId===undefined)
     }
     useEffect(()=> {
-
-    },[cards])
+        if(!session){
+            router.push('/')
+        }
+    },[cards,session])
     return (
         <>
         <Header sendToParent={setLoggedIn} />
