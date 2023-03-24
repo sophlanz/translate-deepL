@@ -151,19 +151,7 @@ export default function Home() {
   setPrompt(true);
  }
  const wordTopics = [ 'literary', 'coloquial', 'formal', 'informal', 'fun', 'intense', 'light']
- //get random word in target laguage
- const getWordOfDay = async () => {
-  const response = await openai.createCompletion({
-    model: "text-davinci-003",
-    prompt: `Give me a unique random advanced ${wordTopics[Math.floor(Math.random()*wordTopics.length)]} word in ${grammarLang} :\n`,
-    temperature: 0,
-    max_tokens: 60,
-    top_p: 1,
-    frequency_penalty: 0,
-    presence_penalty: 0,
-  });
-  setWordOfDay(response.data.choices[0].text);
- }
+ 
  const getWordDefinition = async () => {
   const response = await openai.createCompletion({
     model: "text-davinci-003",
@@ -178,7 +166,20 @@ export default function Home() {
   setShowDefinition(!showDefinition)
  }
  useEffect(()=> {
-  getWordOfDay()
+  //get random word in target laguage
+ const getWordOfDay = async () => {
+  const response = await openai.createCompletion({
+    model: "text-davinci-003",
+    prompt: `Give me a unique random advanced ${wordTopics[Math.floor(Math.random()*wordTopics.length)]} word in ${grammarLang} :\n`,
+    temperature: 0,
+    max_tokens: 60,
+    top_p: 1,
+    frequency_penalty: 0,
+    presence_penalty: 0,
+  });
+  setWordOfDay(response.data.choices[0].text);
+ }
+ getWordOfDay();
  },[targetLanguage])
    return (
     <div className="homepage">

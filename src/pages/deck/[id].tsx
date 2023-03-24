@@ -7,6 +7,7 @@ import handle from '../api/deck/create';
 import Header from '../components/Header';
 import Image from 'next/image'
 import {  useSession } from 'next-auth/react';
+import uniqid from 'uniqid';
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
     const deckId = String(params?.id)
     const cards = await prisma.card.findMany({
@@ -117,7 +118,7 @@ const Cards: React.FC  = ({ cards, deckId}: InferGetServerSidePropsType <typeof 
         {
               cards.map((card:any)=> {
                 return(
-                <div className="card">
+                <div  key={uniqid()}className="card">
                     <div className="cardFront">
                         <p>{card.front}</p>
                     </div>

@@ -8,6 +8,7 @@ import prisma from '../../prisma/lib/prisma'
 import Header from './components/Header';
 import Image from 'next/image';
 import {  useSession } from 'next-auth/react';
+import uniqid from 'uniqid';
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
 
     const session = await getSession({ req });
@@ -119,7 +120,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
                </form>
                 {decks.map((deck:any)=> {
                     return(
-                        <div className="deck">
+                        <div key={uniqid()}className="deck">
                             <Link href={`/deck/${deck.id}`} data-active={isActive('/')}> {deck.name} </Link>
                             <div className="deckControls">
                             <div onClick={(e)=>handleDelete(e,deck.id)}>
