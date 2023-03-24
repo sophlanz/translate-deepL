@@ -31,12 +31,10 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
     };
   };
   
-
- 
  const Decks: React.FC  = ({ decks }: InferGetServerSidePropsType <typeof getServerSideProps>) => {
     const isActive: (pathname: string) => boolean = (pathname) =>
         router.pathname === pathname
-    const { data: session, status} = useSession();
+    const { data: session} = useSession();
     const [title,setTitle] = useState<string>('')
     const [edit,setEdit] = useState<boolean>(false);
     const [loggedIn, setLoggedIn] = useState<boolean>(false)

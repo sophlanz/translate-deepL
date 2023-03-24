@@ -3,7 +3,6 @@ import { GetServerSideProps } from 'next';
 import { InferGetServerSidePropsType } from 'next'
 import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/router';
-import handle from '../api/deck/create';
 import Header from '../components/Header';
 import Image from 'next/image'
 import {  useSession } from 'next-auth/react';
@@ -29,7 +28,7 @@ const Cards: React.FC  = ({ cards, deckId}: InferGetServerSidePropsType <typeof 
     const [back,setBack] = useState<string>('');
     const [edit,setEdit] = useState<any>();
     const [loggedIn, setLoggedIn] = useState<boolean>(false);
-    const { data: session, status} = useSession();
+    const { data: session} = useSession();
     const handleDelete = async(e:React.SyntheticEvent, cardId:string) => {
         e.preventDefault();
         try {
