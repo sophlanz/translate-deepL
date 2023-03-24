@@ -20,7 +20,10 @@ interface Props {
         )
     };
     if(!session) {
-        props.sendToParent(false)
+        if(props) {
+            props.sendToParent(false)
+        }
+        
         navBar = (
             <nav>
                 <h1><span>AI</span> Lengua </h1>
@@ -34,7 +37,9 @@ interface Props {
     // /decks and /deck page only show logout button and logo
    else if(session && window.location.pathname === "/decks" || session && window.location.pathname.includes('/deck/')) {
         
+    if(props) {
         props.sendToParent(true)
+    }
         navBar=(
             <nav style={{flexDirection:'row'}}>
                 <h1><span>AI</span> Lengua </h1>
@@ -44,7 +49,9 @@ interface Props {
         )
     }
     else {
-        props.sendToParent(true)
+        if(props) {
+            props.sendToParent(true)
+        }
         navBar=(
             <nav style={{flexDirection:'column'}}>
                 <h1><span>AI</span> Lengua </h1>
