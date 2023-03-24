@@ -66,15 +66,16 @@ const Cards: React.FC  = ({ cards, deckId}: InferGetServerSidePropsType <typeof 
             console.log(error)
         }
     }
-    const handleUpdateCard = async (e:React.SyntheticEvent,cardId:string)=>{
+    const handleUpdateCard = async (e:React.SyntheticEvent,cardId:string, cardFront:string,cardBack:string)=>{
         e.preventDefault();
         try{
             //send data to /api/card/update api route
             let body={
-                front:front,
-                back:back,
+                front:front===""? cardFront:front,
+                back:back===""?cardBack:back,
                 cardId:cardId
             };
+            console.log(body);
             await fetch('/api/card/update', {
                 method:"PUT",
                 headers:{'Content-Type': 'application/json'},
@@ -86,6 +87,7 @@ const Cards: React.FC  = ({ cards, deckId}: InferGetServerSidePropsType <typeof 
         } catch(error) {
             console.log(error)
         }
+        setEdit(edit.cardId===undefined)
     }
     useEffect(()=> {
 
@@ -109,9 +111,9 @@ const Cards: React.FC  = ({ cards, deckId}: InferGetServerSidePropsType <typeof 
             <h2>Controls</h2>
         </div>
         {
-              cards.map((card:any, i:number)=> {
+              cards.map((card:any)=> {
                 return(
-                <div key={i} className="card">
+                <div className="card">
                     <div className="cardFront">
                         <p>{card.front}</p>
                     </div>
@@ -128,12 +130,12 @@ const Cards: React.FC  = ({ cards, deckId}: InferGetServerSidePropsType <typeof 
                     </div>
                     {
                         edit===card.id ?
-                        <form onSubmit ={(e)=> handleUpdateCard(e, card.id)}>
+                        <form onSubmit ={(e)=> handleUpdateCard(e, card.id, card.front, card.back)}>
                         <label htmlFor='front'>Front
                             <input name='front'type="text" onChange={(e)=> setFront(e.target.value)}/>
                         </label>
                         <label htmlFor='back'>Back
-                            <input name='back'type="text" onChange={(e)=> setBack(e.target.value)}/>
+                            <input name='back'type="text"  onChange={(e)=> setBack(e.target.value)}/>
                         </label>
                         <button type="submit">Submit</button>
                         </form>
