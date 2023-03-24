@@ -21,7 +21,7 @@ interface Props {
     };
     if(!session) {
         if(props) {
-            props.sendToParent(false)
+            props.sendToParent(()=>false)
         }
         
         navBar = (
@@ -38,7 +38,7 @@ interface Props {
    else if(session && window.location.pathname === "/decks" || session && window.location.pathname.includes('/deck/')) {
         
     if(props) {
-        props.sendToParent(true)
+        props.sendToParent(()=>true)
     }
         navBar=(
             <nav style={{flexDirection:'row'}}>
@@ -50,7 +50,7 @@ interface Props {
     }
     else {
         if(props) {
-            props.sendToParent(true)
+            props.sendToParent(()=>true)
         }
         navBar=(
             <nav style={{flexDirection:'column'}}>
