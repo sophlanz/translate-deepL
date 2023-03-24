@@ -31,7 +31,8 @@ interface Props {
             </nav>
         )
     }
-   else if(session && window.location.pathname==="/decks") {
+    // /decks and /deck page only show logout button and logo
+   else if(session && window.location.pathname === "/decks" || session && window.location.pathname.includes('/deck/')) {
         
         props.sendToParent(true)
         navBar=(
@@ -43,7 +44,6 @@ interface Props {
         )
     }
     else {
-        console.log(window.location.pathname)
         props.sendToParent(true)
         navBar=(
             <nav style={{flexDirection:'column'}}>

@@ -4,6 +4,8 @@ import { InferGetServerSidePropsType } from 'next'
 import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/router';
 import handle from '../api/deck/create';
+import Header from '../components/Header';
+import Image from 'next/image'
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
     const deckId = String(params?.id)
     const cards = await prisma.card.findMany({
@@ -23,7 +25,8 @@ const Cards: React.FC  = ({ cards, deckId}: InferGetServerSidePropsType <typeof 
     const [loading,setLoading] = useState<boolean>(false)
     const [front,setFront] = useState<string>('');
     const [back,setBack] = useState<string>('');
-    const [edit,setEdit] = useState<boolean>(false);
+    const [edit,setEdit] = useState<any>();
+    const [loggedIn, setLoggedIn] = useState<boolean>(false);
     const handleDelete = async(e:React.SyntheticEvent, cardId:string) => {
         e.preventDefault();
         try {
@@ -89,27 +92,42 @@ const Cards: React.FC  = ({ cards, deckId}: InferGetServerSidePropsType <typeof 
     },[cards])
     return (
         <>
-        <h1>Cards</h1>
+        <Header sendToParent={setLoggedIn} />
+        <div className="cards">
         <form onSubmit ={(e)=> handleCreateCard(e)}>
-        <label htmlFor='front'>Front
-            <input name='front'type="text" onChange={(e)=> setFront(e.target.value)}/>
-        </label>
-        <label htmlFor='back'>Back
-            <input name='back'type="text" onChange={(e)=> setBack(e.target.value)}/>
-        </label>
-        <button type="submit">New Card</button>
+            <label htmlFor='front'>Word
+                <input name='front'type="text" onChange={(e)=> setFront(e.target.value)}/>
+            </label>
+            <label htmlFor='back'>Translation
+                <input name='back'type="text" onChange={(e)=> setBack(e.target.value)}/>
+            </label>
+            <button type="submit">New Card</button>
         </form>
-        
+        <div className="card">
+            <h2>Word</h2>
+            <h2>Translation</h2>
+            <h2>Controls</h2>
+        </div>
         {
-              cards.map((card:any)=> {
+              cards.map((card:any, i:number)=> {
                 return(
-                <div className="card">
-                    <p>{card.front}</p>
-                    <p>{card.back}</p>
-                    <button onClick={(e)=> handleDelete(e,card.id)}>{loading ? "loading" : 'delete'}</button>
-                    <button onClick={()=> setEdit(!edit)}>edit</button>
+                <div key={i} className="card">
+                    <div className="cardFront">
+                        <p>{card.front}</p>
+                    </div>
+                   <div className="cardBack">
+                        <p>{card.back}</p>
+                    </div>
+                    <div className="cardControls">
+                        <div onClick={(e)=> handleDelete(e,card.id)}>
+                            <Image src="/images/trash.png" width={20} height={20} alt="delete"/>
+                        </div>
+                        <div onClick={()=> setEdit(card.id)}>
+                        <Image src="/images/edit.png" width={20} height={20} alt="delete"/>
+                        </div>
+                    </div>
                     {
-                        edit ?
+                        edit===card.id ?
                         <form onSubmit ={(e)=> handleUpdateCard(e, card.id)}>
                         <label htmlFor='front'>Front
                             <input name='front'type="text" onChange={(e)=> setFront(e.target.value)}/>
@@ -126,6 +144,7 @@ const Cards: React.FC  = ({ cards, deckId}: InferGetServerSidePropsType <typeof 
                 )
             })
         }
+        </div>
         
       
         </>
