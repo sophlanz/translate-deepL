@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import { signOut, useSession } from 'next-auth/react';
 
 interface Props {
-    sendToParent: React.Dispatch<React.SetStateAction<boolean>>
+    sendToParent?: React.Dispatch<React.SetStateAction<boolean>>
 }
  const Header: React.FC<Props> = (props:Props) => {
     const router = useRouter();
@@ -20,7 +20,7 @@ interface Props {
         )
     };
     if(!session) {
-        if(props) {
+        if(props.sendToParent) {
             props.sendToParent(()=>false)
         }
         
@@ -37,7 +37,7 @@ interface Props {
     // /decks and /deck page only show logout button and logo
    else if(session && window.location.pathname === "/decks" || session && window.location.pathname.includes('/deck/')) {
         
-    if(props) {
+    if(props.sendToParent) {
         props.sendToParent(()=>true)
     }
         navBar=(
@@ -49,7 +49,7 @@ interface Props {
         )
     }
     else {
-        if(props) {
+        if(props.sendToParent) {
             props.sendToParent(()=>true)
         }
         navBar=(
