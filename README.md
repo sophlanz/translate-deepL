@@ -11,6 +11,7 @@ Translate from any language into a variety of languages using an AI API, and lis
 - PostgreSQL
 - PRISMA
 - Python
+- Flask
 - DeepL API
 - GPT-3 API
 - Play.ht API
