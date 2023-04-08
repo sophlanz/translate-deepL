@@ -52,7 +52,7 @@ export default function Home() {
     event.preventDefault();
     //get toTranslate and pass it through api
     (async () => {
-      const urlDeepL = `https://api-free.deepl.com/v2/translate?auth_key=${process.env.DEEPL_AUTH_KEY}&text=${toTranslate}&target_lang=${targetLanguage}&preserve_formatting=1`;
+      const urlDeepL = `https://api-free.deepl.com/v2/translate?auth_key=${process.env.NEXT_PUBLIC_DEEPL_AUTH_KEY}&text=${toTranslate}&target_lang=${targetLanguage}&preserve_formatting=1`;
       console.log(targetLanguage,toTranslate)
       const responseDeepL = await fetch(urlDeepL);
       console.log(responseDeepL);
