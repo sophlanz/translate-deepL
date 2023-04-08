@@ -8,7 +8,6 @@ import Image from 'next/image';
 
 export default function Home() {
   const authKey:string = process.env.DEEPL_AUTH_KEY as string;
-  console.log(authKey)
   const [toTranslate, setToTranslate] = useState<string>('');
   const [translation, setTranslation]= useState<string>('');
   const[targetLanguage,setTargetLanguage] = useState<string>('EN-US');
@@ -49,10 +48,11 @@ export default function Home() {
   }
   //translate data
   const handleSubmit = (event: React.SyntheticEvent) => {
+    console.log(authKey)
     event.preventDefault();
     //get toTranslate and pass it through api
     (async () => {
-      const urlDeepL = `https://api-free.deepl.com/v2/translate?auth_key=${authKey}&text=${toTranslate}&target_lang=${targetLanguage}&preserve_formatting=1`;
+      const urlDeepL = `https://api-free.deepl.com/v2/translate?auth_key=${process.env.DEEPL_AUTH_KEY}&text=${toTranslate}&target_lang=${targetLanguage}&preserve_formatting=1`;
       console.log(targetLanguage,toTranslate)
       const responseDeepL = await fetch(urlDeepL);
       console.log(responseDeepL);
