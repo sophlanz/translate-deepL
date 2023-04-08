@@ -5,8 +5,10 @@ import { Configuration, OpenAIApi } from 'openai'
 import prisma from '../../prisma/lib/prisma';
 import Header from '../pages/components/Header'
 import Image from 'next/image';
+
 export default function Home() {
   const authKey:string = process.env.DEEPL_AUTH_KEY as string;
+  console.log(authKey)
   const [toTranslate, setToTranslate] = useState<string>('');
   const [translation, setTranslation]= useState<string>('');
   const[targetLanguage,setTargetLanguage] = useState<string>('EN-US');
@@ -50,13 +52,14 @@ export default function Home() {
     event.preventDefault();
     //get toTranslate and pass it through api
     (async () => {
-      console.log(targetLanguage)
       const urlDeepL = `https://api-free.deepl.com/v2/translate?auth_key=${authKey}&text=${toTranslate}&target_lang=${targetLanguage}&preserve_formatting=1`;
-      console.log(targetLanguage)
+      console.log(targetLanguage,toTranslate)
       const responseDeepL = await fetch(urlDeepL);
       console.log(responseDeepL);
       const dataDeepL = await responseDeepL.json();
+      console.log(dataDeepL)
       const text = dataDeepL.translations[0].text
+      console.log(text);
       setTranslation(text)
       handleVoice();
   })()
