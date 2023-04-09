@@ -1,5 +1,5 @@
 # Language Learning AI
-## Live Demo:
+## Live Demo: https://ai-lengua.vercel.app/
 ## Description
 Translate from any language into a variety of languages using an AI API, and listen to the translation read by a human-like AI voice. Recieve an AI generated prompt to spark ideas for writing a text in the target language, and then recieve AI grammar feedback. Sign in, and create decks with vocabulary words to refer to later for studying. 
 ## Tools and Technologies 
@@ -28,6 +28,7 @@ Translate from any language into a variety of languages using an AI API, and lis
  - Prisma ORM
 ## Future Updates
 - mobile
+- Play.ht api currently deprecated. 
 ## Screenshots Web
 ![Captura de Pantalla 2023-03-24 a la(s) 12 30 18 p m](https://user-images.githubusercontent.com/75180391/227585843-efbc7940-8e68-415f-9590-ba23b20b11eb.jpg)
 ![Captura de Pantalla 2023-03-24 a la(s) 12 34 27 p m](https://user-images.githubusercontent.com/75180391/227586588-80b13bdf-8ddf-486a-9a5d-e9c9db921e80.jpg)
