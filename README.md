@@ -31,6 +31,7 @@ Translate from any language into a variety of languages using an AI API, and lis
 - Play.ht api currently deprecated. 
 ## Screenshots Web
 ![Captura de Pantalla 2023-03-24 a la(s) 12 30 18 p m](https://user-images.githubusercontent.com/75180391/227585843-efbc7940-8e68-415f-9590-ba23b20b11eb.jpg)
+<img width="1023" alt="Captura de Pantalla 2023-04-08 a la(s) 4 15 58 p m" src="https://user-images.githubusercontent.com/75180391/230777729-d85c3f13-05e1-4045-8a94-c2ff392e338d.png">
 ![Captura de Pantalla 2023-03-24 a la(s) 12 34 27 p m](https://user-images.githubusercontent.com/75180391/227586588-80b13bdf-8ddf-486a-9a5d-e9c9db921e80.jpg)
 ![Captura de Pantalla 2023-03-24 a la(s) 12 29 48 p m](https://user-images.githubusercontent.com/75180391/227585938-5f9aeec0-d93b-45a1-93bf-070e3c2e2e56.jpg)
 ![Captura de Pantalla 2023-03-24 a la(s) 12 34 57 p m](https://user-images.githubusercontent.com/75180391/227586639-44e15b47-3ccd-416b-88ef-4bb1fea37311.jpg)
