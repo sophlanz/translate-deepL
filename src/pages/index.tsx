@@ -48,7 +48,6 @@ export default function Home() {
   }
   //translate data
   const handleSubmit = (event: React.SyntheticEvent) => {
-    console.log(authKey)
     event.preventDefault();
     //get toTranslate and pass it through api
     (async () => {
@@ -65,9 +64,27 @@ export default function Home() {
   })()
   }
 
-
   //generate and retreive audio of translation being read
   async function handleVoice() {
+    const options = {
+      method: 'POST',
+      url: 'https://play.ht/api/v2/tts',
+      headers: {
+      accept: 'application/json',
+      'content-type': 'application/json',
+      AUTHORIZATION:`Bearer ${process.env. NEXT_PUBLIC_PLAYHT_AUTH_KEY}`, 
+      'X-USER-ID': process.env.NEXT_PUBLIC_PLAYHT_USER_ID,
+      crossorigin:true,
+    },
+      data: {
+        quality: 'medium',
+        output_format: 'mp3',
+        speed: 1,
+        sample_rate: 24000,
+        text: toTranslate,
+        voice: voice
+      }
+    };
    //time out for waiting for audio generation 
    const delay = (ms:number) => {
     return new Promise (resolve => setTimeout(resolve,ms))
@@ -75,10 +92,12 @@ export default function Home() {
       //remove all of the "?" or the url will be invalid
         const urlTranslation = translation.replace(/[?]/g, "")
       console.log(urlTranslation)
-       await axios.get(`http://127.0.0.1:5000/audio/${urlTranslation}/${voice}`)
+        axios.request(options)
         .then(async(response)=> {
+          console.log(response.data)
           //get data from response, parse JSON into an object
                 const transcriptionData = await JSON.parse(response.data);
+                console.log(transcriptionData);
                 //delay to wait for the audio to be generated
                 await delay(11000);
                  // pass transcripID as a param
@@ -91,6 +110,9 @@ export default function Home() {
               .catch((error)=> {
                 console.log(error.message)
               }); 
+        })
+        .catch((error)=> {
+          console.log(error.message)
         })
       };
 
