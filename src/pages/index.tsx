@@ -30,8 +30,8 @@ export default function Home() {
   const openai = new OpenAIApi(configuration);
   //check dev or prod
   const env= process.env.NODE_ENV
-  const urlProd='https://ai-lengua.vercel.app/'
-  const urlDev='http://localhost:3000/api/playht'
+  const urlProd='https://ai-lengua.vercel.app/api'
+  const urlDev='http://localhost:3000/api'
   //call api with text to be translated;
   const handleCheckGrammar = async () =>{
     const response = await openai.createCompletion({
@@ -98,7 +98,7 @@ export default function Home() {
        // const urlTranslation = translation.replace(/[?]/g, "")
    
         axios.request({
-          url:env ==='development' ? urlDev :urlProd,
+          url:env ==='development' ? `${urlDev}/playht` :`${urlDev}/playht`,
           params:{
             translate:translation,
             voice:voice
@@ -114,7 +114,7 @@ export default function Home() {
                 await delay(11000);
                  // pass transcripID as a param
                 await axios.request({
-                  url:env ==='development' ? urlDev :urlProd,
+                  url:env ==='development' ? `${urlDev}/getAudio` :`${urlDev}/getAudio`,
                   params:{
                     transcriptionId:transcriptionData
                   },
