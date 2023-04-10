@@ -21,6 +21,8 @@
     "eslint-config-next": "13.2.3",
     "next": "13.2.3",
     "next-auth": "^4.20.1",
+    "next-connect": "^0.13.0",
+    "nextjs-cors": "^2.1.2",
     "openai": "^3.2.1",
     "rae-api": "^1.5.1",
     "react": "18.2.0",

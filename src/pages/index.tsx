@@ -66,15 +66,17 @@ export default function Home() {
 
   //generate and retreive audio of translation being read
   async function handleVoice() {
-    const options = {
+    const body = {
       method: 'POST',
       url: 'https://play.ht/api/v2/tts',
       headers: {
       accept: 'application/json',
       'content-type': 'application/json',
-      AUTHORIZATION:`Bearer ${process.env. NEXT_PUBLIC_PLAYHT_AUTH_KEY}`, 
+      AUTHORIZATION:`Bearer ${process.env.NEXT_PUBLIC_PLAYHT_AUTH_KEY}`, 
       'X-USER-ID': process.env.NEXT_PUBLIC_PLAYHT_USER_ID,
+      'Access-Control-Allow-Origin':'*',
       crossorigin:true,
+      'Access-Control-Allow-Credentials':true,
     },
       data: {
         quality: 'medium',
@@ -90,30 +92,41 @@ export default function Home() {
     return new Promise (resolve => setTimeout(resolve,ms))
   };
       //remove all of the "?" or the url will be invalid
-        const urlTranslation = translation.replace(/[?]/g, "")
-      console.log(urlTranslation)
-        axios.request(options)
+       // const urlTranslation = translation.replace(/[?]/g, "")
+   
+        axios.request({
+          url:'http://localhost:3000/api/playht',
+          params:{
+            translate:translation,
+            voice:voice
+          },
+          
+        })
         .then(async(response)=> {
+          console.log(response)
           console.log(response.data)
-          //get data from response, parse JSON into an object
-                const transcriptionData = await JSON.parse(response.data);
-                console.log(transcriptionData);
+           //get data from response, parse JSON into an object
+           const transcriptionData = response.data.transcriptionId
                 //delay to wait for the audio to be generated
                 await delay(11000);
                  // pass transcripID as a param
-                await axios.get(`http://127.0.0.1:5000/getAudio/${transcriptionData.transcriptionId}`)
+                await axios.request({
+                  url:'http://localhost:3000/api/getAudio',
+                  params:{
+                    transcriptionId:transcriptionData
+                  },
+                })
                 .then(async (response)=> {
-                      const audioData = JSON.parse(response.data);
+                  console.log(response)
+                      const audioData = response.data.audioUrl;
                       console.log(audioData)
-                      setAudioUrl(audioData.audioUrl);
+                      setAudioUrl(audioData);
               })
               .catch((error)=> {
                 console.log(error.message)
-              }); 
+              });  
         })
-        .catch((error)=> {
-          console.log(error.message)
-        })
+       
       };
 
   //set target lang
