@@ -28,7 +28,7 @@ Translate from any language into a variety of languages using an AI API, and lis
  - Prisma ORM
 ## Future Updates
 - mobile
-- Play.ht api currently deprecated. 
+- Loading icon while play.ht generates the audio
 ## Screenshots Web
 ![Captura de Pantalla 2023-03-24 a la(s) 12 30 18 p m](https://user-images.githubusercontent.com/75180391/227585843-efbc7940-8e68-415f-9590-ba23b20b11eb.jpg)
 <img width="1023" alt="Captura de Pantalla 2023-04-08 a la(s) 4 15 58 p m" src="https://user-images.githubusercontent.com/75180391/230777729-d85c3f13-05e1-4045-8a94-c2ff392e338d.png">
