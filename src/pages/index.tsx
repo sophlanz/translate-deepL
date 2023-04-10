@@ -7,7 +7,6 @@ import Header from '../pages/components/Header'
 import Image from 'next/image';
 
 export default function Home() {
-  const authKey:string = process.env.DEEPL_AUTH_KEY as string;
   const [toTranslate, setToTranslate] = useState<string>('');
   const [translation, setTranslation]= useState<string>('');
   const[targetLanguage,setTargetLanguage] = useState<string>('EN-US');
@@ -69,27 +68,6 @@ export default function Home() {
 
   //generate and retreive audio of translation being read
   async function handleVoice() {
-    const body = {
-      method: 'POST',
-      url: 'https://play.ht/api/v2/tts',
-      headers: {
-      accept: 'application/json',
-      'content-type': 'application/json',
-      AUTHORIZATION:`Bearer ${process.env.NEXT_PUBLIC_PLAYHT_AUTH_KEY}`, 
-      'X-USER-ID': process.env.NEXT_PUBLIC_PLAYHT_USER_ID,
-      'Access-Control-Allow-Origin':'*',
-      crossorigin:true,
-      'Access-Control-Allow-Credentials':true,
-    },
-      data: {
-        quality: 'medium',
-        output_format: 'mp3',
-        speed: 1,
-        sample_rate: 24000,
-        text: toTranslate,
-        voice: voice
-      }
-    };
    //time out for waiting for audio generation 
    const delay = (ms:number) => {
     return new Promise (resolve => setTimeout(resolve,ms))

@@ -7,7 +7,7 @@ async function handler(req: NextApiRequest, res:NextApiResponse):Promise<void> {
       headers: {
         accept: 'application/json',
         'content-type': 'application/json',
-        Authorization: `${process.env.NEXT_PUBLIC_PLAYHT_AUTH_KEY}`,
+        Authorization: process.env.NEXT_PUBLIC_PLAYHT_AUTH_KEY,
         'X-User-Id': process.env.NEXT_PUBLIC_PLAYHT_USER_ID,
       },
       data: {
