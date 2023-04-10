@@ -98,7 +98,7 @@ export default function Home() {
        // const urlTranslation = translation.replace(/[?]/g, "")
    
         axios.request({
-          url:env ==='development' ? `${urlDev}/playht` :`${urlDev}/playht`,
+          url:env ==='development' ? `${urlDev}/playht` :`${urlProd}/playht`,
           params:{
             translate:translation,
             voice:voice
@@ -114,7 +114,7 @@ export default function Home() {
                 await delay(11000);
                  // pass transcripID as a param
                 await axios.request({
-                  url:env ==='development' ? `${urlDev}/getAudio` :`${urlDev}/getAudio`,
+                  url:env ==='development' ? `${urlDev}/getAudio` :`${urlProd}/getAudio`,
                   params:{
                     transcriptionId:transcriptionData
                   },
