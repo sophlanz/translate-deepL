@@ -1,7 +1,7 @@
 # Language Learning AI
 ## Live Demo: https://ai-lengua.vercel.app/
 ## Description
-Translate from any language into a variety of languages using an AI API, and listen to the translation read by a human-like AI voice. Recieve an AI generated prompt to spark ideas for writing a text in the target language, and then recieve AI grammar feedback. Sign in, and create decks with vocabulary words to refer to later for studying. 
+Translate from any language into a variety of languages using DeepL's AI API, and listen to the translation read by a human-like AI voice using Play.ht Api. Recieve an AI generated prompt from the GPT-3 API to spark ideas for writing a text in the target language, and then recieve AI grammar feedback. Sign in, and create decks with vocabulary words to refer to later for studying. 
 ## Tools and Technologies 
 - Javascript 
 - HTML
@@ -10,12 +10,11 @@ Translate from any language into a variety of languages using an AI API, and lis
 - Next JS
 - PostgreSQL
 - PRISMA
-- Python
-- Flask
 - DeepL API
 - GPT-3 API
 - Play.ht API
 - O-Auth
+- Next-Auth
 ## Features 
  - Translate from any language into English, Spanish, French, German, Chinese, Japanese, or Korean using DeepL Machine Learning API.
  - Listen to a real-like AI voice read the transaltion for you using AI from play.ht's API.
