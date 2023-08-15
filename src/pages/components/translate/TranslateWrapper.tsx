@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-import Traslate from "./Translate";
+import Translate from "./Translate";
 import Translation from "./Translation";
 interface Props {
   translationData: TranslationData;
@@ -168,6 +168,7 @@ export default function TranslateWrapper(props: Props): JSX.Element {
         handleSelectLang={handleSelectLang}
         translationData={translationData}
         setTranslationData={setTranslationData}
+        handleSubmit={handleSubmit}
       />
       <Translation
         translation={translationData.translation}

@@ -2,7 +2,7 @@ import React from "react";
 interface Props {
   translationData: TranslationData;
   setTranslationData: React.Dispatch<React.SetStateAction<TranslationData>>;
-  handleSelectLang: () => void;
+  handleSelectLang: (e: React.ChangeEvent<HTMLSelectElement>) => void;
   handleSubmit: (e: React.SyntheticEvent) => void;
 }
 interface TranslationData {
