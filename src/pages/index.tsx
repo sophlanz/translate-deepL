@@ -139,6 +139,7 @@ export default function Home() {
         translationData={translationData}
         setTranslationData={setTranslationData}
         targetLanguage={targetLanguage}
+        setTargetLanguage={setTargetLanguage}
         setGrammarLang={setGrammarLang}
       />
       <WritingWrapper

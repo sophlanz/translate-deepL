@@ -7,6 +7,7 @@ interface Props {
   setTranslationData: React.Dispatch<React.SetStateAction<TranslationData>>;
   targetLanguage: string;
   setGrammarLang: React.Dispatch<React.SetStateAction<string>>;
+  setTargetLanguage: React.Dispatch<React.SetStateAction<string>>;
 }
 interface TranslationData {
   toTranslate: string;
@@ -21,6 +22,7 @@ export default function TranslateWrapper(props: Props): JSX.Element {
     setTranslationData,
     targetLanguage,
     setGrammarLang,
+    setTargetLanguage,
   } = props;
   const url = {
     prod: "https://ai-lengua.vercel.app/api",
@@ -29,10 +31,7 @@ export default function TranslateWrapper(props: Props): JSX.Element {
   const env = process.env.NODE_ENV;
   //set target lang
   const handleSelectLang = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setTranslationData((prevData) => ({
-      ...prevData,
-      targetLanguage: event.target.value,
-    }));
+    setTargetLanguage(event.target.value);
     switch (event.target.value) {
       case "EN-US":
         setTranslationData((prevData) => ({
