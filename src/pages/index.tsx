@@ -58,10 +58,7 @@ export default function Home() {
     apiKey: process.env.NEXT_PUBLIC_OPENAI_API_KEY,
   });
   const openai = new OpenAIApi(configuration);
-  //check dev or prod
-  const env = process.env.NODE_ENV;
-  const urlProd = "https://ai-lengua.vercel.app/api";
-  const urlDev = "http://localhost:3000/api";
+
   //call api with text to be translated;
   const handleCheckGrammar = async () => {
     const response = await openai.createCompletion({

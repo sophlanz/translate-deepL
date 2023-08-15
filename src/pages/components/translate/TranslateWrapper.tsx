@@ -107,7 +107,7 @@ export default function TranslateWrapper(props: Props): JSX.Element {
       const text = dataDeepL.translations[0].text;
       setTranslationData((prevData) => ({
         ...prevData,
-        text,
+        translation: text,
       }));
       handleVoice();
     } catch (error) {
