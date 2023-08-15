@@ -1,19 +1,22 @@
 import React from "react";
 import Image from "next/image";
 interface Props {
+  wordOfTheDayData: WordOfTheDayData;
+  getWordDefinition: () => void;
+}
+interface WordOfTheDayData {
   wordOfDay: string;
   wordOfDayDefinition: string;
   showDefinition: boolean;
-  getWordDefinition: () => void;
 }
 export default function WordOfDayContainer(props: Props): JSX.Element {
-  const { wordOfDay, wordOfDayDefinition, showDefinition, getWordDefinition } =
-    props;
+  const { wordOfTheDayData, getWordDefinition } = props;
+  props;
   return (
     <section className="wordOfDay">
       <h1>Word Of The Day</h1>
       <div>
-        <h2>{wordOfDay}</h2>
+        <h2>{wordOfTheDayData.wordOfDay}</h2>
         <figure>
           <Image
             onClick={getWordDefinition}
@@ -24,7 +27,9 @@ export default function WordOfDayContainer(props: Props): JSX.Element {
           ></Image>
         </figure>
       </div>
-      {showDefinition ? <p>{wordOfDayDefinition}</p> : null}
+      {wordOfTheDayData.showDefinition ? (
+        <p>{wordOfTheDayData.wordOfDayDefinition}</p>
+      ) : null}
     </section>
   );
 }
