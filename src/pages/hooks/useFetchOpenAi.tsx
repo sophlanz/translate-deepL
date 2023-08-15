@@ -34,7 +34,7 @@ export default function useFetchOpenAi(props: Props): UseFetchOpenAiResponse {
     apiKey: process.env.NEXT_PUBLIC_OPENAI_API_KEY,
   });
   const openai = new OpenAIApi(configuration);
-  const handleCheckGrammar = async () => {
+  const handleFetchApi = async () => {
     const response = (await openai.createCompletion({
       model: "text-davinci-003",
       prompt: prompt,
@@ -48,7 +48,7 @@ export default function useFetchOpenAi(props: Props): UseFetchOpenAiResponse {
   };
   const fetchData = async () => {
     try {
-      const response = await handleCheckGrammar();
+      const response = await handleFetchApi();
       setApiData(response);
     } catch (error) {
       console.log(error);

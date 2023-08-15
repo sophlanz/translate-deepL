@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useMemo } from "react";
 import useFetchOpenAi from "@/pages/hooks/useFetchOpenAi";
+
 interface Props {
   writeData: WriteData;
   setWriteData: React.Dispatch<React.SetStateAction<WriteData>>;

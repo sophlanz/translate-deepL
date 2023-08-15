@@ -1,6 +1,7 @@
 import React from "react";
 import GrammarCheck from "./GrammarCheck";
 import { Configuration, OpenAIApi } from "openai";
+import useFetchOpenAi from "@/pages/hooks/useFetchOpenAi";
 interface Props {
   writeData: WriteData;
   grammarLang: string;
@@ -12,6 +13,9 @@ interface WriteData {
   writingPrompt: string;
   prompt: boolean;
   grammarCheck: boolean;
+}
+interface UseFetchOpenAiResponse {
+  apiData?: OpenAiApiResponse;
 }
 interface OpenAiApiResponse {
   data: {
@@ -35,11 +39,7 @@ interface TextChoice {
 }
 export default function WritingWrapper(props: Props): JSX.Element {
   const { writeData, setWriteData, grammarLang } = props;
-  //openAI
-  const configuration = new Configuration({
-    apiKey: process.env.NEXT_PUBLIC_OPENAI_API_KEY,
-  });
-  const openai = new OpenAIApi(configuration);
+  //Prompt topics
   const topics = [
     "the enviorment",
     "people",
@@ -57,28 +57,22 @@ export default function WritingWrapper(props: Props): JSX.Element {
     "dreams",
     "goals",
   ];
+  //prompt to send to api
+  const prompt = `Give me a unique prompt about ${
+    topics[Math.floor(Math.random() * topics.length)]
+  }  in ${grammarLang} to help spark writing ideas :\n`;
+  //Get prompt from api
+  let data: UseFetchOpenAiResponse = useFetchOpenAi({ prompt });
+
   //openAI get writing prompt
   const handleGetPrompt = async () => {
     try {
-      const response = (await openai.createCompletion({
-        model: "text-davinci-003",
-        prompt: `Give me a unique prompt about ${
-          topics[Math.floor(Math.random() * topics.length)]
-        }  in ${grammarLang} to help spark writing ideas :\n`,
-        temperature: 0,
-        max_tokens: 60,
-        top_p: 1,
-        frequency_penalty: 0,
-        presence_penalty: 0,
-      })) as OpenAiApiResponse;
-      if (
-        response.data?.choices &&
-        response.data.choices.length > 0 &&
-        response.data.choices[0].text !== undefined
-      ) {
+      if (data && data.apiData) {
         setWriteData((prevData) => ({
           ...prevData,
-          writingPrompt: response.data.choices[0].text.toString(),
+          writingPrompt: data.apiData
+            ? data.apiData.data.choices[0].text.toString()
+            : "Oops, there's been an error",
           prompt: true,
         }));
       }
