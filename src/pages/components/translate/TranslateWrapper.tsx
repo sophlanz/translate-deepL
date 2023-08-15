@@ -29,6 +29,7 @@ export default function TranslateWrapper(props: Props): JSX.Element {
     dev: "http://localhost:3000/api",
   };
   const env = process.env.NODE_ENV;
+
   //set target lang
   const handleSelectLang = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setTargetLanguage(event.target.value);
@@ -97,7 +98,7 @@ export default function TranslateWrapper(props: Props): JSX.Element {
         setGrammarLang("English");
     }
   };
-  //translate data
+  //translate and get audio
   const handleSubmit = (event: React.SyntheticEvent) => {
     event.preventDefault();
     //get toTranslate and pass it through api
@@ -153,6 +154,7 @@ export default function TranslateWrapper(props: Props): JSX.Element {
           })
           .then(async (response) => {
             const audioData = response.data.audioUrl;
+            console.log(audioData);
             setTranslationData((prevData) => ({
               ...prevData,
               audioUrl: audioData,

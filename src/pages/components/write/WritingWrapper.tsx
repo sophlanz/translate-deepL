@@ -1,4 +1,5 @@
 import React from "react";
+import GrammarCheck from "./GrammarCheck";
 import { Configuration, OpenAIApi } from "openai";
 interface Props {
   writeData: WriteData;
@@ -85,23 +86,6 @@ export default function WritingWrapper(props: Props): JSX.Element {
       console.log(error);
     }
   };
-  //call api with text to be translated;
-  const handleCheckGrammar = async () => {
-    const response = (await openai.createCompletion({
-      model: "text-davinci-003",
-      prompt: `Correct this to standard ${grammarLang}:\n\n${writeData.textToCorrect}`,
-      temperature: 0,
-      max_tokens: 60,
-      top_p: 1,
-      frequency_penalty: 0,
-      presence_penalty: 0,
-    })) as OpenAiApiResponse;
-    setWriteData((prevData) => ({
-      ...prevData,
-      grammarCorrection: response.data.choices[0].text,
-      grammarCheck: true,
-    }));
-  };
 
   return (
     <div className="writingWrapper">
@@ -120,10 +104,11 @@ export default function WritingWrapper(props: Props): JSX.Element {
           }
         />
       </div>
-      <div className="grammarCheck">
-        <button onClick={handleCheckGrammar}>Check Grammar</button>
-        {writeData.grammarCheck ? <p>{writeData.grammarCorrection}</p> : null}
-      </div>
+      <GrammarCheck
+        writeData={writeData}
+        setWriteData={setWriteData}
+        grammarLang={grammarLang}
+      />
     </div>
   );
 }
