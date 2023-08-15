@@ -164,8 +164,15 @@ export default function TranslateWrapper(props: Props): JSX.Element {
       className="translateWrapper"
       style={{ marginTop: translationData.loggedIn ? "-200px" : "75px" }}
     >
-      <Translate />
-      <Translation />
+      <Translate
+        handleSelectLang={handleSelectLang}
+        translationData={translationData}
+        setTranslationData={setTranslationData}
+      />
+      <Translation
+        translation={translationData.translation}
+        audioUrl={translationData.audioUrl}
+      />
     </div>
   );
 }
