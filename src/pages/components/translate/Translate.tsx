@@ -22,7 +22,7 @@ export default function Translate(props: Props): JSX.Element {
     handleSubmit,
   } = props;
   return (
-    <div className="translate">
+    <section className="translate">
       <div className="selectWrapper">
         <h2>TRANSLATE TO : </h2>
         <select
@@ -43,6 +43,9 @@ export default function Translate(props: Props): JSX.Element {
       <label htmlFor="textToTranslate">
         <textarea
           placeholder="The language will be detected, please start typing."
+          id="textToTranslate"
+          name="textToTranslate"
+          value={translationData.toTranslate}
           onChange={(e) =>
             setTranslationData((prevData) => ({
               ...prevData,
@@ -52,6 +55,6 @@ export default function Translate(props: Props): JSX.Element {
         />
       </label>
       <button onClick={(e) => handleSubmit(e)}>Submit</button>
-    </div>
+    </section>
   );
 }
