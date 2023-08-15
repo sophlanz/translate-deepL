@@ -1,5 +1,7 @@
 import React from "react";
 import axios from "axios";
+import Traslate from "./Translate";
+import Translation from "./Translation";
 interface Props {
   translationData: TranslationData;
   setTranslationData: React.Dispatch<React.SetStateAction<TranslationData>>;
@@ -162,48 +164,8 @@ export default function TranslateWrapper(props: Props): JSX.Element {
       className="translateWrapper"
       style={{ marginTop: translationData.loggedIn ? "-200px" : "75px" }}
     >
-      <div className="translate">
-        <div className="selectWrapper">
-          <h2>TRANSLATE TO : </h2>
-          <select
-            className="targetLang"
-            value={translationData.targetLanguage}
-            onChange={handleSelectLang}
-          >
-            <option value="EN-US">English-US</option>
-            <option value="EN-GB">English-GB</option>
-            <option value="ES">Spanish</option>
-            <option value="FR">French</option>
-            <option value="DE">German</option>
-            <option value="ZH">Chinese</option>
-            <option value="JA">Japanese</option>
-            <option value="KO">Korean</option>
-          </select>
-        </div>
-        <label htmlFor="textToTranslate">
-          <textarea
-            placeholder="The language will be detected, please start typing."
-            onChange={(e) =>
-              setTranslationData((prevData) => ({
-                ...prevData,
-                toTranslate: e.target.value,
-              }))
-            }
-          />
-        </label>
-        <button onClick={(e) => handleSubmit(e)}>Submit</button>
-      </div>
-      <div className="translate">
-        <h2 className="translation">TRANSLATION </h2>
-        <p>{translationData.translation}</p>
-        <div className="translationAudio">
-          <audio controls src={translationData.audioUrl}>
-            {" "}
-            Your browser does not support the
-            <code>audio</code> element.
-          </audio>
-        </div>
-      </div>
+      <Translate />
+      <Translation />
     </div>
   );
 }
