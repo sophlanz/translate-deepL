@@ -6,7 +6,7 @@ interface Props {
 export default function Translation(props: Props): JSX.Element {
   const { translation, audioUrl } = props;
   return (
-    <div className="translate">
+    <section className="translate">
       <h2 className="translation">TRANSLATION </h2>
       <p>{translation}</p>
       <div className="translationAudio">
@@ -16,6 +16,6 @@ export default function Translation(props: Props): JSX.Element {
           <code>audio</code> element.
         </audio>
       </div>
-    </div>
+    </section>
   );
 }
