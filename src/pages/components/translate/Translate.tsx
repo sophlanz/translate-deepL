@@ -1,4 +1,5 @@
 import React from "react";
+import SelectLang from "./SelectLang";
 interface Props {
   translationData: TranslationData;
   setTranslationData: React.Dispatch<React.SetStateAction<TranslationData>>;
@@ -23,23 +24,10 @@ export default function Translate(props: Props): JSX.Element {
   } = props;
   return (
     <section className="translate">
-      <div className="selectWrapper">
-        <h2>TRANSLATE TO : </h2>
-        <select
-          className="targetLang"
-          value={translationData.targetLanguage}
-          onChange={handleSelectLang}
-        >
-          <option value="EN-US">English-US</option>
-          <option value="EN-GB">English-GB</option>
-          <option value="ES">Spanish</option>
-          <option value="FR">French</option>
-          <option value="DE">German</option>
-          <option value="ZH">Chinese</option>
-          <option value="JA">Japanese</option>
-          <option value="KO">Korean</option>
-        </select>
-      </div>
+      <SelectLang
+        handleSelectLang={handleSelectLang}
+        targetLanguage={translationData.targetLanguage}
+      />
       <label htmlFor="textToTranslate">
         <textarea
           placeholder="The language will be detected, please start typing."
