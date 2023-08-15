@@ -1,5 +1,6 @@
 import React from "react";
 import SelectLang from "./SelectLang";
+import TranslateLabel from "./TranslateLabel";
 interface Props {
   translationData: TranslationData;
   setTranslationData: React.Dispatch<React.SetStateAction<TranslationData>>;
@@ -28,21 +29,11 @@ export default function Translate(props: Props): JSX.Element {
         handleSelectLang={handleSelectLang}
         targetLanguage={translationData.targetLanguage}
       />
-      <label htmlFor="textToTranslate">
-        <textarea
-          placeholder="The language will be detected, please start typing."
-          id="textToTranslate"
-          name="textToTranslate"
-          value={translationData.toTranslate}
-          onChange={(e) =>
-            setTranslationData((prevData) => ({
-              ...prevData,
-              toTranslate: e.target.value,
-            }))
-          }
-        />
-      </label>
-      <button onClick={(e) => handleSubmit(e)}>Submit</button>
+      <TranslateLabel
+        handleSubmit={handleSubmit}
+        translationData={translationData}
+        setTranslationData={setTranslationData}
+      />
     </section>
   );
 }
