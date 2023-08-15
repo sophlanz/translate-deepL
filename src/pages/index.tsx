@@ -6,9 +6,40 @@ import prisma from "../../prisma/lib/prisma";
 import Header from "./components/Header";
 import Image from "next/image";
 import { WordOfDayContainer } from "./components/wordOfDay";
+import { TranslateWrapper } from "./components/translate";
+interface TranslationData {
+  toTranslate: string;
+  translation: string;
+  targetLanguage: string;
+  grammarLang: string;
+  audioUrl: string;
+  voice: string;
+  loggedIn: boolean;
+}
+const initialTranslation: TranslationData = {
+  toTranslate: "",
+  translation: "",
+  targetLanguage: "EN-US",
+  grammarLang: "English-US",
+  audioUrl: "english",
+  voice: "en-US-SaraNeural",
+  loggedIn: false,
+};
+interface WordOfTheDay {
+  wordOfDay: string;
+  wordOfDayDefinition: string;
+  showDefinition: boolean;
+}
+interface Write {
+  textToCorrect: string;
+  grammarCorrection: string;
+  grammarLang: string;
+  writingPrompt: string;
+  prompt: boolean;
+}
 export default function Home() {
-  const [toTranslate, setToTranslate] = useState<string>("");
-  const [translation, setTranslation] = useState<string>("");
+  const [translationData, setTranslationData] =
+    useState<TranslationData>(initialTranslation);
   const [targetLanguage, setTargetLanguage] = useState<string>("EN-US");
   const [audioUrl, setAudioUrl] = useState<string>("english");
   const [textToCorrect, setTextToCorrect] = useState<string>("");
@@ -47,114 +78,7 @@ export default function Home() {
     setGrammarCorrection(response.data.choices[0].text);
     setGrammarCheck(true);
   };
-  //translate data
-  const handleSubmit = (event: React.SyntheticEvent) => {
-    event.preventDefault();
-    //get toTranslate and pass it through api
-    (async () => {
-      const urlDeepL = `https://api-free.deepl.com/v2/translate?auth_key=${process.env.NEXT_PUBLIC_DEEPL_AUTH_KEY}&text=${toTranslate}&target_lang=${targetLanguage}&preserve_formatting=1`;
-      console.log(targetLanguage, toTranslate);
-      const responseDeepL = await fetch(urlDeepL);
-      console.log(responseDeepL);
-      const dataDeepL = await responseDeepL.json();
-      console.log(dataDeepL);
-      const text = dataDeepL.translations[0].text;
-      console.log(text);
-      setTranslation(text);
-      handleVoice();
-    })();
-  };
 
-  //generate and retreive audio of translation being read
-  async function handleVoice() {
-    //time out for waiting for audio generation
-    const delay = (ms: number) => {
-      return new Promise((resolve) => setTimeout(resolve, ms));
-    };
-    //remove all of the "?" or the url will be invalid
-    // const urlTranslation = translation.replace(/[?]/g, "")
-
-    axios
-      .request({
-        url: env === "development" ? `${urlDev}/playht` : `${urlProd}/playht`,
-        params: {
-          translate: translation,
-          voice: voice,
-        },
-      })
-      .then(async (response) => {
-        console.log(response);
-        console.log(response.data);
-        //get data from response, parse JSON into an object
-        const transcriptionData = response.data.transcriptionId;
-        //delay to wait for the audio to be generated
-        await delay(11000);
-        // pass transcripID as a param
-        await axios
-          .request({
-            url:
-              env === "development"
-                ? `${urlDev}/getAudio`
-                : `${urlProd}/getAudio`,
-            params: {
-              transcriptionId: transcriptionData,
-            },
-          })
-          .then(async (response) => {
-            console.log(response);
-            const audioData = response.data.audioUrl;
-            console.log(audioData);
-            setAudioUrl(audioData);
-          })
-          .catch((error) => {
-            console.log(error.message);
-          });
-      });
-  }
-
-  //set target lang
-  const handleSelectLang = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setTargetLanguage(event.target.value);
-    console.log(event.target.value);
-    switch (event.target.value) {
-      case "EN-US":
-        setGrammarLang("English-US");
-        setVoice("en-US-SaraNeural");
-        break;
-      case "EN-GB":
-        setGrammarLang("English-GB");
-        setVoice("en-GB-RyanNeural");
-        break;
-      case "ES":
-        setGrammarLang("Spanish");
-        setVoice("es-US-PalomaNeural");
-        break;
-      case "FR":
-        setGrammarLang("French");
-        setVoice("fr-BE-GerardNeural");
-        break;
-      case "DE":
-        setGrammarLang("German");
-        setVoice("de-DE-ConradNeural");
-        break;
-      case "ZH":
-        setGrammarLang("Chinese");
-        setVoice("zh-CN-XiaoxuanNeural");
-        break;
-      case "JA":
-        setGrammarLang("Japanese");
-        setVoice("ja-JP-NanamiNeural");
-        break;
-      case "KO":
-        setGrammarLang("Korean");
-        setVoice("ko-KR-InJoonNeural");
-        break;
-      default:
-        setGrammarLang("English");
-        setVoice("en-US-SaraNeural");
-    }
-    console.log(voice);
-  };
   const topics = [
     "the enviorment",
     "people",
@@ -238,49 +162,10 @@ export default function Home() {
         wordOfDayDefinition={wordOfDayDefinition}
         showDefinition={showDefinition}
       />
-
-      <div
-        className="translateWrapper"
-        style={{ marginTop: loggedIn ? "-200px" : "75px" }}
-      >
-        <div className="translate">
-          <div className="selectWrapper">
-            <h2>TRANSLATE TO : </h2>
-            <select
-              className="targetLang"
-              value={targetLanguage}
-              onChange={handleSelectLang}
-            >
-              <option value="EN-US">English-US</option>
-              <option value="EN-GB">English-GB</option>
-              <option value="ES">Spanish</option>
-              <option value="FR">French</option>
-              <option value="DE">German</option>
-              <option value="ZH">Chinese</option>
-              <option value="JA">Japanese</option>
-              <option value="KO">Korean</option>
-            </select>
-          </div>
-          <label htmlFor="textToTranslate">
-            <textarea
-              placeholder="The language will be detected, please start typing."
-              onChange={(e) => setToTranslate(e.target.value)}
-            />
-          </label>
-          <button onClick={(e) => handleSubmit(e)}>Submit</button>
-        </div>
-        <div className="translate">
-          <h2 className="translation">TRANSLATION </h2>
-          <p>{translation}</p>
-          <div className="translationAudio">
-            <audio controls src={audioUrl}>
-              {" "}
-              Your browser does not support the
-              <code>audio</code> element.
-            </audio>
-          </div>
-        </div>
-      </div>
+      <TranslateWrapper
+        translationData={translationData}
+        setTranslationData={setTranslationData}
+      />
       <div className="writingWrapper">
         <div className="prompt">
           <button onClick={handleGetPrompt}>Generate Prompt</button>
