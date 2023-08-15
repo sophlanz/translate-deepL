@@ -5,18 +5,23 @@ import Translation from "./Translation";
 interface Props {
   translationData: TranslationData;
   setTranslationData: React.Dispatch<React.SetStateAction<TranslationData>>;
+  targetLanguage: string;
+  setGrammarLang: React.Dispatch<React.SetStateAction<string>>;
 }
 interface TranslationData {
   toTranslate: string;
   translation: string;
-  targetLanguage: string;
-  grammarLang: string;
   audioUrl: string;
   voice: string;
   loggedIn: boolean;
 }
 export default function TranslateWrapper(props: Props): JSX.Element {
-  const { translationData, setTranslationData } = props;
+  const {
+    translationData,
+    setTranslationData,
+    targetLanguage,
+    setGrammarLang,
+  } = props;
   const url = {
     prod: "https://ai-lengua.vercel.app/api",
     dev: "http://localhost:3000/api",
@@ -32,65 +37,65 @@ export default function TranslateWrapper(props: Props): JSX.Element {
       case "EN-US":
         setTranslationData((prevData) => ({
           ...prevData,
-          grammarLang: "English-US",
           voice: "en-US-SaraNeural",
         }));
+        setGrammarLang("English-US");
         break;
       case "EN-GB":
         setTranslationData((prevData) => ({
           ...prevData,
-          grammarLang: "English-GB",
           voice: "en-GB-RyanNeural",
         }));
+        setGrammarLang("English-GB");
         break;
       case "ES":
         setTranslationData((prevData) => ({
           ...prevData,
-          grammarLang: "Spanish",
           voice: "es-US-PalomaNeural",
         }));
+        setGrammarLang("Spanish");
         break;
       case "FR":
         setTranslationData((prevData) => ({
           ...prevData,
-          grammarLang: "French",
           voice: "fr-BE-GerardNeural",
         }));
+        setGrammarLang("French");
         break;
       case "DE":
         setTranslationData((prevData) => ({
           ...prevData,
-          grammarLang: "German",
           voice: "de-DE-ConradNeural",
         }));
+        setGrammarLang("German");
         break;
       case "ZH":
         setTranslationData((prevData) => ({
           ...prevData,
-          grammarLang: "Chinese",
           voice: "zh-CN-XiaoxuanNeural",
         }));
+        setGrammarLang("Chinese");
         break;
       case "JA":
         setTranslationData((prevData) => ({
           ...prevData,
-          grammarLang: "Japanese",
           voice: "ja-JP-NanamiNeural",
         }));
+        setGrammarLang("Japanese");
         break;
       case "KO":
         setTranslationData((prevData) => ({
           ...prevData,
-          grammarLang: "Korean",
           voice: "ko-KR-InJoonNeural",
         }));
+        setGrammarLang("Korean");
         break;
       default:
         setTranslationData((prevData) => ({
           ...prevData,
-          grammarLang: "English",
           voice: "en-US-SaraNeural",
         }));
+        setGrammarLang("English");
     }
   };
   //translate data
@@ -101,7 +106,7 @@ export default function TranslateWrapper(props: Props): JSX.Element {
   };
   const fetchTranslation = async () => {
     try {
-      const urlDeepL = `https://api-free.deepl.com/v2/translate?auth_key=${process.env.NEXT_PUBLIC_DEEPL_AUTH_KEY}&text=${translationData.toTranslate}&target_lang=${translationData.targetLanguage}&preserve_formatting=1`;
+      const urlDeepL = `https://api-free.deepl.com/v2/translate?auth_key=${process.env.NEXT_PUBLIC_DEEPL_AUTH_KEY}&text=${translationData.toTranslate}&target_lang=${targetLanguage}&preserve_formatting=1`;
       const responseDeepL = await fetch(urlDeepL);
       const dataDeepL = await responseDeepL.json();
       const text = dataDeepL.translations[0].text;
@@ -169,6 +174,7 @@ export default function TranslateWrapper(props: Props): JSX.Element {
         translationData={translationData}
         setTranslationData={setTranslationData}
         handleSubmit={handleSubmit}
+        targetLanguage={targetLanguage}
       />
       <Translation
         translation={translationData.translation}

@@ -7,8 +7,6 @@ import { WritingWrapper } from "./components/write";
 interface TranslationData {
   toTranslate: string;
   translation: string;
-  targetLanguage: string;
-  grammarLang: string;
   audioUrl: string;
   voice: string;
   loggedIn: boolean;
@@ -16,8 +14,6 @@ interface TranslationData {
 const initialTranslation: TranslationData = {
   toTranslate: "",
   translation: "",
-  targetLanguage: "EN-US",
-  grammarLang: "English-US",
   audioUrl: "english",
   voice: "en-US-SaraNeural",
   loggedIn: false,
@@ -46,6 +42,26 @@ const initialWriteData: WriteData = {
   writingPrompt: "",
   prompt: false,
 };
+interface OpenAiApiResponse {
+  data: {
+    id: string;
+    object: string;
+    created: number;
+    model: string;
+    choices: TextChoice[];
+    usage: {
+      prompt_tokens: number;
+      completion_tokens: number;
+      total_tokens: number;
+    };
+  };
+}
+interface TextChoice {
+  text: string;
+  index: number;
+  logprobs: null;
+  finish_reason: string;
+}
 export default function Home() {
   const [translationData, setTranslationData] =
     useState<TranslationData>(initialTranslation);
@@ -56,7 +72,6 @@ export default function Home() {
   const [targetLanguage, setTargetLanguage] = useState<string>("EN-US");
   const [grammarLang, setGrammarLang] = useState<string>("English-US");
   const [wordOfDay, setWordOfDay] = useState<any>();
-  const [wordOfDayDefinition, setWordOfDayDefinition] = useState<any>();
   const [showDefinition, setShowDefinition] = useState<boolean>(false);
 
   const [loggedIn, setLoggedIn] = useState<boolean>(false);
@@ -77,7 +92,7 @@ export default function Home() {
   ];
 
   const getWordDefinition = async () => {
-    const response = await openai.createCompletion({
+    const response = (await openai.createCompletion({
       model: "text-davinci-003",
       prompt: `Tell me in  ${grammarLang} the definition of $ ${wordOfDay} , and use it in a sentence:\n`,
       temperature: 0,
@@ -85,14 +100,17 @@ export default function Home() {
       top_p: 1,
       frequency_penalty: 0,
       presence_penalty: 0,
-    });
-    setWordOfDayDefinition(response.data.choices[0].text);
-    setShowDefinition(!showDefinition);
+    })) as OpenAiApiResponse;
+    setWordOfTheDayData((prevData) => ({
+      ...prevData,
+      wordOfDayDefinition: response.data.choices[0].text,
+      showDefinition: !showDefinition,
+    }));
   };
   useEffect(() => {
     //get random word in target laguage
     const getWordOfDay = async () => {
-      const response = await openai.createCompletion({
+      const response = (await openai.createCompletion({
         model: "text-davinci-003",
         prompt: `Give me a unique random advanced ${
           wordTopics[Math.floor(Math.random() * wordTopics.length)]
@@ -102,8 +120,11 @@ export default function Home() {
         top_p: 1,
         frequency_penalty: 0,
         presence_penalty: 0,
-      });
-      setWordOfDay(response.data.choices[0].text);
+      })) as OpenAiApiResponse;
+      setWordOfTheDayData((prev) => ({
+        ...prev,
+        wordOfDay: response.data.choices[0].text,
+      }));
     };
     getWordOfDay();
   }, [targetLanguage]);
@@ -117,6 +138,8 @@ export default function Home() {
       <TranslateWrapper
         translationData={translationData}
         setTranslationData={setTranslationData}
+        targetLanguage={targetLanguage}
+        setGrammarLang={setGrammarLang}
       />
       <WritingWrapper
         writeData={writeData}

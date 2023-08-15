@@ -12,7 +12,7 @@ interface WriteData {
   prompt: boolean;
   grammarCheck: boolean;
 }
-interface ApiResponse {
+interface OpenAiApiResponse {
   data: {
     id: string;
     object: string;
@@ -69,7 +69,7 @@ export default function WritingWrapper(props: Props): JSX.Element {
         top_p: 1,
         frequency_penalty: 0,
         presence_penalty: 0,
-      })) as ApiResponse;
+      })) as OpenAiApiResponse;
       if (
         response.data?.choices &&
         response.data.choices.length > 0 &&
@@ -95,7 +95,7 @@ export default function WritingWrapper(props: Props): JSX.Element {
       top_p: 1,
       frequency_penalty: 0,
       presence_penalty: 0,
-    })) as ApiResponse;
+    })) as OpenAiApiResponse;
     setWriteData((prevData) => ({
       ...prevData,
       grammarCorrection: response.data.choices[0].text,

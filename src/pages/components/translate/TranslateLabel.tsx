@@ -7,8 +7,6 @@ interface Props {
 interface TranslationData {
   toTranslate: string;
   translation: string;
-  targetLanguage: string;
-  grammarLang: string;
   audioUrl: string;
   voice: string;
   loggedIn: boolean;
