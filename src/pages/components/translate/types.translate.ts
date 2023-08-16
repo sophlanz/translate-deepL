@@ -27,7 +27,7 @@ export interface TranslateWrapperProps {
     translationData: TranslationData;
     targetLanguage: string;
   }
-  interface TranslationData {
+  export interface TranslationData {
     toTranslate: string;
     translation: string;
     audioUrl: string;

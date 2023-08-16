@@ -14,7 +14,7 @@ export interface WritingWrapperProps {
     setWriteData:React.Dispatch<React.SetStateAction<WriteData>>;
     writeData:WriteData;
   }
-  interface WriteData {
+  export interface WriteData {
     textToCorrect: string;
     grammarCorrection: string;
     writingPrompt: string;

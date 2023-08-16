@@ -4,13 +4,10 @@ import Header from "./components/Header";
 import { WordOfDayContainer } from "./components/wordOfDay";
 import { TranslateWrapper } from "./components/translate";
 import { WritingWrapper } from "./components/write";
-interface TranslationData {
-  toTranslate: string;
-  translation: string;
-  audioUrl: string;
-  voice: string;
-  loggedIn: boolean;
-}
+import { TranslationData } from "./components/translate/types.translate";
+import { WordOfTheDayData } from "./components/wordOfDay/types.wordOfDay";
+import { OpenAiApiResponse } from "./components/write/types.write";
+import { WriteData } from "./components/write/types.write";
 const initialTranslation: TranslationData = {
   toTranslate: "",
   translation: "",
@@ -18,23 +15,11 @@ const initialTranslation: TranslationData = {
   voice: "en-US-SaraNeural",
   loggedIn: false,
 };
-interface WordOfTheDayData {
-  wordOfDay: string;
-  wordOfDayDefinition: string;
-  showDefinition: boolean;
-}
 const initialWordOfTheDayData: WordOfTheDayData = {
   wordOfDay: "",
   wordOfDayDefinition: "",
   showDefinition: false,
 };
-interface WriteData {
-  textToCorrect: string;
-  grammarCorrection: string;
-  writingPrompt: string;
-  prompt: boolean;
-  grammarCheck: boolean;
-}
 const initialWriteData: WriteData = {
   textToCorrect: "",
   grammarCorrection: "",
@@ -42,26 +27,6 @@ const initialWriteData: WriteData = {
   writingPrompt: "",
   prompt: false,
 };
-interface OpenAiApiResponse {
-  data: {
-    id: string;
-    object: string;
-    created: number;
-    model: string;
-    choices: TextChoice[];
-    usage: {
-      prompt_tokens: number;
-      completion_tokens: number;
-      total_tokens: number;
-    };
-  };
-}
-interface TextChoice {
-  text: string;
-  index: number;
-  logprobs: null;
-  finish_reason: string;
-}
 export default function Home() {
   const [translationData, setTranslationData] =
     useState<TranslationData>(initialTranslation);
