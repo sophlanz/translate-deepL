@@ -1,41 +1,8 @@
 import React, { useMemo } from "react";
 import useFetchOpenAi from "@/pages/hooks/useFetchOpenAi";
+import { GrammarCheckProps as Props } from "./types.write";
+import { UseFetchOpenAiResponse } from "./types.write";
 
-interface Props {
-  writeData: WriteData;
-  setWriteData: React.Dispatch<React.SetStateAction<WriteData>>;
-  grammarLang: string;
-}
-interface WriteData {
-  textToCorrect: string;
-  grammarCorrection: string;
-  writingPrompt: string;
-  prompt: boolean;
-  grammarCheck: boolean;
-}
-interface UseFetchOpenAiResponse {
-  apiData?: OpenAiApiResponse;
-}
-interface OpenAiApiResponse {
-  data: {
-    id: string;
-    object: string;
-    created: number;
-    model: string;
-    choices: TextChoice[];
-    usage: {
-      prompt_tokens: number;
-      completion_tokens: number;
-      total_tokens: number;
-    };
-  };
-}
-interface TextChoice {
-  text: string;
-  index: number;
-  logprobs: null;
-  finish_reason: string;
-}
 export default function GrammarCheck(props: Props): JSX.Element {
   const { writeData, setWriteData, grammarLang } = props;
   const prompt = `Correct this to standard ${grammarLang}:\n\n${writeData.textToCorrect}`;

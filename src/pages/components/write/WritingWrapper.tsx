@@ -2,41 +2,9 @@ import React from "react";
 import GrammarCheck from "./GrammarCheck";
 import { Configuration, OpenAIApi } from "openai";
 import useFetchOpenAi from "@/pages/hooks/useFetchOpenAi";
-interface Props {
-  writeData: WriteData;
-  grammarLang: string;
-  setWriteData: React.Dispatch<React.SetStateAction<WriteData>>;
-}
-interface WriteData {
-  textToCorrect: string;
-  grammarCorrection: string;
-  writingPrompt: string;
-  prompt: boolean;
-  grammarCheck: boolean;
-}
-interface UseFetchOpenAiResponse {
-  apiData?: OpenAiApiResponse;
-}
-interface OpenAiApiResponse {
-  data: {
-    id: string;
-    object: string;
-    created: number;
-    model: string;
-    choices: TextChoice[];
-    usage: {
-      prompt_tokens: number;
-      completion_tokens: number;
-      total_tokens: number;
-    };
-  };
-}
-interface TextChoice {
-  text: string;
-  index: number;
-  logprobs: null;
-  finish_reason: string;
-}
+import { WritingWrapperProps as Props } from "./types.write";
+import { UseFetchOpenAiResponse } from "./types.write";
+
 export default function WritingWrapper(props: Props): JSX.Element {
   const { writeData, setWriteData, grammarLang } = props;
   //Prompt topics

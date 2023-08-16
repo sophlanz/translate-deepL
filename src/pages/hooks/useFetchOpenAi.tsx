@@ -1,30 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Configuration, OpenAIApi } from "openai";
+import {
+  UseFetchOpenAiResponse,
+  OpenAiApiResponse,
+} from "../components/write/types.write";
 interface Props {
   prompt: string;
-}
-interface UseFetchOpenAiResponse {
-  apiData?: OpenAiApiResponse;
-}
-interface OpenAiApiResponse {
-  data: {
-    id: string;
-    object: string;
-    created: number;
-    model: string;
-    choices: TextChoice[];
-    usage: {
-      prompt_tokens: number;
-      completion_tokens: number;
-      total_tokens: number;
-    };
-  };
-}
-interface TextChoice {
-  text: string;
-  index: number;
-  logprobs: null;
-  finish_reason: string;
 }
 export default function useFetchOpenAi(props: Props): UseFetchOpenAiResponse {
   const { prompt } = props;
