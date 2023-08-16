@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React from "react";
 import useFetchOpenAi from "@/pages/hooks/useFetchOpenAi";
 import { GrammarCheckProps as Props } from "./types.write";
 import { UseFetchOpenAiResponse } from "./types.write";
