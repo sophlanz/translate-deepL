@@ -1,8 +1,5 @@
 import React from "react";
-interface Props {
-  translation: string;
-  audioUrl: string;
-}
+import { TranslationProps as Props } from "./types.translate";
 export default function Translation(props: Props): JSX.Element {
   const { translation, audioUrl } = props;
   return (

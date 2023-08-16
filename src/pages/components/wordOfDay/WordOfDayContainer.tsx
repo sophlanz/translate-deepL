@@ -1,14 +1,7 @@
 import React from "react";
 import Image from "next/image";
-interface Props {
-  wordOfTheDayData: WordOfTheDayData;
-  getWordDefinition: () => void;
-}
-interface WordOfTheDayData {
-  wordOfDay: string;
-  wordOfDayDefinition: string;
-  showDefinition: boolean;
-}
+import { Props } from "./types.wordOfDay";
+
 export default function WordOfDayContainer(props: Props): JSX.Element {
   const { wordOfTheDayData, getWordDefinition } = props;
   props;

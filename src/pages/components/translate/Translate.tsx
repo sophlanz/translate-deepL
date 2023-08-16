@@ -1,38 +1,30 @@
 import React from "react";
 import SelectLang from "./SelectLang";
 import TranslateLabel from "./TranslateLabel";
-interface Props {
-  translationData: TranslationData;
-  targetLanguage: string;
-  setTranslationData: React.Dispatch<React.SetStateAction<TranslationData>>;
-  handleSelectLang: (e: React.ChangeEvent<HTMLSelectElement>) => void;
-  handleSubmit: (e: React.SyntheticEvent) => void;
-}
-interface TranslationData {
-  toTranslate: string;
-  translation: string;
-  audioUrl: string;
-  voice: string;
-  loggedIn: boolean;
-}
+import axios from "axios";
+import { TranslateProps as Props } from "./types.translate";
+
 export default function Translate(props: Props): JSX.Element {
   const {
     translationData,
     setTranslationData,
-    handleSelectLang,
-    handleSubmit,
     targetLanguage,
+    setTargetLanguage,
+    setGrammarLang,
   } = props;
+
   return (
     <section className="translate">
       <SelectLang
-        handleSelectLang={handleSelectLang}
         targetLanguage={targetLanguage}
+        setGrammarLang={setGrammarLang}
+        setTargetLanguage={setTargetLanguage}
+        setTranslationData={setTranslationData}
       />
       <TranslateLabel
-        handleSubmit={handleSubmit}
         translationData={translationData}
         setTranslationData={setTranslationData}
+        targetLanguage={targetLanguage}
       />
     </section>
   );
