@@ -1,60 +1,23 @@
 import React from "react";
 import GrammarCheck from "./GrammarCheck";
+import WritingPrompt from "./WritingPrompt";
 import { Configuration, OpenAIApi } from "openai";
 import useFetchOpenAi from "@/pages/hooks/useFetchOpenAi";
 import { WritingWrapperProps as Props } from "./types.write";
 import { UseFetchOpenAiResponse } from "./types.write";
-
+import { write } from "fs";
 export default function WritingWrapper(props: Props): JSX.Element {
   const { writeData, setWriteData, grammarLang } = props;
-  //Prompt topics
-  const topics = [
-    "the enviorment",
-    "people",
-    "life",
-    "society",
-    "daily life",
-    "life reflections",
-    "friend reflections",
-    "gratefulness",
-    "love",
-    "friendship",
-    "resilience",
-    "confidence",
-    "aspirations",
-    "dreams",
-    "goals",
-  ];
-  //prompt to send to api
-  const prompt = `Give me a unique prompt about ${
-    topics[Math.floor(Math.random() * topics.length)]
-  }  in ${grammarLang} to help spark writing ideas :\n`;
-  //Get prompt from api
-  let data: UseFetchOpenAiResponse = useFetchOpenAi({ prompt });
-
-  //openAI get writing prompt
-  const handleGetPrompt = async () => {
-    try {
-      if (data && data.apiData) {
-        setWriteData((prevData) => ({
-          ...prevData,
-          writingPrompt: data.apiData
-            ? data.apiData.data.choices[0].text.toString()
-            : "Oops, there's been an error",
-          prompt: true,
-        }));
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   return (
     <div className="writingWrapper">
-      <div className="prompt">
-        <button onClick={handleGetPrompt}>Generate Prompt</button>
-        {writeData.prompt ? <p>{writeData.writingPrompt}</p> : null}
-      </div>
+      <WritingPrompt
+        promptBoolean={writeData.prompt}
+        grammarLang={grammarLang}
+        writeData={writeData}
+        setWriteData={setWriteData}
+      />
+
       <div className="textWrapper">
         <textarea
           placeholder="Generate a prompt, write some text, and check your grammar! "

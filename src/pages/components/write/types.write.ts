@@ -8,6 +8,12 @@ export interface WritingWrapperProps {
     setWriteData: React.Dispatch<React.SetStateAction<WriteData>>;
     grammarLang: string;
   }
+  export interface WritingPromptProps {
+    promptBoolean: boolean;
+    grammarLang: string;
+    setWriteData:React.Dispatch<React.SetStateAction<WriteData>>;
+    writeData:WriteData;
+  }
   interface WriteData {
     textToCorrect: string;
     grammarCorrection: string;
