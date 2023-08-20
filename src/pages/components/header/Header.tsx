@@ -11,7 +11,6 @@ const Header: React.FC<Props> = (props: Props) => {
   const isActive: (pathname: string) => boolean = (pathname) =>
     router.pathname === pathname;
   const { data: session, status } = useSession();
-
   let message;
   let navBar;
   if (status === "loading") {

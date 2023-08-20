@@ -2,11 +2,7 @@ import { NextApiHandler } from 'next';
 import NextAuth from 'next-auth';
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
 import GoogleProvider from "next-auth/providers/google";
-import prisma from '../../../../prisma/lib/prisma';
-
-
-const authHandler: NextApiHandler = (req, res) => NextAuth(req, res, options);
-export default authHandler;
+ import prisma from '../../../../prisma/lib/prisma'; 
 
 const options = {
     providers: [
@@ -22,8 +18,8 @@ const options = {
           }
         }),
     ],
-    
-   
     adapter: PrismaAdapter(prisma),
     secret: process.env.SECRET,
   };
+const authHandler: NextApiHandler = (req, res) => NextAuth(req, res, options);
+export default authHandler;
