@@ -14,7 +14,7 @@ export const AudioProvider = ({ children, initialUrl }: AudioProviderProps) => {
     setAudioUrl(newUrl);
   };
   return (
-    <AudioContext.Provider value={{ audioUrl: audioUrl, changeAudioUrl }}>
+    <AudioContext.Provider value={{ audioUrl, changeAudioUrl }}>
       {children}
     </AudioContext.Provider>
   );

@@ -11,10 +11,6 @@ export interface TranslateWrapperProps {
     audioUrl: string;
   }
 
-  export interface TranslateLabelProps {
-    setTranslationData: React.Dispatch<React.SetStateAction<TranslationData>>;
-    translationData: TranslationData;
-  }
   export interface TranslationData {
     toTranslate: string;
     translation: string;

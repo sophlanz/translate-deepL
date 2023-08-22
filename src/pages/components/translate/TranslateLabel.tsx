@@ -1,46 +1,46 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { TranslateLabelProps as Props } from "./types.translate";
 import { useLanguage } from "@/pages/context/language-context";
 import { useAudio } from "@/pages/context/audio-context";
+import { useTranslation } from "@/pages/context/translation-context";
 export default function TranslateLabel(): JSX.Element {
-  const [translation, setTranslation] = useState<string>("");
+  const { translation, changeTranslation } = useTranslation();
   const [toBeTranslated, setToBeTranslated] = useState<string>("");
   const { changeAudioUrl } = useAudio();
-  const [audioLanguage, setAudioLanguage] = useState<string>("EN-US");
+  const [aiApiLanguage, setAiApiLanguage] = useState<string>("EN-US");
   const { language, voice } = useLanguage();
   let url = "https://ai-lengua.vercel.app/api";
   if (process.env.NODE_ENV === "development") {
     url = "http://localhost:3000/api";
   }
-  const convertAudioLanguage = (language: string) => {
+  const convertAiApiLanguage = (language: string) => {
     switch (language) {
       case "English-US":
-        setAudioLanguage("EN-US");
+        setAiApiLanguage("EN-US");
         break;
       case "English-GB":
-        setAudioLanguage("EN-GB");
+        setAiApiLanguage("EN-GB");
         break;
       case "Spanish":
-        setAudioLanguage("ES");
+        setAiApiLanguage("ES");
         break;
       case "French":
-        setAudioLanguage("FR");
+        setAiApiLanguage("FR");
         break;
       case "German":
-        setAudioLanguage("DE");
+        setAiApiLanguage("DE");
         break;
       case "Chinese":
-        setAudioLanguage("Chinese");
+        setAiApiLanguage("Chinese");
         break;
       case "Japanese":
-        setAudioLanguage("JA");
+        setAiApiLanguage("JA");
         break;
       case "Korean":
-        setAudioLanguage("KO");
+        setAiApiLanguage("KO");
         break;
       default:
-        setAudioLanguage("EN-US");
+        setAiApiLanguage("EN-US");
     }
   };
   //translate and get audio
@@ -51,11 +51,11 @@ export default function TranslateLabel(): JSX.Element {
   };
   const fetchTranslation = async () => {
     try {
-      const urlDeepL = `https://api-free.deepl.com/v2/translate?auth_key=${process.env.NEXT_PUBLIC_DEEPL_AUTH_KEY}&text=${toBeTranslated}&target_lang=${audioLanguage}&preserve_formatting=1`;
+      const urlDeepL = `https://api-free.deepl.com/v2/translate?auth_key=${process.env.NEXT_PUBLIC_DEEPL_AUTH_KEY}&text=${toBeTranslated}&target_lang=${aiApiLanguage}&preserve_formatting=1`;
       const responseDeepL = await fetch(urlDeepL);
       const dataDeepL = await responseDeepL.json();
       const text = dataDeepL.translations[0].text;
-      setTranslation(text);
+      changeTranslation(text);
       handleVoice();
     } catch (error) {
       console.log(error);
@@ -101,7 +101,7 @@ export default function TranslateLabel(): JSX.Element {
       });
   }
   useEffect(() => {
-    convertAudioLanguage(language);
+    convertAiApiLanguage(language);
   }, [language]);
   return (
     <>

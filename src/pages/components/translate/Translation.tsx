@@ -1,7 +1,9 @@
 import React from "react";
-import { TranslationProps as Props } from "./types.translate";
-export default function Translation(props: Props): JSX.Element {
-  const { translation, audioUrl } = props;
+import { useAudio } from "@/pages/context/audio-context";
+import { useTranslation } from "@/pages/context/translation-context";
+export default function Translation(): JSX.Element {
+  const { audioUrl } = useAudio();
+  const { translation } = useTranslation();
   return (
     <section className="translate">
       <h2 className="translation">TRANSLATION </h2>
