@@ -104,7 +104,7 @@ const Cards: React.FC = ({
   }, [cards, session]);
   return (
     <>
-      <Header sendToParent={setLoggedIn} />
+      <Header />
       <div className="cards">
         <form onSubmit={(e) => handleCreateCard(e)}>
           <label htmlFor="front">

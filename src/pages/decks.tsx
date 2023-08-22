@@ -9,29 +9,8 @@ import Header from "./components/Header";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
 import uniqid from "uniqid";
-export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
-  const session = await getSession({ req });
-  if (!session) {
-    res.statusCode = 403;
-    return { props: { decks: [] } };
-  }
 
-  const decks = await prisma.deck.findMany({
-    //matching email
-    where: {
-      user: { email: session?.user?.email },
-    },
-    //only return the name
-    select: { name: true, id: true },
-  });
-  return {
-    props: { decks },
-  };
-};
-
-const Decks: React.FC = ({
-  decks,
-}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+export default function DecksPage(): JSX.Element {
   const isActive: (pathname: string) => boolean = (pathname) =>
     router.pathname === pathname;
   const { data: session } = useSession();
@@ -44,7 +23,7 @@ const Decks: React.FC = ({
     try {
       //send data to /api/create-deck api route
       let body = { title };
-      await fetch("/api/deck/create", {
+      fetch("/api/deck/create", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
@@ -102,18 +81,9 @@ const Decks: React.FC = ({
   console.log(decks);
   return (
     <div>
-      <Header sendToParent={setLoggedIn} />
-      <div className="quote">
-        <p>
-          "If you talk to a man in a language he understands, that goes to his{" "}
-          <span style={{ fontWeight: "bolder" }}>head</span>. If you talk to him
-          in his own language, that goes to his{" "}
-          <span style={{ fontWeight: "bolder" }}>heart</span>."
-        </p>
-        <p style={{ fontStyle: "italic" }}> - Nelson Mandela</p>
-      </div>
+      <Header />
       <div className="decks">
-        <form onSubmit={handleCreateDeck}>
+        {/*        <form onSubmit={handleCreateDeck}>
           <label htmlFor="newDeckTitle">
             {" "}
             Deck Name
@@ -124,8 +94,8 @@ const Decks: React.FC = ({
             ></input>
           </label>
           <button type="submit">New Deck</button>
-        </form>
-        {decks.map((deck: any) => {
+        </form> */}
+        {/* {decks.map((deck: any) => {
           return (
             <div key={uniqid()} className="deck">
               <Link href={`/deck/${deck.id}`} data-active={isActive("/")}>
@@ -165,9 +135,8 @@ const Decks: React.FC = ({
               ) : null}
             </div>
           );
-        })}
+        })} */}
       </div>
     </div>
   );
-};
-export default Decks;
+}

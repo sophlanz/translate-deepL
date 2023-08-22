@@ -36,7 +36,7 @@ export default function Home() {
         translationData={translationData}
         setTranslationData={setTranslationData}
       />
-      <WritingWrapper writeData={writeData} setWriteData={setWriteData} />
+      <WritingWrapper />
     </div>
   );
 }
