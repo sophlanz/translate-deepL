@@ -2,23 +2,22 @@ import React from "react";
 import useFetchOpenAi from "@/pages/hooks/useFetchOpenAi";
 import { GrammarCheckProps as Props } from "./types.write";
 import { UseFetchOpenAiResponse } from "./types.write";
-
+import { useLanguage } from "@/pages/context/language-context";
 export default function GrammarCheck(props: Props): JSX.Element {
-  const { writeData, setWriteData, grammarLang } = props;
-  const prompt = `Correct this to standard ${grammarLang}:\n\n${writeData.textToCorrect}`;
-  const data: UseFetchOpenAiResponse = useFetchOpenAi({ prompt });
+  const { writeData, setWriteData } = props;
+  const { language } = useLanguage();
+  const prompt = `Correct this to standard ${language}:\n\n${writeData.textToCorrect}`;
   //call api with text to be translated;
   const handleCheckGrammar = async () => {
     try {
-      if (data && data.apiData) {
+      /*      useFetchOpenAi({ prompt, language }).then((response) => {
+        const grammarCorrection = response.content;
         setWriteData((prevData) => ({
           ...prevData,
-          grammarCorrection: data.apiData
-            ? data.apiData.data.choices[0].text
-            : "Oops, there's been an error",
+          grammarCorrection,
           grammarCheck: true,
         }));
-      }
+      }); */
     } catch (error) {
       console.log(error);
     }

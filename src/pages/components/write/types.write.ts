@@ -1,16 +1,13 @@
 export interface WritingWrapperProps {
     writeData: WriteData;
-    grammarLang: string;
     setWriteData: React.Dispatch<React.SetStateAction<WriteData>>;
   }
   export interface GrammarCheckProps {
     writeData: WriteData;
     setWriteData: React.Dispatch<React.SetStateAction<WriteData>>;
-    grammarLang: string;
   }
   export interface WritingPromptProps {
     promptBoolean: boolean;
-    grammarLang: string;
     setWriteData:React.Dispatch<React.SetStateAction<WriteData>>;
     writeData:WriteData;
   }
@@ -22,7 +19,8 @@ export interface WritingWrapperProps {
     grammarCheck: boolean;
   }
   export interface UseFetchOpenAiResponse {
-    apiData?: OpenAiApiResponse;
+    content: string;
+    isLoading: boolean;
   }
   export interface OpenAiApiResponse {
     data: {
@@ -39,8 +37,12 @@ export interface WritingWrapperProps {
     };
   }
   interface TextChoice {
-    text: string;
+    message:MessageObject;
     index: number;
     logprobs: null;
     finish_reason: string;
+  }
+  interface MessageObject {
+    content:string,
+    role:string
   }

@@ -3,10 +3,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { signOut, useSession } from "next-auth/react";
 
-interface Props {
-  sendToParent?: React.Dispatch<React.SetStateAction<boolean>>;
-}
-const Header: React.FC<Props> = (props: Props) => {
+export default function Header(): JSX.Element {
   const router = useRouter();
   const isActive: (pathname: string) => boolean = (pathname) =>
     router.pathname === pathname;
@@ -17,10 +14,6 @@ const Header: React.FC<Props> = (props: Props) => {
     message = <p>Loading...</p>;
   }
   if (!session) {
-    if (props.sendToParent) {
-      props.sendToParent(() => false);
-    }
-
     navBar = (
       <nav>
         <h1>
@@ -37,9 +30,6 @@ const Header: React.FC<Props> = (props: Props) => {
     (session && window.location.pathname === "/decks") ||
     (session && window.location.pathname.includes("/deck/"))
   ) {
-    if (props.sendToParent) {
-      props.sendToParent(() => true);
-    }
     navBar = (
       <nav style={{ flexDirection: "row" }}>
         <h1>
@@ -49,9 +39,6 @@ const Header: React.FC<Props> = (props: Props) => {
       </nav>
     );
   } else {
-    if (props.sendToParent) {
-      props.sendToParent(() => true);
-    }
     navBar = (
       <nav style={{ flexDirection: "column" }}>
         <h1>
@@ -66,5 +53,4 @@ const Header: React.FC<Props> = (props: Props) => {
     );
   }
   return <>{navBar}</>;
-};
-export default Header;
+}
