@@ -1,29 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import GrammarCheck from "./GrammarCheck";
 import WritingPrompt from "./WritingPrompt";
-import { WritingWrapperProps as Props } from "./types.write";
-export default function WritingWrapper(props: Props): JSX.Element {
-  const { writeData, setWriteData } = props;
-
+import { text } from "stream/consumers";
+export default function WritingWrapper(): JSX.Element {
+  const [textToCorrect, setTextToCorrect] = useState<string>("");
+  const handleSetTextToCorrect = (newText: string) => {
+    setTextToCorrect(newText);
+  };
   return (
     <div className="writingWrapper">
-      <WritingPrompt
-        promptBoolean={writeData.prompt}
-        writeData={writeData}
-        setWriteData={setWriteData}
-      />
+      <WritingPrompt />
       <div className="textWrapper">
         <textarea
           placeholder="Generate a prompt, write some text, and check your grammar! "
-          onChange={(e) =>
-            setWriteData((prevData) => ({
-              ...prevData,
-              textToCorrect: e.target.value,
-            }))
-          }
+          onChange={(e) => handleSetTextToCorrect(e.target.value)}
         />
       </div>
-      <GrammarCheck writeData={writeData} setWriteData={setWriteData} />
+      <GrammarCheck textToCorrect={textToCorrect} />
     </div>
   );
 }

@@ -7,20 +7,23 @@ if (process.env.NODE_ENV === "development") {
   url = "http://localhost:3000/api/openai";
 }
 interface Props {
-  prompt: string;
+  prompt?: string;
   language: string;
+  grammarPrompt?: string;
 }
 export default function useFetchOpenAi(props: Props): UseFetchOpenAiResponse {
-  const { prompt, language } = props;
+  const { prompt, language, grammarPrompt } = props;
+
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [content, setContent] = useState<string>("");
+
   const fetchData = async () => {
     setIsLoading(true);
     axios
       .request({
         url,
         params: {
-          prompt: prompt,
+          prompt: prompt ? prompt : grammarPrompt,
         },
       })
       .then((response) => {
@@ -37,7 +40,7 @@ export default function useFetchOpenAi(props: Props): UseFetchOpenAiResponse {
   useEffect(() => {
     fetchData();
     console.log("hi");
-  }, [language]);
+  }, [language, grammarPrompt]);
   return {
     content,
     isLoading,

@@ -51,10 +51,14 @@ export default function TranslateLabel(): JSX.Element {
   };
   const fetchTranslation = async () => {
     try {
+      console.log(aiApiLanguage);
+      console.log(toBeTranslated);
       const urlDeepL = `https://api-free.deepl.com/v2/translate?auth_key=${process.env.NEXT_PUBLIC_DEEPL_AUTH_KEY}&text=${toBeTranslated}&target_lang=${aiApiLanguage}&preserve_formatting=1`;
       const responseDeepL = await fetch(urlDeepL);
       const dataDeepL = await responseDeepL.json();
+      console.log(dataDeepL);
       const text = dataDeepL.translations[0].text;
+      console.log(text);
       changeTranslation(text);
       handleVoice();
     } catch (error) {
@@ -82,7 +86,7 @@ export default function TranslateLabel(): JSX.Element {
         //get data from response, parse JSON into an object
         const transcriptionId = response.data.transcriptionId;
         //delay to wait for the audio to be generated
-        await delay(11000);
+        await delay(12000);
         // pass transcripID as a param
         await axios
           .request({
