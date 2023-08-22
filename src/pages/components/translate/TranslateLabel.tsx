@@ -31,7 +31,7 @@ export default function TranslateLabel(): JSX.Element {
         setAiApiLanguage("DE");
         break;
       case "Chinese":
-        setAiApiLanguage("Chinese");
+        setAiApiLanguage("ZH");
         break;
       case "Japanese":
         setAiApiLanguage("JA");
