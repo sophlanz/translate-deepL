@@ -1,7 +1,11 @@
-import React, { use } from "react";
+import React, { useState } from "react";
 import { useDecks } from "../../../pages/context/decks-context";
 import router from "next/router";
-export default function EditDeckForm(deckId: string): JSX.Element {
+type Props = {
+  deckId: string;
+};
+export default function EditDeckForm(props: Props): JSX.Element {
+  const { deckId } = props;
   const { editDeck, changeDeckTitle, deckTitle } = useDecks();
   const handleUpdateDeck = async (e: React.SyntheticEvent) => {
     e.preventDefault();
