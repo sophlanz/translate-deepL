@@ -1,80 +1,62 @@
-import React, { useState } from "react";
+import React, { use, useState } from "react";
 import { getSession } from "next-auth/react";
 import { GetServerSideProps } from "next";
 import { InferGetServerSidePropsType } from "next";
 import Link from "next/link";
 import router from "next/router";
 import Image from "next/image";
-import prisma from "../../../../prisma/lib/prisma";
 import uniqid from "uniqid";
-export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
-  const session = await getSession({ req });
-  if (!session) {
-    res.statusCode = 403;
-    return { props: { decks: [] } };
-  }
-  const decks = await prisma.deck.findMany({
-    //matching email
-    where: {
-      user: { email: session?.user?.email },
-    },
-    //only return the name
-    select: { name: true, id: true },
-  });
-  return {
-    props: { decks },
-  };
-};
+import { useDecks } from "@/pages/context/decks-context";
 enum Status {
   Idle,
   Loading,
   Error,
 }
-const Decks: React.FC = ({
-  decks,
-}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+export default function Decks(): JSX.Element {
   const [decksState, setDecksState] = useState<Status>(Status.Idle);
+  const { decks, deckTitle } = useDecks();
   const isActive: (pathname: string) => boolean = (pathname) =>
     router.pathname === pathname;
   const handleDelete = async (e: React.SyntheticEvent, deckId: string) => {
     e.preventDefault();
-    try {
-      setDecksState(Status.Loading);
-      await fetch("/api/deck/delete?id=" + deckId, {
-        method: "DELETE",
-        headers: { "Content-Type": "application/json" },
-      }).then(() => {
+    setDecksState(Status.Loading);
+    await fetch("/api/deck/delete?id=" + deckId, {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+    })
+      .then(() => {
         //refresh to get server side props
         router.replace(router.asPath);
         setDecksState(Status.Idle);
+      })
+      .catch((error) => {
+        console.log("error", error);
+        setDecksState(Status.Error);
       });
-    } catch (error) {
-      console.log("error", error);
-      setDecksState(Status.Error);
-    }
   };
 
   const handleUpdateDeck = async (e: React.SyntheticEvent, deckId: string) => {
     e.preventDefault();
-    try {
-      //send data to /api/card/update api route
-      let body = {
-        title: title,
-        deckId: deckId,
-      };
-      setDecksState(Status.Loading);
-      await fetch("/api/deck/update", {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body),
-      }).then(() => {
+    //send data to /api/card/update api route
+    const body = {
+      title: deckTitle,
+      deckId: deckId,
+    };
+    setDecksState(Status.Loading);
+    await fetch("/api/deck/update", {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+    })
+      .then(() => {
         //refresh to get server side props
         router.replace(router.asPath);
         setDecksState(Status.Idle);
+      })
+      .catch((error) => {
+        console.log(error);
+        setDecksState(Status.Error);
       });
-    } catch (error) {
-      setDecksState(Status.Error);
-    }
   };
   return (
     <>
@@ -120,4 +102,4 @@ const Decks: React.FC = ({
       })}
     </>
   );
-};
+}
