@@ -1,15 +1,16 @@
 import React from "react";
 import NewCardForm from "./NewCardForm";
-import DeleteControl from "./DeleteControl";
-import EditControl from "./EditControl";
+import Cards from "./Cards";
 export default function CardsContainer(): JSX.Element {
   return (
     <div className="cards">
       <NewCardForm />
-      <div className="cardControls">
-        <DeleteControl />
-        <EditControl />
+      <div className="card">
+        <h2>Word</h2>
+        <h2>Translation</h2>
+        <h2>Controls</h2>
       </div>
+      <Cards />
     </div>
   );
 }

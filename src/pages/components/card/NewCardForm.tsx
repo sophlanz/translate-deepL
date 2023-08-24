@@ -1,30 +1,46 @@
-import React, { useState } from "react";
-import { useDecks } from "@/pages/context/decks-context";
+import React, { use, useState } from "react";
 import router from "next/router";
+import { useCards } from "@/pages/context/card-context";
 export default function NewCardForm(): JSX.Element {
   const [front, setFront] = useState("");
   const [back, setBack] = useState("");
-  const { currDeckId } = useDecks();
+  const { cards, updateCards } = useCards();
   const handleCreateCard = async (e: React.SyntheticEvent) => {
     e.preventDefault();
     //send data to /api/create-deck api route
+    //find deckId
+    const url = window.location.href;
+    const currDeckId = url.split("/deck/")[1];
+    console.log("currDeckId", currDeckId);
     let body = {
       front: front,
       back: back,
       deckId: currDeckId,
     };
-    try {
-      await fetch("/api/card/create", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body),
-      }).then(() => {
-        //refresh to get server side props
-        router.replace(router.asPath);
+
+    await fetch("/api/card/create", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+    })
+      .then(async (response) => {
+        const data = await response.json();
+        //update context with new cards
+        const newCard = {
+          front: front,
+          back: back,
+          deckId: currDeckId,
+          id: data.id,
+        };
+        let updatedCards = [...cards, newCard];
+        updateCards(updatedCards);
+        //reset input values
+        setFront("");
+        setBack("");
+      })
+      .catch((error) => {
+        console.log(error);
       });
-    } catch (error) {
-      console.log(error);
-    }
   };
   return (
     <form onSubmit={(e) => handleCreateCard(e)}>

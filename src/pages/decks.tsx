@@ -39,6 +39,7 @@ const DecksPage: React.FC = ({
     }
   }, [session]);
   console.log(session);
+  console.log(decks);
   return (
     <DecksProvider foundDecks={decks}>
       <div>

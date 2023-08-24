@@ -20,6 +20,7 @@ export default function NewDeckForm(): JSX.Element {
           const newDeck = { name, id };
           const updatedDecks = [...decks, newDeck];
           updateDecks(updatedDecks);
+          changeDeckTitle("");
         } else {
           console.log("request failed with status", response.status);
           throw new Error("Network response failed.");
