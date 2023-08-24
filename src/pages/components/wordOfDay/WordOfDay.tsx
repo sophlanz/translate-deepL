@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
 import useFetchOpenAi from "@/pages/hooks/useFetchOpenAi";
-import useFetchOpenAi2 from "@/pages/hooks/useFetchOpenAi2";
 import WordOfDayDefinition from "./WordOfDayDefinition";
 import { useLanguage } from "@/pages/context/language-context";
 export default function WordOfDay(): JSX.Element {
   const [wordOfTheDay, setWordOfTheDay] = useState<string>("");
-  const { language, changeLanguage } = useLanguage();
+  const { language } = useLanguage();
   const wordTopics = [
     "literary",
     "coloquial",

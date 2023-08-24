@@ -37,9 +37,7 @@ const DecksPage: React.FC = ({
     if (session.status === "unauthenticated") {
       router.replace("/");
     }
-  }, [session]);
-  console.log(session);
-  console.log(decks);
+  }, [session, router]);
   return (
     <DecksProvider foundDecks={decks}>
       <div>

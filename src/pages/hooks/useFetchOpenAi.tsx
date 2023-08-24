@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import { UseFetchOpenAiResponse } from "../components/write/types.write";
 
@@ -39,7 +39,6 @@ export default function useFetchOpenAi(props: Props): UseFetchOpenAiResponse {
   };
   useEffect(() => {
     fetchData();
-    console.log("hi");
   }, [language, grammarPrompt]);
   return {
     content,

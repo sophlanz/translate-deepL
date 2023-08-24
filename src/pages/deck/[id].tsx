@@ -17,24 +17,12 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
     select: { front: true, back: true, id: true, deckId: true },
   });
   return {
-    //pass deckId even if cards array is empty
-    props: { cards, deckId },
+    props: { cards },
   };
 };
 const Cards: React.FC = ({
   cards,
-  deckId,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
-  const router = useRouter();
-  const { data: session } = useSession();
-  /*   const { updateDeckId } = useCards();
-  updateDeckId(deckId); */
-
-  useEffect(() => {
-    if (!session) {
-      router.push("/");
-    }
-  }, [cards, session]);
   return (
     <>
       <CardProvider savedCards={cards}>
