@@ -109,7 +109,7 @@ const Cards: React.FC = ({
     <>
       <Header />
       <div className="cards">
-        <form onSubmit={(e) => handleCreateCard(e)}>
+        {/*  <form onSubmit={(e) => handleCreateCard(e)}>
           <label htmlFor="front">
             Word
             <input
@@ -119,7 +119,7 @@ const Cards: React.FC = ({
             />
           </label>
           <label htmlFor="back">
-            Translation
+            Trans lation
             <input
               name="back"
               type="text"
@@ -127,7 +127,7 @@ const Cards: React.FC = ({
             />
           </label>
           <button type="submit">New Card</button>
-        </form>
+        </form> */}
         <div className="card">
           <h2>Word</h2>
           <h2>Translation</h2>
