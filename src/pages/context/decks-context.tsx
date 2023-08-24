@@ -3,9 +3,11 @@ import type { editDeck } from "../components/deck/types.deck";
 import type { Deck } from "../components/deck/types.deck";
 type DecksContextType = {
   deckTitle: string;
+  currDeckId: string;
   editDeck: editDeck;
   decks: Deck[];
   changeDeckTitle: (newTitle: string) => void;
+  changeCurrDeckId: (deckId: string) => void;
   changeEditDeck: (newEditDeck: editDeck) => void;
   updateDecks: (newDecks: Deck[]) => void;
 };
@@ -16,6 +18,7 @@ type DecksProviderProps = {
 };
 export const DecksProvider = ({ children, foundDecks }: DecksProviderProps) => {
   const [deckTitle, setDeckTitle] = useState<string>("");
+  const [currDeckId, setCurrDeckId] = useState<string>("");
   const [editDeck, setEditDeck] = useState<editDeck>({
     isEditing: false,
     deckId: "",
@@ -23,6 +26,9 @@ export const DecksProvider = ({ children, foundDecks }: DecksProviderProps) => {
   const [decks, setDecks] = useState<Deck[]>(foundDecks);
   const changeDeckTitle = (newTitle: string) => {
     setDeckTitle(newTitle);
+  };
+  const changeCurrDeckId = (deckId: string) => {
+    setCurrDeckId(deckId);
   };
   const changeEditDeck = (newEditDeck: editDeck) => {
     setEditDeck(newEditDeck);
@@ -39,6 +45,8 @@ export const DecksProvider = ({ children, foundDecks }: DecksProviderProps) => {
         changeEditDeck,
         decks,
         updateDecks,
+        currDeckId,
+        changeCurrDeckId,
       }}
     >
       {children}

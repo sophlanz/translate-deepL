@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import Header from "../components/Header";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
+import { useDecks } from "../context/decks-context";
 import uniqid from "uniqid";
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const deckId = String(params?.id);
@@ -31,6 +32,8 @@ const Cards: React.FC = ({
   const [edit, setEdit] = useState<any>();
   const [loggedIn, setLoggedIn] = useState<boolean>(false);
   const { data: session } = useSession();
+  const { changeCurrDeckId } = useDecks();
+  changeCurrDeckId(deckId);
   const handleDelete = async (e: React.SyntheticEvent, cardId: string) => {
     e.preventDefault();
     try {
