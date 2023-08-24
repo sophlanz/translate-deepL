@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useRouter } from "next/router";
 import Header from "./components/Header";
 import { useSession } from "next-auth/react";
@@ -14,7 +14,6 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
     res.statusCode = 403;
     return { props: { decks: [] } };
   }
-
   const decks = await prisma.deck.findMany({
     //matching email
     where: {

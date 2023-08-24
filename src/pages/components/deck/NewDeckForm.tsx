@@ -1,26 +1,34 @@
-import React, { useState } from "react";
+import React from "react";
 import router from "next/router";
 import { useDecks } from "@/pages/context/decks-context";
 export default function NewDeckForm(): JSX.Element {
-  const { deckTitle, changeDeckTitle } = useDecks();
-
+  const { deckTitle, changeDeckTitle, decks, updateDecks } = useDecks();
+  console.log(deckTitle);
   const handleCreateDeck = async (e: React.SyntheticEvent) => {
     e.preventDefault();
     //send data to /api/create-deck api route
     fetch("/api/deck/create", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(deckTitle),
+      body: JSON.stringify({ title: deckTitle }),
     })
-      .then(() => {
-        //refresh to get server side props
-        router.replace(router.asPath);
+      .then(async (response) => {
+        if (response.ok) {
+          const data = await response.json();
+          //update context with new deck
+          const { name, id } = data;
+          const newDeck = { name, id };
+          const updatedDecks = [...decks, newDeck];
+          updateDecks(updatedDecks);
+        } else {
+          console.log("request failed with status", response.status);
+          throw new Error("Network response failed.");
+        }
       })
       .catch((error) => {
         console.log(error);
       });
   };
-
   return (
     <form onSubmit={handleCreateDeck}>
       <label htmlFor="newDeckTitle">
