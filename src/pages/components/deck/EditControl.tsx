@@ -6,13 +6,10 @@ type Props = {
 };
 export default function EditControl(props: Props): JSX.Element {
   const { deckId } = props;
-  const { editDeck } = useDecks();
+  const { editDeck, changeEditDeck } = useDecks();
+  console.log(editDeck);
   return (
-    <div
-      onClick={() => (
-        (editDeck.isEditing = !editDeck.isEditing), (editDeck.deckId = deckId)
-      )}
-    >
+    <div onClick={() => changeEditDeck({ isEditing: true, deckId: deckId })}>
       <Image src="/images/edit.png" alt="edit" height={20} width={20} />
     </div>
   );

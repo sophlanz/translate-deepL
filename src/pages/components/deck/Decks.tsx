@@ -1,4 +1,4 @@
-import React, { use, useState } from "react";
+import React, { useEffect } from "react";
 import Link from "next/link";
 import router from "next/router";
 import uniqid from "uniqid";
@@ -13,7 +13,7 @@ enum Status {
   Error,
 }
 export default function Decks(): JSX.Element {
-  const { decks } = useDecks();
+  const { decks, editDeck } = useDecks();
 
   return (
     <>
