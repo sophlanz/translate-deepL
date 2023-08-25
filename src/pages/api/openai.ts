@@ -1,7 +1,7 @@
 import axios,{ AxiosRequestConfig} from 'axios'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { Configuration, OpenAIApi } from "openai";
-import type { OpenAiApiResponse } from '../components/write/types.write';
+import type { OpenAiApiResponse } from '../../components/write/types.write';
 async function handler (req:NextApiRequest, res:NextApiResponse): Promise<void>{
 //openAI
 const configuration = new Configuration({

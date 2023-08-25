@@ -1,4 +1,4 @@
-import prisma from '../../../../prisma/lib/prisma';
+import prisma from '../../../../../prisma/lib/prisma';
 
 export default async function handle(req:any, res:any) {
     console.log(req.body);
