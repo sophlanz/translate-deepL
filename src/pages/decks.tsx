@@ -1,13 +1,13 @@
 import React, { useEffect } from "react";
 import { useRouter } from "next/router";
-import Header from "./components/Header";
+import Header from "../components/Header";
 import { useSession } from "next-auth/react";
-import { DecksContainer } from "./components/deck";
+import { DecksContainer } from "../components/deck";
 import { GetServerSideProps } from "next";
 import { getSession } from "next-auth/react";
 import { InferGetServerSidePropsType } from "next";
 import prisma from "../../prisma/lib/prisma";
-import { DecksProvider } from "./context/decks-context";
+import { DecksProvider } from "../context/decks-context";
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   const session = await getSession({ req });
   if (!session) {

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import Header from "./components/Header";
-import { WordOfDayContainer } from "./components/wordOfDay";
-import { TranslateWrapper } from "./components/translate";
-import { WritingWrapper } from "./components/write";
-import { TranslationData } from "./components/translate/types.translate";
+import Header from "../components/Header";
+import { WordOfDayContainer } from "../components/wordOfDay";
+import { TranslateWrapper } from "../components/translate";
+import { WritingWrapper } from "../components/write";
+import { TranslationData } from "../components/translate/types.translate";
 
 const initialTranslation: TranslationData = {
   toTranslate: "",
