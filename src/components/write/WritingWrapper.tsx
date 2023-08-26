@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import GrammarCheck from "./GrammarCheck";
 import WritingPrompt from "./WritingPrompt";
-import { text } from "stream/consumers";
 export default function WritingWrapper(): JSX.Element {
   const [textToCorrect, setTextToCorrect] = useState<string>("");
   const handleSetTextToCorrect = (newText: string) => {

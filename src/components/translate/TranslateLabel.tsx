@@ -51,14 +51,10 @@ export default function TranslateLabel(): JSX.Element {
   };
   const fetchTranslation = async () => {
     try {
-      console.log(aiApiLanguage);
-      console.log(toBeTranslated);
       const urlDeepL = `https://api-free.deepl.com/v2/translate?auth_key=${process.env.NEXT_PUBLIC_DEEPL_AUTH_KEY}&text=${toBeTranslated}&target_lang=${aiApiLanguage}&preserve_formatting=1`;
       const responseDeepL = await fetch(urlDeepL);
       const dataDeepL = await responseDeepL.json();
-      console.log(dataDeepL);
       const text = dataDeepL.translations[0].text;
-      console.log(text);
       changeTranslation(text);
       handleVoice();
     } catch (error) {

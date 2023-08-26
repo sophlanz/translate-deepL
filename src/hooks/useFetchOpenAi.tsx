@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { UseFetchOpenAiResponse } from "../components/write/types.write";
+import type { UseFetchOpenAiResponse } from "../components/write/types.write";
 
 let url: string = "https://ai-lengua.vercel.app/api/openai";
 if (process.env.NODE_ENV === "development") {
@@ -13,7 +13,6 @@ interface Props {
 }
 export default function useFetchOpenAi(props: Props): UseFetchOpenAiResponse {
   const { prompt, language, grammarPrompt } = props;
-
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [content, setContent] = useState<string>("");
 

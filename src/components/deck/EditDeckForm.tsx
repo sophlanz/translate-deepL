@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDecks } from "../../context/decks-context";
-import router from "next/router";
 type Props = {
   deckId: string;
 };

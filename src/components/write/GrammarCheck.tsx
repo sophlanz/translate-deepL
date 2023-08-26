@@ -14,7 +14,6 @@ export default function GrammarCheck(props: Props): JSX.Element {
   const handleCheckGrammar = () => {
     setCheckGrammar(!checkGrammar);
   };
-  console.log(textToCorrect);
   return (
     <div className="grammarCheck">
       <button onClick={handleCheckGrammar}>Check Grammar</button>

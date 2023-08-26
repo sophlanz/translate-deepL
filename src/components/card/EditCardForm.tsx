@@ -1,4 +1,4 @@
-import React, { use, useState } from "react";
+import React, { useState } from "react";
 import { useCards } from "../../context/card-context";
 import type { Card } from "@prisma/client";
 export default function EditCardForm(props: { card: Card }): JSX.Element {

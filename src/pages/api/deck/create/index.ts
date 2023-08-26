@@ -1,35 +1,8 @@
 import { getServerSession } from 'next-auth';
 import type { NextApiRequest, NextApiResponse } from 'next';
-import type { NextRequest, NextResponse } from 'next/server';
-import authHandler from "../../auth/[...nextauth]";
 import prisma from '../../../../../prisma/lib/prisma';
+import {options} from '../../auth/[...nextauth]'
 
-import { NextApiHandler } from 'next';
-import NextAuth from 'next-auth';
-import { PrismaAdapter } from '@next-auth/prisma-adapter';
-import GoogleProvider from "next-auth/providers/google";
-
-
-const options = {
-    providers: [
-      GoogleProvider({
-          clientId: process.env.GOOGLE_ID as string,
-          clientSecret: process.env.GOOGLE_SECRET as string,
-          authorization: {
-            params: {
-              prompt: "consent",
-              access_type: "offline",
-              response_type: "code"
-            }
-          }
-        }),
-    ],
-    adapter: PrismaAdapter(prisma),
-    secret: process.env.SECRET,
-  };
-// POST /api/post
-// Required fields in body: title
-// Optional fields in body: content
 export default async function handle(req:NextApiRequest, res:NextApiResponse) {
   const { title } = req.body;
   const session = await getServerSession(req,res,options); 

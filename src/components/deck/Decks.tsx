@@ -1,6 +1,5 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Link from "next/link";
-import router from "next/router";
 import uniqid from "uniqid";
 import EditDeckForm from "./EditDeckForm";
 import DeleteControl from "./DeleteControl";
@@ -13,14 +12,13 @@ enum Status {
   Error,
 }
 export default function Decks(): JSX.Element {
-  const { decks, editDeck } = useDecks();
+  const { decks } = useDecks();
 
   return (
     <>
       {decks.map((deck: Deck) => {
         return (
           <div key={uniqid()} className="deck">
-            {/*   <Link href={`/deck/${deck.id}`} data-active={isActive("/")}> */}
             <Link href={`/deck/${deck.id}`}> {deck.name} </Link>
             <div className="deckControls">
               <DeleteControl deckId={deck.id} />

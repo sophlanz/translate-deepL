@@ -1,5 +1,4 @@
 import React from "react";
-import router from "next/router";
 import { useDecks } from "@/context/decks-context";
 export default function NewDeckForm(): JSX.Element {
   const { deckTitle, changeDeckTitle, decks, updateDecks } = useDecks();

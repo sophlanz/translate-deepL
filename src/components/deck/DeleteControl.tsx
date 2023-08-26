@@ -1,9 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import router from "next/router";
 import { useDecks } from "@/context/decks-context";
-import prisma from "../../../prisma/lib/prisma";
-import { useSession } from "next-auth/react";
 type Props = {
   deckId: string;
 };

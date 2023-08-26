@@ -1,23 +1,4 @@
-export interface WritingWrapperProps {
-    writeData: WriteData;
-    setWriteData: React.Dispatch<React.SetStateAction<WriteData>>;
-  }
-  export interface GrammarCheckProps {
-    writeData: WriteData;
-    setWriteData: React.Dispatch<React.SetStateAction<WriteData>>;
-  }
-  export interface WritingPromptProps {
-    promptBoolean: boolean;
-    setWriteData:React.Dispatch<React.SetStateAction<WriteData>>;
-    writeData:WriteData;
-  }
-  export interface WriteData {
-    textToCorrect: string;
-    grammarCorrection: string;
-    writingPrompt: string;
-    prompt: boolean;
-    grammarCheck: boolean;
-  }
+
   export interface UseFetchOpenAiResponse {
     content: string;
     isLoading: boolean;

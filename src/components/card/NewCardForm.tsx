@@ -1,5 +1,4 @@
 import React, { use, useState } from "react";
-import router from "next/router";
 import { useCards } from "@/context/card-context";
 export default function NewCardForm(): JSX.Element {
   const [front, setFront] = useState("");
