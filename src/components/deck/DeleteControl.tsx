@@ -28,7 +28,7 @@ export default function DeleteControl(props: Props): JSX.Element {
   };
   return (
     <div onClick={(e) => handleDelete(e, deckId)}>
-      <Image src="/images/trash.png" alt="delete" height={20} width={20} />
+      <Image src="/images/trash.png" alt="delete" height={30} width={30} />
     </div>
   );
 }

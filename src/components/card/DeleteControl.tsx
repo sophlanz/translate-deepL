@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import { useCards } from "../../context/card-context";
+
 export default function DeleteControl(props: { cardId: string }): JSX.Element {
   const { cardId } = props;
   const { cards, updateCards } = useCards();
@@ -22,7 +23,7 @@ export default function DeleteControl(props: { cardId: string }): JSX.Element {
   };
   return (
     <div onClick={(e) => handleDelete(e, cardId)}>
-      <Image src="/images/trash.png" width={20} height={20} alt="delete" />
+      <Image src={"/images/trash.png"} width={30} height={30} alt="delete" />
     </div>
   );
 }

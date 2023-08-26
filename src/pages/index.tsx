@@ -1,5 +1,5 @@
 import React, { useState, useEffect, use } from "react";
-import Header from "../components/Header";
+import { Header } from "../components/header";
 import { WordOfDayContainer } from "../components/wordOfDay";
 import { TranslateWrapper } from "../components/translate";
 import { WritingWrapper } from "../components/write";

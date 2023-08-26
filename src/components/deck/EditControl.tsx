@@ -9,7 +9,7 @@ export default function EditControl(props: Props): JSX.Element {
   const { changeEditDeck } = useDecks();
   return (
     <div onClick={() => changeEditDeck({ isEditing: true, deckId: deckId })}>
-      <Image src="/images/edit.png" alt="edit" height={20} width={20} />
+      <Image src="/images/edit.png" alt="edit" height={30} width={30} />
     </div>
   );
 }

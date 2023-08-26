@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useRouter } from "next/router";
-import Header from "../components/Header";
+import { Header } from "../components/header";
 import { useSession } from "next-auth/react";
 import { DecksContainer } from "../components/deck";
 import { GetServerSideProps } from "next";

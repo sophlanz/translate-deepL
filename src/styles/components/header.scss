@@ -26,9 +26,15 @@ nav a {
     font-family:"Vegawanty";
     text-align:center;
 }
+nav h1 a{
+    border:none
+}
 nav a:hover{
     background-color:rgba(0,0,0,0.1);
   
+}
+nav h1 a:hover{
+    background-color:transparent;
 }
 nav h2 {
     font-size: 2rem;

@@ -17,7 +17,9 @@ export default function Header(): JSX.Element {
     navBar = (
       <nav>
         <h1>
-          <span>AI</span> Lengua{" "}
+          <Link href="/">
+            <span>AI</span> Lengua{" "}
+          </Link>
         </h1>
         <Link href="/api/auth/signin" data-active={isActive("/signup")}>
           Login
@@ -33,7 +35,9 @@ export default function Header(): JSX.Element {
     navBar = (
       <nav style={{ flexDirection: "row" }}>
         <h1>
-          <span>AI</span> Lengua{" "}
+          <a href="/">
+            <span>AI</span> Lengua{" "}
+          </a>
         </h1>
         <button onClick={() => signOut()}>Log Out</button>
       </nav>
@@ -42,7 +46,9 @@ export default function Header(): JSX.Element {
     navBar = (
       <nav style={{ flexDirection: "column" }}>
         <h1>
-          <span>AI</span> Lengua{" "}
+          <Link href="/">
+            <span>AI</span> Lengua{" "}
+          </Link>
         </h1>
         {session.user ? <h2>Hi, {session.user.name}. Welcome Back!</h2> : null}
         <button onClick={() => signOut()}>Log Out</button>
