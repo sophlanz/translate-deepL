@@ -35,9 +35,9 @@ export default function Header(): JSX.Element {
     navBar = (
       <nav style={{ flexDirection: "row" }}>
         <h1>
-          <a href="/">
+          <Link href="/">
             <span>AI</span> Lengua{" "}
-          </a>
+          </Link>
         </h1>
         <button onClick={() => signOut()}>Log Out</button>
       </nav>

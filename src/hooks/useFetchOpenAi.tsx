@@ -27,7 +27,6 @@ export default function useFetchOpenAi(props: Props): UseFetchOpenAiResponse {
         },
       })
       .then((response) => {
-        console.log(response);
         let data = response.data.choices[0].message.content;
         setContent(data);
         setIsLoading(false);
