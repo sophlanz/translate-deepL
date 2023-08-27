@@ -10,10 +10,8 @@ export default function WordOfDayDefinition(props: Props): JSX.Element {
   const { language } = useLanguage();
   const [showDefinition, setShowDefinition] = useState<boolean>(false);
   /*   const [wordDefinition, setWordDefinition] = useState<string>(""); */
-  let prompt = `what is the definition of ${wordOfDay}?`;
+  const prompt = `what is the definition of ${wordOfDay}?`;
   const wordDefinition = useFetchOpenAi({ prompt, language, wordOfDay });
-  console.log(wordOfDay);
-  console.log(wordDefinition);
   const showWordDefinition = async () => {
     setShowDefinition(!showDefinition);
   };
