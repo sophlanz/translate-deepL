@@ -17,7 +17,6 @@ const configuration = new Configuration({
     presence_penalty: 0,
   })
   .then((response)=>{
-/*     console.log(response) */
     res.status(200).send(response.data);
     res.end();
   })

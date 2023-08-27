@@ -11,7 +11,6 @@ enum Status {
 export default function Translation(): JSX.Element {
   const { audioUrl, audioGenerationStatus } = useAudio();
   const { translation } = useTranslation();
-  console.log(audioGenerationStatus);
   return (
     <section className="translate">
       <h2 className="translation">TRANSLATION </h2>

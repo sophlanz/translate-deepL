@@ -21,7 +21,6 @@ export default function WordOfDay(): JSX.Element {
     wordTopics[Math.floor(Math.random() * wordTopics.length)]
   } please don't give me the definition\n`;
   const word = useFetchOpenAi({ prompt, language }).content;
-  console.log(word);
   useEffect(() => {
     setWordOfTheDay(word);
   }, [word]);

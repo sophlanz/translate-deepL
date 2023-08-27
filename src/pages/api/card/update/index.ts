@@ -3,7 +3,6 @@ import prisma from '../../../../../prisma/lib/prisma';
 export default async function handle(req:any, res:any) {
     const {front, back, cardId} = req.body;
     try{
-      console.log(front,back,cardId)
       const post = await prisma.card.update({
         where: { id: cardId },
         data: {

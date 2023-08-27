@@ -33,7 +33,6 @@ const DecksPage: React.FC = ({
   const router = useRouter();
   const session = useSession();
   useEffect(() => {
-    console.log("hi");
     if (session.status === "unauthenticated") {
       router.replace("/");
     }

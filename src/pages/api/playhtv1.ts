@@ -2,7 +2,6 @@ import axios,{ AxiosRequestConfig} from 'axios'
 import type { NextApiRequest, NextApiResponse } from 'next'
 
 async function handler(req: NextApiRequest, res:NextApiResponse):Promise<void> {
-    console.log(req.query.newTranslation)
     const data: AxiosRequestConfig = {
       headers: {
         accept: 'application/json',

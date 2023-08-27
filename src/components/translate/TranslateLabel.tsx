@@ -69,7 +69,6 @@ export default function TranslateLabel(): JSX.Element {
       const translationData = dataDeepL.translations[0].text;
       changeTranslation(translationData);
       setNewTranslation(translationData);
-      console.log("translation data", translationData);
       setStatus(Status.Idle);
     });
   };

@@ -1,6 +1,5 @@
 import prisma from '../../../../../prisma/lib/prisma';
 
-
 export default async function handle(req:any, res:any) {
     try{
         const result = await prisma.deck.delete({

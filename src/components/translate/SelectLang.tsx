@@ -42,7 +42,6 @@ export default function SelectLang(): JSX.Element {
         changeLanguage("English-US");
     }
   };
-  console.log(language);
   return (
     <div className="selectWrapper">
       <h2>TRANSLATE TO : </h2>

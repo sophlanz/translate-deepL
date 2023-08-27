@@ -1,4 +1,4 @@
-import axios,{ AxiosRequestConfig, AxiosError, Axios} from 'axios'
+import axios from 'axios'
 import type { NextApiRequest, NextApiResponse } from 'next'
 //response is SSE
 async function handler(req: NextApiRequest, res:NextApiResponse):Promise<void> {
@@ -12,8 +12,8 @@ async function handler(req: NextApiRequest, res:NextApiResponse):Promise<void> {
       headers: {
         accept: 'text/event-stream',
         'content-type': 'application/json',
-        AUTHORIZATION: 'c2ff28df9f904e93981a29cf9fe5cb3a',
-        'X-USER-ID': 'CDwIWESGJbhDXmUqO17BnhiJdiE2'
+        AUTHORIZATION: process.env.NEXT_PUBLIC_PLAYHT_AUTH_KEY,
+        'X-User-Id': process.env.NEXT_PUBLIC_PLAYHT_USER_ID
       },
       data: {
         text: req.query.newTranslation,
@@ -30,14 +30,11 @@ async function handler(req: NextApiRequest, res:NextApiResponse):Promise<void> {
     axios
       .request(options)
       .then(function (response) {
-        console.log(response.data);
         res.send(response.data)
       })
       .catch(function (error) {
         console.error(error);
       });
- 
-
-            
+        
 }
 export default handler;
