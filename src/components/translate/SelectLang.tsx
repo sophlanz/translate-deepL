@@ -6,11 +6,11 @@ export default function SelectLang(): JSX.Element {
   const handleSelectLang = (event: React.ChangeEvent<HTMLSelectElement>) => {
     switch (event.target.value) {
       case "English-US":
-        changeVoice("en-US-SaraNeural");
+        changeVoice("anny");
         changeLanguage("English-US");
         break;
       case "English-GB":
-        changeVoice("en-GB-RyanNeural");
+        changeVoice("arthur");
         changeLanguage("English-GB");
         break;
       case "Spanish":
@@ -38,7 +38,7 @@ export default function SelectLang(): JSX.Element {
         changeLanguage("Korean");
         break;
       default:
-        changeVoice("en-US-SaraNeural");
+        changeVoice("larry");
         changeLanguage("English-US");
     }
   };

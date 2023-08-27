@@ -1,14 +1,31 @@
 import React from "react";
 import { useAudio } from "@/context/audio-context";
 import { useTranslation } from "@/context/translation-context";
+import ErrorMessage from "../errors/ErrorMessage";
+import Image from "next/image";
+enum Status {
+  Idle,
+  Loading,
+  Error,
+}
 export default function Translation(): JSX.Element {
-  const { audioUrl } = useAudio();
+  const { audioUrl, audioGenerationStatus } = useAudio();
   const { translation } = useTranslation();
+  console.log(audioGenerationStatus);
   return (
     <section className="translate">
       <h2 className="translation">TRANSLATION </h2>
       <p>{translation}</p>
       <div className="translationAudio">
+        {audioGenerationStatus === Status.Loading ? (
+          <Image
+            className="loading icon"
+            src="/images/loading.png"
+            alt="loading"
+            height={30}
+            width={30}
+          />
+        ) : null}
         <audio controls src={audioUrl}>
           {" "}
           Your browser does not support the

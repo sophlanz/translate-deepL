@@ -2,10 +2,10 @@ import axios,{ AxiosRequestConfig} from 'axios'
 import type { NextApiRequest, NextApiResponse } from 'next'
 
 async function handler(req: NextApiRequest, res:NextApiResponse):Promise<void> {
-    
+    console.log(req.query.transcriptionId)
     const data: AxiosRequestConfig = {
       headers: {
-        accept: 'application/json',
+        accept: 'text/event-stream',
         'content-type': 'application/json',
         Authorization: process.env.NEXT_PUBLIC_PLAYHT_AUTH_KEY,
         'X-User-Id': process.env.NEXT_PUBLIC_PLAYHT_USER_ID,

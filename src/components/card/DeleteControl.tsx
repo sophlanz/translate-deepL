@@ -25,7 +25,7 @@ export default function DeleteControl(props: { cardId: string }): JSX.Element {
         updateCards(updatedCards);
         setStatus(Status.idle);
       })
-      .catch((error) => {
+      .catch((error: Error) => {
         console.log(error);
         setStatus(Status.Error);
         setError(error);

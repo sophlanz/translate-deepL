@@ -20,7 +20,7 @@ export const LanguageProvider = ({
   initialLanguage,
 }: LanguageProviderProps) => {
   const [language, setLanguage] = useState<string>(initialLanguage);
-  const [voice, setVoice] = useState<string>("en-US-SaraNeural");
+  const [voice, setVoice] = useState<string>("larry");
   const changeLanguage = (newLanguage: string) => {
     setLanguage(newLanguage);
   };

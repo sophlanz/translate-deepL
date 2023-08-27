@@ -1,11 +1,19 @@
 import React, { useState } from "react";
 import { useCards } from "../../context/card-context";
 import type { Card } from "@prisma/client";
+import ErrorMessage from "../errors/ErrorMessage";
+enum Status {
+  Idle,
+  Loading,
+  Error,
+}
 export default function EditCardForm(props: { card: Card }): JSX.Element {
   const { card } = props;
   const [front, setFront] = useState("");
   const [back, setBack] = useState("");
   const { edit, updateCards, cards, updateEditCard } = useCards();
+  const [status, setStatus] = useState<Status>(Status.Idle);
+  const [error, setError] = useState<Error | undefined>();
   const handleUpdateCard = async (
     e: React.SyntheticEvent,
     cardId: string,
@@ -13,6 +21,7 @@ export default function EditCardForm(props: { card: Card }): JSX.Element {
     cardBack: string
   ) => {
     e.preventDefault();
+    setStatus(Status.Loading);
     let body = {
       //if empty, keep old value
       front: front === "" ? cardFront : front,
@@ -36,15 +45,20 @@ export default function EditCardForm(props: { card: Card }): JSX.Element {
         let newCards = cards.filter((card) => card.id !== cardId);
         newCards.push(newCard);
         updateCards(newCards);
+        setStatus(Status.Idle);
       })
-      .catch((error) => {
+      .catch((error: Error) => {
         console.log(error);
-        throw new Error("Network response failed.");
+        setError(error);
+        setStatus(Status.Error);
       })
       .finally(() => {
         updateEditCard(false, "");
       });
   };
+  if (status === Status.Error) {
+    return <ErrorMessage error={error} />;
+  }
   return (
     <>
       {edit.cardId === card.id ? (
