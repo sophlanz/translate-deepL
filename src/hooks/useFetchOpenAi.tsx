@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import axios from "axios";
 import type { UseFetchOpenAiResponse } from "../components/write/types.write";
 
@@ -10,12 +10,12 @@ interface Props {
   prompt?: string;
   language: string;
   grammarPrompt?: string;
+  wordOfDay?: string;
 }
 export default function useFetchOpenAi(props: Props): UseFetchOpenAiResponse {
-  const { prompt, language, grammarPrompt } = props;
+  const { prompt, language, grammarPrompt, wordOfDay } = props;
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [content, setContent] = useState<string>("");
-
   const fetchData = async () => {
     setIsLoading(true);
     axios
@@ -37,9 +37,17 @@ export default function useFetchOpenAi(props: Props): UseFetchOpenAiResponse {
   };
   useEffect(() => {
     fetchData();
-  }, [language, grammarPrompt]);
-  return {
+  }, [language, grammarPrompt, wordOfDay]);
+  const memoizedData = useMemo(() => {
+    return {
+      content,
+      isLoading,
+    };
+  }, [content, isLoading]);
+
+  return memoizedData;
+  /*   return {
     content,
     isLoading,
-  };
+  }; */
 }
