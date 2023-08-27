@@ -18,13 +18,16 @@ export default function Translation(): JSX.Element {
       <p>{translation}</p>
       <div className="translationAudio">
         {audioGenerationStatus === Status.Loading ? (
-          <Image
-            className="loading icon"
-            src="/images/loading.png"
-            alt="loading"
-            height={30}
-            width={30}
-          />
+          <div className="generateAudio">
+            <Image
+              className="loadingIcon"
+              src="/images/loading.png"
+              alt="loading"
+              height={30}
+              width={30}
+            />
+            <h6>Generating Audio</h6>
+          </div>
         ) : null}
         <audio controls src={audioUrl}>
           {" "}

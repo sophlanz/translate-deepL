@@ -88,6 +88,27 @@
 }
 .translationAudio {
     display:flex;
+    gap:20px;
+}
+@keyframes rotate {
+    from{
+        transform:rotate(0deg)
+    }
+    to{
+        transform:rotate(360deg)
+    }
+}
+.loadingIcon{
+    animation:rotate 2s linear infinite
+}
+.generateAudio h6 {
+    color:white
+}
+.generateAudio {
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 //submit button translation
 .translate button {
