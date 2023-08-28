@@ -1,4 +1,3 @@
-
   export interface UseFetchOpenAiResponse {
     content: string;
     isLoading: boolean;

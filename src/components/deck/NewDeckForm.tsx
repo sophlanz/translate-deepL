@@ -10,7 +10,6 @@ export default function NewDeckForm(): JSX.Element {
   const { deckTitle, changeDeckTitle, decks, updateDecks } = useDecks();
   const [status, setStatus] = React.useState<Status>(Status.Idle);
   const [error, setError] = React.useState<Error | undefined>(undefined);
-  console.log(deckTitle);
   const handleCreateDeck = async (e: React.SyntheticEvent) => {
     e.preventDefault();
     setStatus(Status.Loading);

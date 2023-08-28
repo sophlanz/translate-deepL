@@ -2,9 +2,6 @@ import axios from 'axios'
 import type { NextApiRequest, NextApiResponse } from 'next'
 //response is SSE
 async function handler(req: NextApiRequest, res:NextApiResponse):Promise<void> {
-
-    console.log(req.query.newTranslation)
-    console.log(req.query.voice)
     const options = {
       method: 'POST',
       url: 'https://play.ht/api/v2/tts',

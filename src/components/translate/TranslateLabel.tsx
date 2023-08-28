@@ -97,7 +97,6 @@ export default function TranslateLabel(): JSX.Element {
           },
         })
         .then((response) => {
-          console.log(response);
           if (response.data.audioUrl !== undefined) {
             const url = response.data.audioUrl;
             //update context
