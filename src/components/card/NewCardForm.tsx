@@ -28,13 +28,16 @@ export default function NewCardForm(): JSX.Element {
       back: back,
       deckId: currDeckId,
     };
-    await fetch("/api/card/create", {
+    fetch("/api/card/create", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body),
     })
-      .then(async (response) => {
-        const data = await response.json();
+      .then((response) => {
+        const data = response.json();
+        return data;
+      })
+      .then((data) => {
         //update context with new cards
         const newCard = {
           front: front,

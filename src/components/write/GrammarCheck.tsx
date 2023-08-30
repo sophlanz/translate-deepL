@@ -4,9 +4,8 @@ import useFetchOpenAi from "@/hooks/useFetchOpenAi";
 interface Props {
   textToCorrect: string;
 }
-export default function GrammarCheck(props: Props): JSX.Element {
+export default function GrammarCheck({ textToCorrect }: Props): JSX.Element {
   const { language } = useLanguage();
-  const { textToCorrect } = props;
   const [checkGrammar, setCheckGrammar] = useState<boolean>(false);
   const grammarPrompt = `Correct this to standard ${language}:\n\n${textToCorrect}`;
   const correctedGrammar = useFetchOpenAi({ grammarPrompt, language }).content;

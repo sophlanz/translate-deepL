@@ -1,7 +1,6 @@
 import axios,{ AxiosRequestConfig} from 'axios'
 import type { NextApiRequest, NextApiResponse } from 'next'
-
-async function handler(req: NextApiRequest, res:NextApiResponse):Promise<void> {
+ function handler(req: NextApiRequest, res:NextApiResponse):Promise<void> {
     const data: AxiosRequestConfig = {
       headers: {
         accept: 'application/json',
@@ -10,13 +9,13 @@ async function handler(req: NextApiRequest, res:NextApiResponse):Promise<void> {
         'X-User-Id': process.env.NEXT_PUBLIC_PLAYHT_USER_ID,
       },
       data: {
-        content: [req.query.newTranslation],
+        content: [req.query.translation],
         voice: req.query.voice,
       },
       url: 'https://play.ht/api/v1/convert',
       method: 'post',
     };
-    await axios.request(data)
+     return axios.request(data)
       .then((results) => {
         res.status(results.status).send(results.data)
         res.end()

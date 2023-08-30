@@ -7,15 +7,17 @@ enum Status {
   Loading,
   Error,
 }
-export default function DeleteControl(props: { cardId: string }): JSX.Element {
-  const { cardId } = props;
+interface Props {
+  cardId: string;
+}
+export default function DeleteControl({ cardId }: Props): JSX.Element {
   const { cards, updateCards } = useCards();
   const [status, setStatus] = useState<Status>(Status.idle);
   const [error, setError] = useState<Error | undefined>();
   const handleDelete = async (e: React.SyntheticEvent, cardId: string) => {
     e.preventDefault();
     setStatus(Status.Loading);
-    await fetch("/api/card/delete?id=" + cardId, {
+    fetch("/api/card/delete?id=" + cardId, {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
     })

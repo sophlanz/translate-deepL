@@ -1,7 +1,7 @@
 import axios,{ AxiosRequestConfig} from 'axios'
 import type { NextApiRequest, NextApiResponse } from 'next'
 
-async function handler(req: NextApiRequest, res:NextApiResponse):Promise<void> {
+  function handler(req: NextApiRequest, res:NextApiResponse):Promise<void> {
     const data: AxiosRequestConfig = {
       headers: {
         accept: 'text/event-stream',
@@ -12,7 +12,7 @@ async function handler(req: NextApiRequest, res:NextApiResponse):Promise<void> {
       url: `https://play.ht/api/v1/articleStatus?transcriptionId=${req.query.transcriptionId}`,
       method: 'get',
     };
-    await axios.request(data)
+     return axios.request(data)
       .then((results) => {
         res.status(results.status).send(results.data)
         res.end()

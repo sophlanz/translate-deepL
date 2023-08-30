@@ -2,16 +2,15 @@ import React from "react";
 import Image from "next/image";
 import { useDecks } from "@/context/decks-context";
 import ErrorMessage from "../errors/ErrorMessage";
-type Props = {
+interface Props {
   deckId: string;
-};
+}
 enum Status {
   Idle,
   Loading,
   Error,
 }
-export default function DeleteControl(props: Props): JSX.Element {
-  const { deckId } = props;
+export default function DeleteControl({ deckId }: Props): JSX.Element {
   const { decks, updateDecks } = useDecks();
   const [status, setStatus] = React.useState<Status>(Status.Idle);
   const [error, setError] = React.useState<Error | undefined>(undefined);

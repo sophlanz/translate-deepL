@@ -4,6 +4,7 @@ import { useLanguage } from "@/context/language-context";
 import { useAudio } from "@/context/audio-context";
 import { useTranslation } from "@/context/translation-context";
 import ErrorMessage from "../errors/ErrorMessage";
+import handle from "@/pages/api/card/create";
 enum Status {
   Idle,
   Loading,
@@ -11,7 +12,7 @@ enum Status {
 }
 export default function TranslateLabel(): JSX.Element {
   const { translation, changeTranslation } = useTranslation();
-  const [newTranslation, setNewTranslation] = useState<string>("");
+  /*   const [newTranslation, setNewTranslation] = useState<string>(""); */
   const [toBeTranslated, setToBeTranslated] = useState<string>("");
   const { changeAudioUrl, audioGenerationStatus, updateAudioGenerationStatus } =
     useAudio();
@@ -64,13 +65,21 @@ export default function TranslateLabel(): JSX.Element {
     setStatus(Status.Loading);
     fetch(
       `https://api-free.deepl.com/v2/translate?auth_key=${process.env.NEXT_PUBLIC_DEEPL_AUTH_KEY}&text=${toBeTranslated}&target_lang=${aiApiLanguage}&preserve_formatting=1`
-    ).then(async (response) => {
-      const dataDeepL = await response.json();
-      const translationData = dataDeepL.translations[0].text;
-      changeTranslation(translationData);
-      setNewTranslation(translationData);
-      setStatus(Status.Idle);
-    });
+    )
+      .then((response) => {
+        const dataDeepL = response.json();
+        return dataDeepL;
+      })
+      .then((dataDeepL) => {
+        const translationData = dataDeepL.translations[0].text;
+        changeTranslation(translationData);
+        /*       setNewTranslation(translationData); */
+        setStatus(Status.Idle);
+        return translationData;
+      })
+      .then((translation) => {
+        handleVoice(translation);
+      });
   };
   const handleV2VoiceData = (data: string) => {
     const urlRegex = /"url":"([^"]+)"/;
@@ -110,7 +119,8 @@ export default function TranslateLabel(): JSX.Element {
         });
     }, 5000);
   };
-  async function handleVoice() {
+  async function handleVoice(translation: string) {
+    console.log(translation);
     setStatus(Status.Loading);
     updateAudioGenerationStatus(Status.Loading);
     try {
@@ -121,7 +131,7 @@ export default function TranslateLabel(): JSX.Element {
             ? `${url}/playhtv2`
             : `${url}/playhtv1`,
         params: {
-          newTranslation,
+          translation,
           voice,
         },
       });
@@ -141,12 +151,11 @@ export default function TranslateLabel(): JSX.Element {
     }
   }
   //when we have a new translation, get new audio
-  useEffect(() => {
+  /*   useEffect(() => {
     if (newTranslation !== "") {
       handleVoice();
     }
-  }, [newTranslation]);
-  //when we change the language, update context
+  }, [newTranslation]) */ //when we change the language, update context
   useEffect(() => {
     convertAiApiLanguage(language);
   }, [language]);

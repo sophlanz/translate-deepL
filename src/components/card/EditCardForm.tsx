@@ -2,13 +2,15 @@ import React, { useState } from "react";
 import { useCards } from "../../context/card-context";
 import type { Card } from "@prisma/client";
 import ErrorMessage from "../errors/ErrorMessage";
+interface Props {
+  card: Card;
+}
 enum Status {
   Idle,
   Loading,
   Error,
 }
-export default function EditCardForm(props: { card: Card }): JSX.Element {
-  const { card } = props;
+export default function EditCardForm({ card }: Props): JSX.Element {
   const [front, setFront] = useState("");
   const [back, setBack] = useState("");
   const { edit, updateCards, cards, updateEditCard } = useCards();
@@ -29,7 +31,7 @@ export default function EditCardForm(props: { card: Card }): JSX.Element {
       cardId: cardId,
     };
     //send data to /api/card/update api route
-    await fetch("/api/card/update", {
+    fetch("/api/card/update", {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body),

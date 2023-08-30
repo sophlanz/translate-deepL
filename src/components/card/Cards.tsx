@@ -18,10 +18,10 @@ export default function Cards(): JSX.Element {
               <p>{card.back}</p>
             </div>
             <div className="cardControls">
-              <DeleteControl {...{ cardId: card.id }} />
-              <EditControl {...{ cardId: card.id }} />
+              <DeleteControl cardId={card.id} />
+              <EditControl cardId={card.id} />
             </div>
-            <EditCardForm {...{ card: card }} />
+            <EditCardForm card={card} />
           </div>
         );
       })}

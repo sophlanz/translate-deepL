@@ -1,7 +1,7 @@
 import axios from 'axios'
 import type { NextApiRequest, NextApiResponse } from 'next'
 //response is SSE
-async function handler(req: NextApiRequest, res:NextApiResponse):Promise<void> {
+ function handler(req: NextApiRequest, res:NextApiResponse):Promise<void> {
     const options = {
       method: 'POST',
       url: 'https://play.ht/api/v2/tts',
@@ -13,7 +13,7 @@ async function handler(req: NextApiRequest, res:NextApiResponse):Promise<void> {
         'X-User-Id': process.env.NEXT_PUBLIC_PLAYHT_USER_ID
       },
       data: {
-        text: req.query.newTranslation,
+        text: req.query.translation,
         voice: req.query.voice,
         quality: 'medium',
         output_format: 'mp3',
@@ -24,7 +24,7 @@ async function handler(req: NextApiRequest, res:NextApiResponse):Promise<void> {
       }
     };
     
-    axios
+    return axios
       .request(options)
       .then(function (response) {
         res.send(response.data)

@@ -1,16 +1,15 @@
 import React, { useState } from "react";
 import { useDecks } from "../../context/decks-context";
 import ErrorMessage from "../errors/ErrorMessage";
-type Props = {
+interface Props {
   deckId: string;
-};
+}
 enum Status {
   Idle,
   Loading,
   Error,
 }
-export default function EditDeckForm(props: Props): JSX.Element {
-  const { deckId } = props;
+export default function EditDeckForm({ deckId }: Props): JSX.Element {
   const { editDeck, changeDeckTitle, decks, changeEditDeck } = useDecks();
   const [newDeckName, setNewDeckName] = useState<string>("");
   const [status, setStatus] = useState<Status>(Status.Idle);
@@ -23,7 +22,7 @@ export default function EditDeckForm(props: Props): JSX.Element {
       title: newDeckName,
       deckId: deckId,
     };
-    await fetch("/api/deck/update", {
+    fetch("/api/deck/update", {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body),

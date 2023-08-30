@@ -46,8 +46,4 @@ export default function useFetchOpenAi(props: Props): UseFetchOpenAiResponse {
   }, [content, isLoading]);
 
   return memoizedData;
-  /*   return {
-    content,
-    isLoading,
-  }; */
 }

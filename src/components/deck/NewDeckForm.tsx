@@ -19,21 +19,18 @@ export default function NewDeckForm(): JSX.Element {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ title: deckTitle }),
     })
-      .then(async (response) => {
-        if (response.ok) {
-          const data = await response.json();
-          //update context with new deck
-          const { name, id } = data;
-          const newDeck = { name, id };
-          const updatedDecks = [...decks, newDeck];
-          updateDecks(updatedDecks);
-          changeDeckTitle("");
-          setStatus(Status.Idle);
-        } else {
-          console.log("request failed with status", response.status);
-          setStatus(Status.Error);
-          setError(error);
-        }
+      .then((response) => {
+        const data = response.json();
+        return data;
+      })
+      .then((data) => {
+        //update context with new deck
+        const { name, id } = data;
+        const newDeck = { name, id };
+        const updatedDecks = [...decks, newDeck];
+        updateDecks(updatedDecks);
+        changeDeckTitle("");
+        setStatus(Status.Idle);
       })
       .catch((error) => {
         console.log(error);

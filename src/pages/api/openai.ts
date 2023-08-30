@@ -1,13 +1,13 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { Configuration, OpenAIApi } from "openai";
-async function handler (req:NextApiRequest, res:NextApiResponse): Promise<void>{
+ function handler (req:NextApiRequest, res:NextApiResponse): Promise<void>{
 //openAI
 const configuration = new Configuration({
     apiKey: process.env.NEXT_PUBLIC_OPENAI_API_KEY,
   });
   const openai = new OpenAIApi(configuration);
 
-  await openai.createChatCompletion({
+  return openai.createChatCompletion({
     model: "gpt-3.5-turbo",
     messages: [{role:"user",content:`${req.query.prompt}`}],
     temperature: 0,

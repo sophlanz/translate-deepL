@@ -1,8 +1,10 @@
 import React from "react";
 import Image from "next/image";
 import { useCards } from "../../context/card-context";
-export default function EditControl(props: { cardId: string }): JSX.Element {
-  const { cardId } = props;
+interface Props {
+  cardId: string;
+}
+export default function EditControl({ cardId }: Props): JSX.Element {
   const { updateEditCard } = useCards();
   return (
     <div onClick={() => updateEditCard(true, cardId)}>
