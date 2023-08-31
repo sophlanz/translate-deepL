@@ -16,10 +16,12 @@ export default function Home() {
   }, [session]);
   return (
     <div className="homepage">
-      <Header />
+      {/*  <Header /> */}
       <WordOfDayContainer />
-      <TranslateWrapper />
-      <WritingWrapper />
+      <section className="languageCenter">
+        <TranslateWrapper />
+        <WritingWrapper />
+      </section>
     </div>
   );
 }

@@ -3,12 +3,16 @@ nav {
     justify-content: space-between;
     padding:20px 40px;
     gap:15px;
-
+    background-color:rgba(255,255,255,0.5);
+    height:40px;
+    margin-bottom:25px;
+    align-items: center;
 }
+
 //"ai lengua"
 nav h1{
     font-size:4rem;
-    color:white;
+    color:black;
     font-family:'Vegawanty'
 }
 nav h1 span {
@@ -16,29 +20,18 @@ nav h1 span {
     font-size:3.5rem;
     font-family:'Migha'
 }
-//login 
-nav a {
-    color:white;
-    border:2px solid $blue ;
-    border-radius:2rem;
-    padding:20px 40px;
-    font-size:2rem;
-    font-family:"Vegawanty";
-    text-align:center;
+nav section {
+    display:flex;
+    gap:25px;
 }
-nav h1 a{
-    border:none
-}
-nav a:hover{
-    background-color:rgba(0,0,0,0.1);
-  
-}
-nav h1 a:hover{
-    background-color:transparent;
-}
+
 nav h2 {
     font-size: 2rem;
-    color: white;
+    color: black;
     width: 250px;
     font-family: "Vegawanty";
+}
+nav ul{
+    display:flex;
+    gap:25px;
 }

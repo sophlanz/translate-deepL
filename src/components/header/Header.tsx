@@ -21,9 +21,13 @@ export default function Header(): JSX.Element {
             <span>AI</span> Lengua{" "}
           </Link>
         </h1>
-        <Link href="/api/auth/signin" data-active={isActive("/signup")}>
-          Login
-        </Link>
+        <ul>
+          <li>
+            <Link href="/api/auth/signin" data-active={isActive("/signup")}>
+              Login
+            </Link>
+          </li>
+        </ul>
       </nav>
     );
   }
@@ -39,22 +43,30 @@ export default function Header(): JSX.Element {
             <span>AI</span> Lengua{" "}
           </Link>
         </h1>
-        <button onClick={() => signOut()}>Log Out</button>
+        <ul>
+          <li onClick={() => signOut()}>Log Out</li>
+        </ul>
       </nav>
     );
   } else {
     navBar = (
-      <nav style={{ flexDirection: "column" }}>
-        <h1>
-          <Link href="/">
-            <span>AI</span> Lengua{" "}
-          </Link>
-        </h1>
-        {session.user ? <h2>Hi, {session.user.name}. Welcome Back!</h2> : null}
-        <button onClick={() => signOut()}>Log Out</button>
-        <Link href="/decks" data-active={isActive("/")}>
-          Decks
-        </Link>
+      <nav style={{ flexDirection: "row" }}>
+        <section className="greeting">
+          <h1>
+            <Link href="/">
+              <span>AI</span> Lengua{" "}
+            </Link>
+          </h1>
+          <h2>{session.user ? <h2>Hi, {session.user.name}</h2> : null}</h2>
+        </section>
+        <ul>
+          <li onClick={() => signOut()}>Log Out</li>
+          <li>
+            <Link href="/decks" data-active={isActive("/")}>
+              Decks
+            </Link>
+          </li>
+        </ul>
       </nav>
     );
   }

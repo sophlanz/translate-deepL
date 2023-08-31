@@ -53,13 +53,14 @@
     width: 150px;
     height:50px;
     color: white;
-    border: 2px solid #0122f7;
+    border: 2px solid white;
     border-radius: 2rem;
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     font-family: "Vegawanty";
 }
 .decks form button:hover, .cards form button:hover {
-    background-color:rgba(0,0,0,0.6);
+    background-color:white;
+    color:black;
     cursor:pointer;
 }
 .cardControls{

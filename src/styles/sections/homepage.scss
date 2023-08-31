@@ -1,9 +1,4 @@
-/* .homepage {
-    background-image:url('../../../public/images/background.jpg');
-    background-position:cover;
-    background-position:right;
-    height:100vh;
-} */
+
 //container
 .wordOfDay{
     padding-left:40px;
@@ -11,17 +6,14 @@
     flex-direction: column;
     align-items: center;
     top: 100px;
-    left: 0;
-    right: 0;
     margin-left: auto;
     margin-right: auto;
-    position:absolute;
     max-width:350px;
 }
 //"word of the day"
 .wordOfDay h1{
     font-size:3rem;
-    color:white;
+    color:black;
     font-family:"Vegawanty";
     font-weight:bolder;
    
@@ -29,7 +21,7 @@
 //display of word
 .wordOfDay h2 {
     font-size:2rem;
-    color:white;
+    color:black;
     font-family:"Vegawanty";
     border-bottom:2px solid $blue;
 }
@@ -37,6 +29,7 @@
 .wordOfDay div {
     display:flex;
     align-items: center;
+    justify-content: center;
     gap:15px;
     cursor:pointer;
 }
@@ -75,8 +68,10 @@
     justify-content: center;
     align-items:center;
     padding-top:20px;
-    margin-top:75px;
+    margin-top:40px;
+    gap:20px;
 }
+
 //Translation
 .translate h2 {
     color: white;
@@ -133,12 +128,14 @@ audio{
 .writingWrapper {
     display:flex;
     background-color:rgba(0,0,0,0.5);
-    width:900px;
+    width:950px;
     position:absolute;
     left:0;
     right:0;
     margin-left:auto;
     margin-right:auto;
+    margin-top:20px;
+
     padding:20px;
     border-radius:2rem;
     gap:20px;
@@ -148,14 +145,15 @@ audio{
     background: none;
     border-radius: 2rem;
     color: white;
-    border: 2px solid black;
+    border: 2px solid white;
     font-size: 1.3rem;
     height:60px;
     font-family:"Vegawanty";
     margin-bottom:20px;
 }
 .writingWrapper button:hover{
-    background-color:rgba(0,0,0,0.3);
+    background-color:white;
+    color:black;
 }
 .writingWrapper p {
     color: black;

@@ -40,7 +40,7 @@ const DecksPage: React.FC = ({
   return (
     <DecksProvider foundDecks={decks}>
       <div>
-        <Header />
+        {/*  <Header /> */}
         <DecksContainer />
       </div>
     </DecksProvider>

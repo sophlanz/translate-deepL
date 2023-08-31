@@ -32,8 +32,10 @@ body {
 	line-height: 1;
 	height:100vw;
 	width:100vw;
-	background-image:url('../../../public/images/background.jpg');
-    background-position:cover;
+	background-image:url('../../../public/images/background1.jpg');
+  /*   background-position:cover; */
+	background-position: center;
+	background-size:cover;
 	max-height:100vh;
 }
 ol, ul {

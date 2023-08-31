@@ -23,7 +23,7 @@ const Cards: React.FC = ({
   return (
     <>
       <CardProvider savedCards={cards}>
-        <Header />
+        {/*       <Header /> */}
         <CardsContainer />
       </CardProvider>
     </>

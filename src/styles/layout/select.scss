@@ -6,9 +6,13 @@
     height:20px;
     margin-bottom:10px;
     color:white;
+    appearance:auto;
   }
 select{
     text-align-last:center;
+}
+select:hover{
+  cursor: pointer;
 }
 .selectWrapper{
     display:flex;

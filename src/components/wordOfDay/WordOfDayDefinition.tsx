@@ -20,9 +20,10 @@ export default function WordOfDayDefinition({ wordOfDay }: Props): JSX.Element {
         <Image
           onClick={showWordDefinition}
           alt="search"
+          title="search"
           src="/images/search.png"
-          height="20"
-          width="20"
+          height="30"
+          width="30"
         ></Image>
       </figure>
       {showDefinition ? (
