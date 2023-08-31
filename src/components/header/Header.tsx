@@ -60,12 +60,12 @@ export default function Header(): JSX.Element {
           <h2>{session.user ? <h2>Hi, {session.user.name}</h2> : null}</h2>
         </section>
         <ul>
-          <li onClick={() => signOut()}>Log Out</li>
           <li>
             <Link href="/decks" data-active={isActive("/")}>
               Decks
             </Link>
           </li>
+          <li onClick={() => signOut()}>Log Out</li>
         </ul>
       </nav>
     );
