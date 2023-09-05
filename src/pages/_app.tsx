@@ -10,7 +10,7 @@ const App = ({ Component, pageProps }: AppProps) => {
     <ErrorBoundary>
       <LanguageProvider initialLanguage={"English-US"}>
         <SessionProvider session={pageProps.session}>
-          <div>
+          <div className="navHeaderContainer">
             <Header />
             <Nav />
           </div>
