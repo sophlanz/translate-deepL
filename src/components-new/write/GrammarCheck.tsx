@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useLanguage } from "@/context/language-context";
 import useFetchOpenAi from "@/hooks/useFetchOpenAi";
+import PrimaryButton from "../ui/buttons/PrimaryButton";
 interface Props {
   textToCorrect: string;
 }
@@ -14,9 +15,11 @@ export default function GrammarCheck({ textToCorrect }: Props): JSX.Element {
     setCheckGrammar(!checkGrammar);
   };
   return (
-    <div className="grammarCheck">
-      <button onClick={handleCheckGrammar}>Check Grammar</button>
-      {checkGrammar ? <p>{correctedGrammar}</p> : null}
+    <div className="correctedGrammarContainer">
+      <PrimaryButton onClick={handleCheckGrammar} text="Check Grammar" />
+      {checkGrammar ? (
+        <p className="correctedGrammar">{correctedGrammar}</p>
+      ) : null}
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import useFetchOpenAi from "@/hooks/useFetchOpenAi";
 import { useLanguage } from "@/context/language-context";
+import PrimaryButton from "../ui/buttons/PrimaryButton";
 export default function WritingPrompt(): JSX.Element {
   const [showPrompt, setShowPrompt] = useState<boolean>(false);
   const { language } = useLanguage();
@@ -32,9 +33,9 @@ export default function WritingPrompt(): JSX.Element {
     setShowPrompt(!showPrompt);
   };
   return (
-    <div className="prompt">
-      <button onClick={handleGetPrompt}>Generate Prompt</button>
-      {showPrompt ? <p>{writingPrompt}</p> : null}
+    <div className="promptContainer">
+      <PrimaryButton onClick={handleGetPrompt} text="Generate Prompt" />
+      {showPrompt ? <p className="writingPromp">{writingPrompt}</p> : null}
     </div>
   );
 }

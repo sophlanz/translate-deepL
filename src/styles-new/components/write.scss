@@ -1,0 +1,13 @@
+.writeContainer {
+    margin-top:30px;
+}
+.promptContainer, .correctedGrammarContainer{
+    gap: 10px;
+    display: flex;
+    align-items: center;
+    padding:10px
+}  
+.writingPrompt, .correctedGrammar{
+    line-height: 135%;
+    font-size: 1.1rem;
+}

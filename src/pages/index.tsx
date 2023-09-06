@@ -3,6 +3,7 @@ import { useSession } from "next-auth/react";
 import router from "next/router";
 import { WordOfDay } from "@/components-new/wordOfDay";
 import { Translate } from "@/components-new/translate";
+import { Write } from "@/components-new/write";
 export default function Home() {
   const session = useSession();
 
@@ -12,9 +13,10 @@ export default function Home() {
     }
   }, [session]);
   return (
-    <div className="mainContainer">
+    <main className="mainContainer">
       <WordOfDay />
       <Translate />
-    </div>
+      <Write />
+    </main>
   );
 }
