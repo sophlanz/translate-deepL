@@ -11,6 +11,7 @@ export default function Write(): JSX.Element {
       <WritingPrompt />
       <div className="textWrapper">
         <textarea
+          className="textWrapperTextArea"
           placeholder="Generate a prompt, write some text, and check your grammar! "
           onChange={(e) => handleSetTextToCorrect(e.target.value)}
         />

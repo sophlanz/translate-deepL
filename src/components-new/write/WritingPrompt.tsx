@@ -35,7 +35,7 @@ export default function WritingPrompt(): JSX.Element {
   return (
     <div className="promptContainer">
       <PrimaryButton onClick={handleGetPrompt} text="Generate Prompt" />
-      {showPrompt ? <p className="writingPromp">{writingPrompt}</p> : null}
+      {showPrompt ? <p className="writingPrompt">{writingPrompt}</p> : null}
     </div>
   );
 }

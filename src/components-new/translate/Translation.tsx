@@ -12,8 +12,8 @@ export default function Translation(): JSX.Element {
   const { audioUrl, audioGenerationStatus } = useAudio();
   const { translation } = useTranslation();
   return (
-    <section className="translate">
-      <p>{translation}</p>
+    <section className="translation">
+      <p className="translationDisplay">{translation}</p>
       <div className="translationAudio">
         <AudioPlayer />
         {audioGenerationStatus === Status.Loading ? (

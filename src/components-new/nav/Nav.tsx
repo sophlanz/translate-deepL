@@ -9,7 +9,11 @@ export default function Nav(): JSX.Element {
   const isActive: (pathname: string) => boolean = (pathname) =>
     router.pathname === pathname;
   const { data: session } = useSession();
-
+  const toggleNavVisibility = () => {
+    if (navElement) {
+      navElement.style.visibility = "hidden";
+    }
+  };
   const logInLink = (
     <li className="navListItem">
       <Link href="/api/auth/signin" data-active={isActive("/signup")}>
@@ -36,7 +40,11 @@ export default function Nav(): JSX.Element {
     //show nav when we show ul
     <nav className="nav">
       <HamburgerButton nav={navElement} />
-      <ul id="navigation-drawer" className="navList">
+      <ul
+        id="navigation-drawer"
+        className="navList"
+        onClick={toggleNavVisibility}
+      >
         {session ? (
           <>
             {decksLink}
