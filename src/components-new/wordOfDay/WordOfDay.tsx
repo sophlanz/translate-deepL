@@ -25,9 +25,9 @@ export default function WordOfDay(): JSX.Element {
     setWordOfTheDay(word);
   }, [word]);
   return (
-    <section>
+    <section className="wordOfDayContainer">
       <h1>Word Of The Day</h1>
-      <div>
+      <div className="wordOfDayDefinition">
         <h2>{wordOfTheDay}</h2>
         <WordOfDayDefinition wordOfDay={wordOfTheDay} />
       </div>

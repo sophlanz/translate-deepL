@@ -1,5 +1,4 @@
 import React from "react";
-import router from "next/router";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 export default function Header(): JSX.Element {
@@ -21,4 +20,8 @@ export default function Header(): JSX.Element {
       {displayUserName}
     </header>
   );
+}
+/* { session?.user && <UserName name={session.user.name} />} */
+{
+  /* <UserName user={session?.user} /> */
 }

@@ -1,5 +1,6 @@
 import React from "react";
 import { useLanguage } from "@/context/language-context";
+import Image from "next/image";
 export default function SelectLang(): JSX.Element {
   const { language, changeLanguage, changeVoice } = useLanguage();
   //set target lang
@@ -43,8 +44,9 @@ export default function SelectLang(): JSX.Element {
     }
   };
   return (
-    <div className="selectWrapper">
-      <h2>TRANSLATE TO : </h2>
+    <section className="selectLang">
+      <h2>Detect Language</h2>
+      <Image src="/icons/arrow.png" alt="arrow" width="30" height="30" />
       <select
         className="targetLang"
         value={language}
@@ -59,6 +61,6 @@ export default function SelectLang(): JSX.Element {
         <option value="Japanese">Japanese</option>
         <option value="Korean">Korean</option>
       </select>
-    </div>
+    </section>
   );
 }

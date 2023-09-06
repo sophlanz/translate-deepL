@@ -1,1 +1,1 @@
-export { default as TranslateWrapper } from "./TranslateWrapper";
+export { default as Translate } from "./Translate";

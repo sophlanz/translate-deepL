@@ -8,7 +8,7 @@ export default function EditControl({ cardId }: Props): JSX.Element {
   const { updateEditCard } = useCards();
   return (
     <div onClick={() => updateEditCard(true, cardId)}>
-      <Image src="/images/edit.png" width={30} height={30} alt="Edit" />
+      <Image src="/icons/edit.png" width={30} height={30} alt="Edit" />
     </div>
   );
 }

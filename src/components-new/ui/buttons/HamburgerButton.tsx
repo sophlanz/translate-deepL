@@ -15,12 +15,12 @@ export default function HamburgerButton({ nav }: Props): JSX.Element {
     <button
       onClick={() => handleToggleMenu()}
       type="button"
-      aria-controls="navigation-drawer"
-      aria-expanded="false"
+      /*       aria-controls="navigation-drawer"
+      aria-expanded="false" */
       className="hamburger-menu"
     >
       <Image
-        src="/images/burger-menu.png"
+        src="/icons/burger-menu.png"
         alt="hamburger menu"
         width={40}
         height={40}

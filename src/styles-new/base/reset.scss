@@ -35,7 +35,8 @@ body {
 	line-height: 1;
 	height:100vw;
 	width:100vw;
-	background-image:url('../../../public/images/background1.jpg');
+	background-color:#fff;
+/* 	background-image:url('../../../public/icons/background1.jpg'); */
   /*   background-position:cover; */
 	background-position: right;
 	background-size:auto;
@@ -72,3 +73,14 @@ select {
 	line-height: inherit;
 	outline: none;
   }
+textarea { 
+	border-radius: 2rem;
+    border: 1px solid $light-grey;
+    padding: 10px;
+    height: 240px;
+    width: 95%;
+    font-family: Georgia;
+    font-size: 1.2rem;
+    resize: none;
+	color:$secondary-font-color;
+}

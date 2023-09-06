@@ -16,12 +16,12 @@ export default function WordOfDayDefinition({ wordOfDay }: Props): JSX.Element {
   };
   return (
     <>
-      <figure>
+      <figure className="searchDefinition">
         <Image
           onClick={showWordDefinition}
           alt="search"
           title="search"
-          src="/images/search.png"
+          src="/icons/search.png"
           height="30"
           width="30"
         ></Image>

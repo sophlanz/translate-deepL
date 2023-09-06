@@ -1,1 +1,1 @@
-export { default as WordOfDayContainer } from "./WordOfDayContainer";
+export { default as WordOfDay } from "./WordOfDay";

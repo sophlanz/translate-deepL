@@ -27,7 +27,7 @@ export default function EditDeckForm({ deckId }: Props): JSX.Element {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body),
     })
-      .then(() => {
+      .then((response) => {
         //update context with new name
         changeDeckTitle(newDeckName);
         //update decks array in context

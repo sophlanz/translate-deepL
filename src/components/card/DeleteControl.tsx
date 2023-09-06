@@ -38,7 +38,7 @@ export default function DeleteControl({ cardId }: Props): JSX.Element {
   };
   return (
     <div onClick={(e) => handleDelete(e, cardId)}>
-      <Image src={"/images/trash.png"} width={30} height={30} alt="delete" />
+      <Image src={"/icons/trash.png"} width={30} height={30} alt="delete" />
     </div>
   );
 }

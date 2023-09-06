@@ -5,7 +5,7 @@ import { AudioProvider } from "@/context/audio-context";
 import { TranslationProvider } from "@/context/translation-context";
 export default function TranslateWrapper(): JSX.Element {
   return (
-    <TranslationProvider initialTranslation="">
+    <TranslationProvider initialTranslation="Translation">
       <AudioProvider initialUrl="">
         <div
           className="translateWrapper"

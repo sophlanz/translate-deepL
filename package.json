@@ -34,6 +34,7 @@
   },
   "devDependencies": {
     "@types/uniqid": "^5.3.2",
+    "eslint-plugin-jsx-a11y": "^6.7.1",
     "prisma": "^4.11.0"
   }
 }

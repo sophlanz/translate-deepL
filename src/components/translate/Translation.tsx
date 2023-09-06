@@ -20,7 +20,7 @@ export default function Translation(): JSX.Element {
           <div className="generateAudio">
             <Image
               className="loadingIcon"
-              src="/images/loading.png"
+              src="/icons/loading.png"
               alt="loading"
               height={30}
               width={30}
