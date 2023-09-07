@@ -7,13 +7,17 @@ export default function HamburgerButton({ nav }: Props): JSX.Element {
   const handleToggleMenu = () => {
     const button = document.getElementsByClassName("hamburger-menu")[0];
     const expanded = button.getAttribute("aria-expanded");
+
     const newExpanded = expanded == "true" ? "false" : "true";
+
     button.setAttribute("aria-expanded", newExpanded);
+
     if (nav) nav.style.visibility = expanded == "true" ? "hidden" : "visible";
   };
+
   return (
     <button
-      onClick={() => handleToggleMenu()}
+      onClick={handleToggleMenu}
       type="button"
       aria-controls="navigation-drawer"
       aria-expanded="false"

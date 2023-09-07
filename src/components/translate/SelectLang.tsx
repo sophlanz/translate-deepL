@@ -1,7 +1,9 @@
 import React from "react";
 import { useLanguage } from "@/context/language-context";
+import { Select, SelectOption } from "../../components-new/componentLibrary";
 export default function SelectLang(): JSX.Element {
   const { language, changeLanguage, changeVoice } = useLanguage();
+
   //set target lang
   const handleSelectLang = (event: React.ChangeEvent<HTMLSelectElement>) => {
     switch (event.target.value) {
@@ -45,10 +47,11 @@ export default function SelectLang(): JSX.Element {
   return (
     <div className="selectWrapper">
       <h2>TRANSLATE TO : </h2>
+
       <select
         className="targetLang"
         value={language}
-        onChange={(e) => handleSelectLang(e)}
+        onChange={handleSelectLang}
       >
         <option value="English-US">English-US</option>
         <option value="English-GB">English-GB</option>

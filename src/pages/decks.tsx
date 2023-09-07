@@ -1,8 +1,7 @@
 import React, { useEffect } from "react";
 import { useRouter } from "next/router";
-import { Header } from "../components/header";
 import { useSession } from "next-auth/react";
-import { DecksContainer } from "../components/deck";
+import { DecksContainer } from "../components-new/deck";
 import { GetServerSideProps } from "next";
 import { getSession } from "next-auth/react";
 import { InferGetServerSidePropsType } from "next";
@@ -39,10 +38,8 @@ const DecksPage: React.FC = ({
   }, [session, router]);
   return (
     <DecksProvider foundDecks={decks}>
-      <div>
-        {/*  <Header /> */}
-        <DecksContainer />
-      </div>
+      {/*  <Header /> */}
+      <DecksContainer />
     </DecksProvider>
   );
 };

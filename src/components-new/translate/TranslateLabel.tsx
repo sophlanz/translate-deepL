@@ -4,7 +4,7 @@ import { useLanguage } from "@/context/language-context";
 import { useAudio } from "@/context/audio-context";
 import { useTranslation } from "@/context/translation-context";
 import ErrorMessage from "../errors/ErrorMessage";
-import PrimaryButton from "../ui/buttons/PrimaryButton";
+import { PrimaryButton } from "../componentLibrary";
 enum Status {
   Idle,
   Loading,

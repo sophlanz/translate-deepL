@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import useFetchOpenAi from "@/hooks/useFetchOpenAi";
 import { useLanguage } from "@/context/language-context";
-import PrimaryButton from "../ui/buttons/PrimaryButton";
+import PrimaryButton from "../componentLibrary/buttons/PrimaryButton";
 export default function WritingPrompt(): JSX.Element {
   const [showPrompt, setShowPrompt] = useState<boolean>(false);
   const { language } = useLanguage();

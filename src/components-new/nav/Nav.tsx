@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { signOut, useSession } from "next-auth/react";
-import HamburgerButton from "../ui/buttons/HamburgerButton";
+import { HamburgerButton } from "../componentLibrary";
 export default function Nav(): JSX.Element {
   const [navElement, setNavElement] = useState<HTMLElement | null>(null);
   const router = useRouter();
