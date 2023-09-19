@@ -19,7 +19,10 @@ export default function Decks(): JSX.Element {
       {decks.map((deck: Deck) => {
         return (
           <div key={uniqid()} className="deck">
-            <Link href={`/deck/${deck.id}`}> {deck.name} </Link>
+            <Link className={"deckName"} href={`/deck/${deck.id}`}>
+              {" "}
+              {deck.name}{" "}
+            </Link>
             <div className="deckControls">
               <DeleteControl deckId={deck.id} />
               <EditControl deckId={deck.id} />
