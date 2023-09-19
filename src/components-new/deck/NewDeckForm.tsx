@@ -1,7 +1,7 @@
 import React from "react";
 import { useDecks } from "@/context/decks-context";
 import ErrorMessage from "../errors/ErrorMessage";
-import PrimaryButton from "../componentLibrary/buttons/PrimaryButton";
+import { PrimaryButton } from "../componentLibrary/buttons/PrimaryButton";
 import { Form, Label, Input } from "../componentLibrary";
 enum Status {
   Idle,
@@ -57,20 +57,4 @@ export default function NewDeckForm(): JSX.Element {
       <PrimaryButton text={"New Deck"} type={"submit"} />
     </Form>
   );
-}
-{
-  /*     <form onSubmit={handleCreateDeck} className="newDeckForm">
-      <label htmlFor="newDeckTitle" className="newDeckTitleLabel">
-        {" "}
-        Deck Name
-        <input
-          type="text"
-          name="newDeckTitle"
-          className="newDeckTitleInput"
-          onChange={(e) => changeDeckTitle(e.target.value)}
-          value={deckTitle}
-        ></input>
-      </label>
-      <PrimaryButton text={"New Deck"} type={"submit"} />
-    </form> */
 }

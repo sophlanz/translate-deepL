@@ -3,7 +3,7 @@ import Image from "next/image";
 interface Props {
   nav: HTMLElement | null;
 }
-export default function HamburgerButton({ nav }: Props): JSX.Element {
+function HamburgerButton({ nav }: Props): JSX.Element {
   const handleToggleMenu = () => {
     const button = document.getElementsByClassName("hamburger-menu")[0];
     const expanded = button.getAttribute("aria-expanded");
@@ -33,3 +33,4 @@ export default function HamburgerButton({ nav }: Props): JSX.Element {
     </button>
   );
 }
+export { HamburgerButton };

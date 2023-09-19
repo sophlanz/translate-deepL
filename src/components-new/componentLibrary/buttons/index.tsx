@@ -1,2 +1,2 @@
-export { default as HamburgerButton } from "./HamburgerButton";
-export { default as PrimaryButton } from "./PrimaryButton";
+export * from "./HamburgerButton";
+export * from "./PrimaryButton";
