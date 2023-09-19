@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import useFetchOpenAi from "@/hooks/useFetchOpenAi";
 import { useLanguage } from "@/context/language-context";
@@ -8,15 +8,23 @@ interface Props {
 export default function WordOfDayDefinition({ wordOfDay }: Props): JSX.Element {
   const { language } = useLanguage();
   const [showDefinition, setShowDefinition] = useState<boolean>(false);
-  /*   const [wordDefinition, setWordDefinition] = useState<string>(""); */
+  const [wordDefinition, setWordDefinition] = useState<string>("");
   const prompt = `what is the definition of ${wordOfDay}?`;
-  const wordDefinition = useFetchOpenAi({ prompt, language, wordOfDay });
+  //change only when wordOfDay changes
+  useFetchOpenAi({
+    prompt,
+    language,
+    wordOfDay,
+  }).then((response) => {
+    console.log(response.data);
+    setWordDefinition(response.data);
+  });
   const showWordDefinition = async () => {
     setShowDefinition(!showDefinition);
   };
   return (
     <>
-      <figure>
+      <figure className="searchDefinition">
         <Image
           onClick={showWordDefinition}
           alt="search"
@@ -27,7 +35,7 @@ export default function WordOfDayDefinition({ wordOfDay }: Props): JSX.Element {
         ></Image>
       </figure>
       {showDefinition ? (
-        <p onClick={showWordDefinition}>{wordDefinition.content}</p>
+        <p onClick={showWordDefinition}>{wordDefinition}</p>
       ) : null}
     </>
   );

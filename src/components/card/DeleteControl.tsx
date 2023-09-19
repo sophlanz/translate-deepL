@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import Image from "next/image";
 import { useCards } from "../../context/card-context";
 import ErrorMessage from "../errors/ErrorMessage";
+import { PrimaryIcon } from "../componentLibrary";
 enum Status {
   idle,
   Loading,
@@ -37,8 +37,12 @@ export default function DeleteControl({ cardId }: Props): JSX.Element {
     }
   };
   return (
-    <div onClick={(e) => handleDelete(e, cardId)}>
-      <Image src={"/icons/trash.png"} width={30} height={30} alt="delete" />
-    </div>
+    <PrimaryIcon
+      src="/icons/trash.png"
+      alt="delete"
+      height={30}
+      width={30}
+      onClick={(e) => handleDelete(e, cardId)}
+    />
   );
 }

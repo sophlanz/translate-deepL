@@ -1,1 +1,1 @@
-export { default as WritingWrapper } from "./WritingWrapper";
+export { default as Write } from "./Write";

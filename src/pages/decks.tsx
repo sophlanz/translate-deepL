@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
-import { DecksContainer } from "../components-new/deck";
+import { DecksContainer } from "../components/deck";
 import { GetServerSideProps } from "next";
 import { getSession } from "next-auth/react";
 import { InferGetServerSidePropsType } from "next";

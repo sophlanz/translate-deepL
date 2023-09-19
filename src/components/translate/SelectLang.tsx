@@ -1,9 +1,19 @@
 import React from "react";
 import { useLanguage } from "@/context/language-context";
-import { Select, SelectOption } from "../../components-new/componentLibrary";
+import Image from "next/image";
+import { Select, SelectOption } from "../componentLibrary";
+const selectOptions = [
+  "English-US",
+  "English-GB",
+  "Spanish",
+  "French",
+  "German",
+  "Chinese",
+  "Japanese",
+  "Korean",
+];
 export default function SelectLang(): JSX.Element {
   const { language, changeLanguage, changeVoice } = useLanguage();
-
   //set target lang
   const handleSelectLang = (event: React.ChangeEvent<HTMLSelectElement>) => {
     switch (event.target.value) {
@@ -44,24 +54,17 @@ export default function SelectLang(): JSX.Element {
         changeLanguage("English-US");
     }
   };
-  return (
-    <div className="selectWrapper">
-      <h2>TRANSLATE TO : </h2>
 
-      <select
-        className="targetLang"
-        value={language}
-        onChange={handleSelectLang}
-      >
-        <option value="English-US">English-US</option>
-        <option value="English-GB">English-GB</option>
-        <option value="Spanish">Spanish</option>
-        <option value="French">French</option>
-        <option value="German">German</option>
-        <option value="Chinese">Chinese</option>
-        <option value="Japanese">Japanese</option>
-        <option value="Korean">Korean</option>
-      </select>
-    </div>
+  return (
+    <section className="selectLang">
+      <h2>Detect Language</h2>
+      <Image src="/icons/arrow.png" alt="arrow" width="30" height="30" />
+      <Select value={language} onChange={handleSelectLang}>
+        {selectOptions.map((option) => (
+          <SelectOption value={option} key={option} classes={"targetLang"} />
+        ))}
+      </Select>
+    </section>
   );
 }
+//Make separate select component. Pass in array of strings or break up into 2 components, select and select options.

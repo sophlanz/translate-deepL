@@ -3,7 +3,7 @@ import { GetServerSideProps } from "next";
 import { InferGetServerSidePropsType } from "next";
 import React from "react";
 import { CardProvider } from "../../context/card-context";
-import { CardsContainer } from "../../components-new/card";
+import { CardsContainer } from "../../components/card";
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const deckId = String(params?.id);
   const cards = await prisma.card.findMany({
