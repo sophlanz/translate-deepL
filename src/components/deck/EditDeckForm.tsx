@@ -27,9 +27,9 @@ export default function EditDeckForm({ deckId }: Props): JSX.Element {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body),
     })
-      .then(() => {
-        //update context with new name
-        changeDeckTitle(newDeckName);
+      .then((response) => {
+        /*   //update context with new name
+        changeDeckTitle(newDeckName); */
         //update decks array in context
         decks.map((deck) => {
           if (deck.id === deckId) {
@@ -39,6 +39,8 @@ export default function EditDeckForm({ deckId }: Props): JSX.Element {
         //set isEditing back to false and deckId back to empty string
         changeEditDeck({ deckId: "", isEditing: false });
         setStatus(Status.Idle);
+        //reset newDeckName
+        setNewDeckName("");
       })
       .catch((error) => {
         console.log(error);

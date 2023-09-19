@@ -1,0 +1,17 @@
+.wordOfDayContainer {
+    display:flex;
+    flex-direction:column;
+    align-items: center;
+    margin-top:30px;
+}
+.wordOfDayContainer h1{
+    font-size:2rem;
+}
+.wordOfDayDefinition{
+    display:flex;
+    gap:5px;
+    max-width:30%;
+}
+.wordOfDayDefinition h2{
+    font-size:1.5rem;
+}

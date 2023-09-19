@@ -1,11 +1,9 @@
 import React, { useEffect } from "react";
-import { Header } from "../components/header";
-import { WordOfDayContainer } from "../components/wordOfDay";
-import { TranslateWrapper } from "../components/translate";
-import { WritingWrapper } from "../components/write";
 import { useSession } from "next-auth/react";
 import router from "next/router";
-
+import { WordOfDay } from "@/components/wordOfDay";
+import { Translate } from "@/components/translate";
+import { Write } from "@/components/write";
 export default function Home() {
   const session = useSession();
 
@@ -15,13 +13,10 @@ export default function Home() {
     }
   }, [session]);
   return (
-    <div className="homepage">
-      {/*  <Header /> */}
-      <WordOfDayContainer />
-      <section className="languageCenter">
-        <TranslateWrapper />
-        <WritingWrapper />
-      </section>
-    </div>
+    <main className="mainContainer">
+      <WordOfDay />
+      <Translate />
+      <Write />
+    </main>
   );
 }

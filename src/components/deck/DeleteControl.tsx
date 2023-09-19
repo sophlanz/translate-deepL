@@ -1,7 +1,7 @@
 import React from "react";
-import Image from "next/image";
 import { useDecks } from "@/context/decks-context";
 import ErrorMessage from "../errors/ErrorMessage";
+import { PrimaryIcon } from "../componentLibrary";
 interface Props {
   deckId: string;
 }
@@ -37,8 +37,12 @@ export default function DeleteControl({ deckId }: Props): JSX.Element {
     return <ErrorMessage error={error} />;
   }
   return (
-    <div onClick={(e) => handleDelete(e, deckId)}>
-      <Image src="/images/trash.png" alt="delete" height={30} width={30} />
-    </div>
+    <PrimaryIcon
+      src="/icons/trash.png"
+      alt="delete"
+      height={30}
+      width={30}
+      onClick={(e) => handleDelete(e, deckId)}
+    />
   );
 }

@@ -4,7 +4,7 @@ import { useLanguage } from "@/context/language-context";
 import { useAudio } from "@/context/audio-context";
 import { useTranslation } from "@/context/translation-context";
 import ErrorMessage from "../errors/ErrorMessage";
-import handle from "@/pages/api/card/create";
+import { PrimaryButton } from "../componentLibrary";
 enum Status {
   Idle,
   Loading,
@@ -173,7 +173,11 @@ export default function TranslateLabel(): JSX.Element {
           onChange={(e) => setToBeTranslated(e.target.value)}
         />
       </label>
-      <button onClick={(e) => handleSubmit(e)}>Submit</button>
+      <PrimaryButton
+        text={"Submit"}
+        onClick={(e) => handleSubmit(e)}
+        type={"submit"}
+      />
     </>
   );
 }

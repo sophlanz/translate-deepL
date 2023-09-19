@@ -1,0 +1,44 @@
+.cards{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
+    margin-left: 10%;
+    margin-right: 10%;
+    background-color:$dark-grey;
+    font-family:"Vegawanty";
+    font-size:1.3rem;
+    font-weight:700;
+    padding:20px;
+    text-align:center;
+
+}
+.card{
+    display: flex;
+  /*   flex-wrap:wrap; */
+   justify-content: space-evenly; 
+    width: 100%;
+    height:auto;
+    align-items: center;
+    gap:10px;
+    border-top: 2px solid white;
+    padding:30px;
+}
+.card:hover{
+    background-color:black;
+    color:white;
+}
+.cardControls,.cardControlsLabel {
+width:20%;
+display:flex;
+justify-content: center;
+flex-wrap:wrap;
+gap:10px;
+}
+.cardFront, .cardBack{
+    width:40%;
+}
+.cardWordLabel, .cardTranslationLabel{
+    width:clamp(20%,40%,45%)
+} 
+

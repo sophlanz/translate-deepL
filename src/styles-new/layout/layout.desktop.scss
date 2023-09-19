@@ -1,0 +1,18 @@
+@media only screen and (min-width: 1024px) {
+    .mainContainer {
+        padding:10px 15%;
+    }
+    .translateWrapper {
+        display:flex;
+    }
+    .translate {
+        flex:1
+
+    }
+    .translation {
+        flex:1;
+        margin-top: 70px;
+       
+    }
+
+}

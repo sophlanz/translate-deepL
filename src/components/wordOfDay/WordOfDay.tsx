@@ -14,20 +14,22 @@ export default function WordOfDay(): JSX.Element {
     "intense",
     "light",
   ];
-  /*   ${
-    wordTopics[Math.floor(Math.random() * wordTopics.length)]
-  } */
-  const prompt = `Give me a unique random advanced word in ${language} from ${
-    wordTopics[Math.floor(Math.random() * wordTopics.length)]
-  } please don't give me the definition\n`;
-  const word = useFetchOpenAi({ prompt, language }).content;
-  useEffect(() => {
-    setWordOfTheDay(word);
-  }, [word]);
+  // Define an async function to fetch the word
+
+  useFetchOpenAi({
+    prompt: `Give me a unique random advanced word in ${language} from ${
+      wordTopics[Math.floor(Math.random() * wordTopics.length)]
+    } please don't give me the definition\n`,
+    language,
+  }).then((response) => {
+    console.log(response.data);
+    setWordOfTheDay(response.data);
+  });
+
   return (
-    <section>
+    <section className="wordOfDayContainer">
       <h1>Word Of The Day</h1>
-      <div>
+      <div className="wordOfDayDefinition">
         <h2>{wordOfTheDay}</h2>
         <WordOfDayDefinition wordOfDay={wordOfTheDay} />
       </div>

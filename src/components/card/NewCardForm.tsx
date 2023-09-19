@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useCards } from "@/context/card-context";
 import ErrorMessage from "../errors/ErrorMessage";
+import { Form, Label, Input } from "../componentLibrary";
+import { PrimaryButton } from "../componentLibrary";
 enum Status {
   Idle,
   Loading,
@@ -60,26 +62,16 @@ export default function NewCardForm(): JSX.Element {
     return <ErrorMessage error={error} />;
   }
   return (
-    <form onSubmit={(e) => handleCreateCard(e)}>
-      <label htmlFor="front">
-        Word
-        <input
-          name="front"
-          type="text"
-          onChange={(e) => setFront(e.target.value)}
+    <Form onSubmit={(e) => handleCreateCard(e)}>
+      <Label htmlFor={"front"} labelName={"Word"}>
+        <Input
+          inputType={"text"}
+          inputName={"front"}
           value={front}
+          onChange={(e) => setFront(e.target.value)}
         />
-      </label>
-      <label htmlFor="back">
-        Translation
-        <input
-          name="back"
-          type="text"
-          onChange={(e) => setBack(e.target.value)}
-          value={back}
-        />
-      </label>
-      <button type="submit">New Card</button>
-    </form>
+      </Label>
+      <PrimaryButton text={"New Card"} type={"submit"} classes={"form"} />
+    </Form>
   );
 }

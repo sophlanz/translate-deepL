@@ -32,7 +32,7 @@ body {
 	line-height: 1;
 	height:100vw;
 	width:100vw;
-	background-image:url('../../../public/images/background1.jpg');
+	background-image:url('../../../public/icons/background1.jpg');
   /*   background-position:cover; */
 	background-position: center;
 	background-size:cover;
@@ -58,8 +58,6 @@ a{
 	color:inherit;
 }
 select {
-	// reset select, remove dropdown arrow
-	appearance: none;
 	background-color: transparent;
 	border: none;
 	padding: 0 1em 0 0;

@@ -1,0 +1,21 @@
+.hamburger-menu {
+    background:transparent;
+    border:none;
+}
+.primaryButton{
+    color: $blue;;
+    background: none;
+    border: 2px solid $dark-grey;
+    border-radius: 2rem;
+    font-size: 1rem;
+    padding:15px;
+    max-width: 110px;
+    max-height: 70px;
+}
+.primaryButton:hover{
+    background-color:$blue;
+    color:white;
+}
+.primaryButton.form {
+    border:1px solid $blue;
+}

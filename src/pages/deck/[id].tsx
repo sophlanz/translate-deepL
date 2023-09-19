@@ -2,7 +2,6 @@ import prisma from "../../../prisma/lib/prisma";
 import { GetServerSideProps } from "next";
 import { InferGetServerSidePropsType } from "next";
 import React from "react";
-import { Header } from "../../components/header";
 import { CardProvider } from "../../context/card-context";
 import { CardsContainer } from "../../components/card";
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {

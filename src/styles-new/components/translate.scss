@@ -1,0 +1,41 @@
+/*make it look like text area*/
+.translationDisplay {
+    height: 220px;
+    width: 90%;
+    background-color: $dark-grey;
+    border-radius: 2rem;
+    padding: 20px;
+    font-size:1.2rem;
+    color:$secondary-font-color;
+}
+.selectLang {
+    display:flex;
+    justify-content:space-around;
+    font-size:1.2rem;
+    color:$blue;
+    margin-top:30px;
+}
+
+@keyframes rotate {
+    from{
+        transform:rotate(0deg)
+    }
+    to{
+        transform:rotate(360deg)
+    }
+}
+.loadingIcon{
+    animation:rotate 2s linear infinite
+}
+.translationAudio {
+    display:flex;
+    margin-top:-50px;
+    padding-left:10px;
+}
+.generateAudio {
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    gap:5px;
+    width:auto;
+}
