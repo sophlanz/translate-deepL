@@ -8,6 +8,9 @@ Translate from any language into a variety of languages using DeepL's AI API, an
 
 ## Tools and Technologies
 
+- Context
+- Custom Hooks
+- Component-Library
 - Typescript
 - HTML
 - SCSS
@@ -37,8 +40,7 @@ Translate from any language into a variety of languages using DeepL's AI API, an
 
 ## Future Updates
 
-- mobile
-- Loading icon while play.ht generates the audio
+- Currently refactoring styles for a mobile-first design. 
 
 ## Screenshots Web
 
