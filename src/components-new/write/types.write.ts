@@ -1,5 +1,5 @@
   export interface UseFetchOpenAiResponse {
-    content: string;
+    data: string;
     isLoading: boolean;
   }
   export interface OpenAiApiResponse {

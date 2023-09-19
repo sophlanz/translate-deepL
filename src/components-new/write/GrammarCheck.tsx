@@ -9,6 +9,7 @@ export default function GrammarCheck({ textToCorrect }: Props): JSX.Element {
   const { language } = useLanguage();
   const [checkGrammar, setCheckGrammar] = useState<boolean>(false);
   const grammarPrompt = `Correct this to standard ${language}:\n\n${textToCorrect}`;
+  //change only when we click check grammar
   const correctedGrammar = useFetchOpenAi({ grammarPrompt, language }).content;
   //call api with text to be translated;
   const handleCheckGrammar = () => {

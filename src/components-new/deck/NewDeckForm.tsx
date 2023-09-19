@@ -54,7 +54,7 @@ export default function NewDeckForm(): JSX.Element {
           onChange={(e) => changeDeckTitle(e.target.value)}
         />
       </Label>
-      <PrimaryButton text={"New Deck"} type={"submit"} />
+      <PrimaryButton text={"New Deck"} type={"submit"} classes={"form"} />
     </Form>
   );
 }

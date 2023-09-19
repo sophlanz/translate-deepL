@@ -4,6 +4,7 @@ import { useLanguage } from "@/context/language-context";
 import { PrimaryButton } from "../componentLibrary";
 export default function WritingPrompt(): JSX.Element {
   const [showPrompt, setShowPrompt] = useState<boolean>(false);
+  const [writingPrompt, setWritingPrompt] = useState<string>("");
   const { language } = useLanguage();
   //Prompt topics
   const topics = [
@@ -27,7 +28,13 @@ export default function WritingPrompt(): JSX.Element {
   const prompt = `Give me a unique prompt about ${
     topics[Math.floor(Math.random() * topics.length)]
   }  in ${language} to help spark writing ideas :\n`;
-  const writingPrompt = useFetchOpenAi({ prompt, language }).content;
+  useFetchOpenAi({
+    prompt,
+    language,
+  }).then((response) => {
+    console.log(response.data);
+    setWritingPrompt(response.data);
+  });
   //openAI get writing prompt
   const handleGetPrompt = () => {
     setShowPrompt(!showPrompt);

@@ -8,42 +8,41 @@ if (process.env.NODE_ENV === "development") {
 }
 interface Props {
   prompt?: string;
-  language: string;
+  language?: string;
   grammarPrompt?: string;
   wordOfDay?: string;
 }
-export default function useFetchOpenAi(props: Props): UseFetchOpenAiResponse {
-  const { prompt, language, grammarPrompt, wordOfDay } = props;
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [content, setContent] = useState<string>("");
-  const fetchData = async () => {
-    setIsLoading(true);
-    axios
-      .request({
-        url,
-        params: {
-          prompt: prompt ? prompt : grammarPrompt,
-        },
-      })
-      .then((response) => {
+export default function useFetchOpenAi(
+  props: Props
+): Promise<UseFetchOpenAiResponse> {
+  return new Promise<UseFetchOpenAiResponse>((resolve, reject) => {
+    const { prompt, language, grammarPrompt, wordOfDay } = props;
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [content, setContent] = useState<string>("");
+    //fetch prompt or grammar prompt
+    const fetchData = async () => {
+      setIsLoading(true);
+      try {
+        const response = await axios.request({
+          url,
+          params: {
+            prompt: prompt ? prompt : grammarPrompt,
+          },
+        });
         let data = response.data.choices[0].message.content;
+        console.log(data);
         setContent(data);
         setIsLoading(false);
-      })
-      .catch((error) => {
+        console.log(content);
+        resolve({ data, isLoading });
+      } catch (error) {
         console.log(error);
         setIsLoading(false);
-      });
-  };
-  useEffect(() => {
-    fetchData();
-  }, [language, grammarPrompt, wordOfDay]);
-  const memoizedData = useMemo(() => {
-    return {
-      content,
-      isLoading,
+        reject(error);
+      }
     };
-  }, [content, isLoading]);
-
-  return memoizedData;
+    useEffect(() => {
+      fetchData();
+    }, [language, grammarPrompt, wordOfDay]);
+  });
 }
